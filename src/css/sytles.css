@@ -1,0 +1,80 @@
+.font-bree {
+    font-family: "Bree Serif", serif;
+}
+
+.hide {
+    display: none;
+}
+
+.active {
+    background-color: #4299e1;
+    color: white;
+}
+
+.active:hover {
+    color: white;
+}
+
+
+.div_header.logo {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4299e1;
+}
+
+.div_header.logo:hover {
+    color: #4299e1;
+}
+
+/* 样式：使按钮固定在页面右下角 */
+.scrollToButton {
+    display: none;
+    position: fixed;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 9999;
+    font-size: 14px; /* 设置按钮文字大小 */
+    margin-bottom: 50px;
+}
+
+
+/* 自定义归属信息样式 */
+.custom-footer {
+    font-size: 12px; /* 调整字体大小 */
+    padding: 1px 0; /* 调整上下内边距，左右内边距保持为0 */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 9998; /* 确保位于页面最上层 */
+}
+
+#box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 居中对齐卡片 */
+}
+
+.card {
+    flex: 0 0 calc(33.333% - 1rem); /* 计算卡片宽度，这里假设每行最多显示三个卡片 */
+    margin: 0.5rem; /* 添加卡片之间的间距 */
+}
+
+
+/*古诗词显示*/
+#poem_container {
+    text-align: center; /* 居中显示 */
+    margin-top: 50px; /* 上边距 */
+}
+
+#poem_sentence {
+    font-size: 24px; /* 古诗字体大小 */
+    margin-bottom: 20px; /* 古诗与信息之间的下边距 */
+}
+
+#poem_info {
+    font-size: 16px; /* 信息字体大小 */
+}

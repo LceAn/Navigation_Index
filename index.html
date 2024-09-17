@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="generator" content="gao v1.3.0"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="LceAn"/>
+    <meta name="description" content="嘿，我是LceAn，这里是我的主页，汇总了我的网站"/>
+    <title>LceAn</title>
+
+    <link rel="icon" href="src/img/favicon.png" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="src/img/logoTM.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <link href="src/css/tailwind.min.css" rel="stylesheet"/>
+    <link href="src/css/sytles.css" rel="stylesheet"/><!--自己设定的css -->
+    <link rel="stylesheet" href="src/css/base.min.css"><!--自己的CSS压缩版-->
+
+    <link rel="stylesheet" href="src/css/index.css"><!--滚动页面CSS-->
+    <link rel="stylesheet" href="src/css/CircadianAnimation.css">
+
+<!--主流浏览器已禁止跨站跳转-->
+<!--    <script>-->
+<!--        // default options-->
+<!--        ConsoleBan.init()-->
+<!--        // custom options-->
+<!--        ConsoleBan.init({-->
+<!--            redirect: 'https://www.lcean.com/404.html'-->
+<!--        })-->
+<!--    </script>-->
+
+</head>
+
+<body id="body">
+
+<header class="header" style="height: 100vh;">
+
+
+    <div id="victor-container"><div id="victor-output"><canvas width="1907" height="1060" style="display: block;"></canvas></div></div>
+    <div class="welcome">
+        <p>— 欢迎访问 —</p>
+        <img class="web-title" src="src/img/grw.png" alt="我的目录导航页" draggable="false">
+    </div>
+
+    <a class="scroll-down-tips" href="https://www.lcean.com/#product" onclick="if (!window.__cfRLUnblockHandlers) return false; $('html, body').animate({scrollTop: 0}, '500');return false;">
+    <div id="poem-container">
+            <div class="poem-sentence" id="poem_sentence"></div>
+            <div class="poem-info" id="poem_info"></div>
+        </div>
+        <i class="fa fa-angle-double-down" aria-hidden="true">
+            向下滚动
+        </i>
+    </a>
+
+    <div class="mk-dark-mode-sky">
+        <div class="mk-dark-mode-planet"></div>
+    </div>
+
+</header>
+
+<header class="text-gray-700 body-font sticky top-0 bg-white z-10">
+    <a name="product"></a>
+    <div class="container mx-auto flex flex-wrap p-5 items-center justify-between">
+        <a class="flex title-font font-medium items-center" href="https://www.lcean.com">
+            <img src="src/img/logoTM.png" width="50px" alt="Logo">
+        </a>
+        <nav class="flex items-center text-base justify-center">
+            <button class="px-2 py-1 rounded font-bold text-white bg-blue-500 hover:bg-blue-700 hover:text-white focus:outline-none focus:shadow-outline transition duration-300 ease-in-out iconfont icon-yejian" onclick="toggleNightMode()"></button>
+        </nav>
+    </div>
+</header>
+
+
+<div id="content" class="sticky bg-white">
+    <section class="text-gray-700 body-font">
+        <div class="container px-5 py-8 mx-auto">
+            <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
+                <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full">
+                    嘿，这里是我的网站汇总
+                </h1>
+            </div>
+            <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+                <a id="box"></a>
+                <!-- 网站列表动态加载块-->
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer id = "footer_scroll"  class="text-gray-700 body-font bg-white custom-footer text-muted" style="display:none;">
+    <div class="container mx-auto items-center justify-between">
+        <p id="footer" class="text-xs text-gray-500">
+            <!--#归属信息动态加载块-->
+        </p>
+    </div>
+</footer>
+
+<script id="index_list" type="text/x-handlebars-template">
+    {{#each weblists}}
+    <a target="_blank" rel="noopener" href="{{url}}"
+       class="card p-4 md:w-1/3 sm:mb-4 mb-6 hover:shadow-xl hover:bg-gray-400 transition duration-200 ease-in rounded-lg personal">
+        <div class="rounded-lg h-64 overflow-hidden relative">
+
+            <img alt="{{alt}}" class="object-cover object-center h-full w-full"
+                 src="{{img_url}}"/>
+
+            <span class="bg-blue-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">{{span}}</span>
+            <h2 class="text-white px-2 py-1 tracking-widest text-2xl leading-tight font-extrabold font-bree text-center w-full h-full flex justify-center items-center absolute top-0 left-0">
+                {{title}}
+            </h2>
+            <p
+                    class="text-white px-2 py-1 tracking-widest text-md leading-tight font-light w-full text-center absolute bottom-0 left-0">
+                {{description}}
+            </p>
+        </div>
+    </a>
+    {{/each}}
+</script>
+
+<button id="TopButton" class="scrollToButton iconfont icon_top" onclick="scrollToTop()" style=" bottom: 100px;right: 20px;"></button>
+<button id="GitHubButton" class="scrollToButton iconfont icon-github" onclick="goToGitHub()" style=" bottom: 60px;right: 20px;"></button>
+<button id="zhihuButton" class="scrollToButton iconfont icon-zhihu-copy" onclick="goTozhihu()" style=" bottom: 20px;right: 20px;"></button>
+
+
+
+<script id="footer_template" type="text/x-handlebars-template">
+    {{#each footers}}
+    <a href="https://www.lcean.com/">{{by}}</a>
+    <span>&nbsp;|&nbsp;</span>
+    <a href="https://beian.miit.gov.cn">{{beian}}</a>
+    <span>&nbsp;|&nbsp;</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
+    <span>&nbsp;|&nbsp;</span>
+    <span class="copyright">您的IP：
+        <span id="user-ip"></span>
+    </span>
+    {{/each}}
+</script>
+
+
+<script>(async function() {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    document.getElementById('user-ip').textContent = data.ip;
+})();
+</script>
+
+<script type="module" crossorigin="use-credentials">
+    import configData from './src/cfg/config.js'; //加载配置文件
+
+    $(document).ready(function () {
+        renderWebsites(configData);
+        renderFooter(configData);
+    });
+
+    function renderWebsites(data) {
+        var templateSource = document.getElementById('index_list').innerHTML;
+        var template = Handlebars.compile(templateSource);
+        var html = template({ weblists: data.weblists });
+        $('#box').html(html);
+    }
+
+    function renderFooter(data) {
+        var footerSource = document.getElementById('footer_template').innerHTML;
+        var footerTemplate = Handlebars.compile(footerSource);
+        var footerHtml = footerTemplate({ footers: data.footers });
+        $('#footer').html(footerHtml);
+    }
+</script>
+
+<script async src="src/js/busuanzi.pure.mini.js"></script> <!--计数js -->
+<script src="src/js/darkModeToggle.js" defer></script> <!-- 引入自动黑暗模式脚本 -->
+<script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
+<script src="src/js/TagSetting.js"></script><!--标签设定js -->
+<script src="src/js/BanMouseAndKeyboard.js"></script><!--ban键盘鼠标js -->
+<script src="src/js/BanF12.js"></script><!--ban F12 按钮js -->
+<script src="src/js/sakuraPlus.js"></script><!--樱花js -->
+<script src="src/js/console-ban.min.js"></script><!--清除控制台、开启调试、设置回调函数js -->
+<script src="src/js/light_eveing.js"></script> <!--夜间模式按钮js -->
+<script src="src/js/jquery-3.6.0.min.js"></script>
+<script src="src/js/handlebars.min.js"></script>
+
+<script src="src/js/jinrishici.js" charset="utf-8"></script>
+<script type="text/javascript">
+    jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence");
+        var info = document.querySelector("#poem_info");
+
+        // 显示古诗内容
+        sentence.textContent = result.data.content;
+
+        // 显示古诗信息：朝代、作者、诗名
+        var origin = result.data.origin;
+        var infoText = '【' + origin.dynasty + '】' + origin.author + '《' + origin.title + '》';
+        info.textContent = infoText;
+    });
+</script>
+
+<script>
+    /* 这里为了方便演示，点击页面中任意位置即可触发切换动画 */
+    $("body").on("click", "header", function() {
+        $("body").toggleClass("mk-dark-mode");
+
+        var angle = $('.mk-dark-mode-planet').data('angle') + 360 || 360;
+        $('.mk-dark-mode-planet').css({'transform': 'rotate(' + angle + 'deg)' });
+        $('.mk-dark-mode-planet').data('angle', angle);
+    });
+</script>
+</body>
+</html>
+
+
