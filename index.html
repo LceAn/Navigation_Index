@@ -28,6 +28,120 @@
 <!--            redirect: 'https://www.lcean.com/404.html'-->
 <!--        })-->
 <!--    </script>-->
+    <style>
+        /* 卡片基础样式 */
+        .card {
+            width: 100%; /* 确保卡片占满容器宽度 */
+            border-radius: 8px;
+            position: relative; /* 必须相对定位 */
+            overflow: hidden; /* 隐藏超出部分 */
+        }
+
+        /* 卡片中的图片样式 */
+        .card img {
+            display: block;
+            width: 100%;
+            border-radius: 8px; /* 圆角效果 */
+        }
+
+        /* 扫光层的伪元素 */
+        .shark-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -20%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 60%);
+            animation: shark-wrap var(--shine-duration, 2s) infinite;
+            animation-delay: var(--shine-delay, 0s);
+            transform: translateX(-100%);
+            pointer-events: none; /* 禁用鼠标事件 */
+        }
+
+        /* 扫光动画 */
+        @keyframes shark-wrap {
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+
+        /* 新按钮样式 */
+        .neumorphic-btn {
+            width: 40px; /* 调整为原按钮的大小 */
+            height: 40px; /* 调整为原按钮的大小 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px; /* 边框圆角适应按钮大小 */
+            font-size: 16px; /* 保持与之前字体大小一致 */
+            color: #333;
+            font-family: 'Didot', serif; /* 使用指定字体 */
+            background-color: #fff;
+            box-shadow:
+                    4px 4px 8px rgba(0, 0, 0, 0.2),
+                    -4px -4px 8px rgba(255, 255, 255, 1);
+            user-select: none;
+            transition: all 0.3s ease-out;
+            border: none; /* 移除默认按钮边框 */
+            cursor: pointer;
+            outline: none; /* 移除按钮点击时的轮廓 */
+        }
+
+        /* 悬停时的凸起效果 */
+        .neumorphic-btn:hover {
+            box-shadow:
+                    0 0 0 rgba(0, 0, 0, 0.2),
+                    0 0 0 rgba(255, 255, 255, 0.8),
+                    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+                    inset -2px -2px 5px rgba(255, 255, 255, 1);
+            font-size: 14px; /* 略微调整悬停时的字体大小 */
+        }
+
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 页面背景 */
+        body {
+            height: 100vh;
+            background: linear-gradient(200deg, #dad4ec, #f3e7e9);
+        }
+
+        /* 导航菜单样式 */
+        .nav-menu {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            transition: 0.5s;
+            margin: 0 15px;
+        }
+
+        .nav-menu li a {
+            position: relative;
+            display: block;
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        /* 悬停时的模糊效果 */
+        .nav-menu:hover li {
+            opacity: 0.2;
+            filter: blur(2px);
+        }
+
+        .nav-menu li:hover {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+    </style>
 
 </head>
 
@@ -58,34 +172,51 @@
 
 </header>
 
+
 <header class="text-gray-700 body-font sticky top-0 bg-white z-10">
     <a name="product"></a>
     <div class="container mx-auto flex flex-wrap p-5 items-center justify-between">
         <a class="flex title-font font-medium items-center" href="https://www.lcean.com">
             <img src="src/img/logoTM.png" width="50px" alt="Logo">
         </a>
+
+        <!-- 动态模糊导航菜单 -->
+        <ul class="nav-menu">
+            <link rel="stylesheet" href="./src/css/about.css">
+            <li><a href="#" onclick="loadPageContent('./src/b_html/about.html')">关于</a></li>
+
+            <li><a href="#" onclick="loadPageContent('services.html')">服务</a></li>
+            <li><a href="#" onclick="loadPageContent('cases.html')">案例</a></li>
+            <li><a href="#" onclick="loadPageContent('feedback.html')">用户反馈</a></li>
+        </ul>
+
         <nav class="flex items-center text-base justify-center">
-            <button class="px-2 py-1 rounded font-bold text-white bg-blue-500 hover:bg-blue-700 hover:text-white focus:outline-none focus:shadow-outline transition duration-300 ease-in-out iconfont icon-yejian" onclick="toggleNightMode()"></button>
+            <button class="neumorphic-btn iconfont icon-yejian" onclick="toggleNightMode()"></button>
         </nav>
     </div>
 </header>
 
-
+<!-- 这里是页面内容区域 -->
 <div id="content" class="sticky bg-white">
     <section class="text-gray-700 body-font">
         <div class="container px-5 py-8 mx-auto">
-            <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
-                <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full">
-                    嘿，这里是我的网站汇总
-                </h1>
-            </div>
-            <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-                <a id="box"></a>
-                <!-- 网站列表动态加载块-->
+            <div id="dynamic-content">
+                <!-- 默认显示的内容 -->
+                <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
+                    <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full">
+                        嘿，这里是我的网站汇总
+                    </h1>
+                </div>
+                <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+                    <a id="box"></a>
+                    <!-- 网站列表动态加载块-->
+                </div>
             </div>
         </div>
     </section>
 </div>
+
+
 
 <footer id = "footer_scroll"  class="text-gray-700 body-font bg-white custom-footer text-muted" style="display:none;">
     <div class="container mx-auto items-center justify-between">
@@ -98,7 +229,7 @@
 <script id="index_list" type="text/x-handlebars-template">
     {{#each weblists}}
     <a target="_blank" rel="noopener" href="{{url}}"
-       class="card p-4 md:w-1/3 sm:mb-4 mb-6 hover:shadow-xl hover:bg-gray-400 transition duration-200 ease-in rounded-lg personal">
+       class="shark-wrap card p-4 md:w-1/3 sm:mb-4 mb-6 hover:shadow-xl hover:bg-gray-400 transition duration-200 ease-in rounded-lg personal">
         <div class="rounded-lg h-64 overflow-hidden relative">
 
             <img alt="{{alt}}" class="object-cover object-center h-full w-full"
@@ -108,8 +239,7 @@
             <h2 class="text-white px-2 py-1 tracking-widest text-2xl leading-tight font-extrabold font-bree text-center w-full h-full flex justify-center items-center absolute top-0 left-0">
                 {{title}}
             </h2>
-            <p
-                    class="text-white px-2 py-1 tracking-widest text-md leading-tight font-light w-full text-center absolute bottom-0 left-0">
+            <p class="text-white px-2 py-1 tracking-widest text-md leading-tight font-light w-full text-center absolute bottom-0 left-0">
                 {{description}}
             </p>
         </div>
@@ -146,11 +276,12 @@
 </script>
 
 <script type="module" crossorigin="use-credentials">
-    import configData from './src/cfg/config.js'; //加载配置文件
+    import configData from './src/cfg/config.js'; // 加载配置文件
 
     $(document).ready(function () {
         renderWebsites(configData);
         renderFooter(configData);
+        applyRandomShineEffect(); // 调用随机扫光效果函数
     });
 
     function renderWebsites(data) {
@@ -166,8 +297,24 @@
         var footerHtml = footerTemplate({ footers: data.footers });
         $('#footer').html(footerHtml);
     }
+
+    // 新增的随机扫光效果函数
+    function applyRandomShineEffect() {
+        const cards = document.querySelectorAll('.shark-wrap'); // 获取所有卡片
+
+        cards.forEach(card => {
+            // 生成一个随机的持续时间或延迟时间（例如0到5秒之间）
+            const randomDelay = Math.random() * 10; // 随机延迟0到5秒
+            const randomDuration = 2 + Math.random() * 3; // 随机持续时间2到5秒
+
+            // 将随机的动画样式应用到每个卡片的伪元素上
+            card.style.setProperty('--shine-delay', `${randomDelay}s`);
+            card.style.setProperty('--shine-duration', `${randomDuration}s`);
+        });
+    }
 </script>
 
+<!-- 你的其他脚本 -->
 <script async src="src/js/busuanzi.pure.mini.js"></script> <!--计数js -->
 <script src="src/js/darkModeToggle.js" defer></script> <!-- 引入自动黑暗模式脚本 -->
 <script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
@@ -205,6 +352,29 @@
         $('.mk-dark-mode-planet').css({'transform': 'rotate(' + angle + 'deg)' });
         $('.mk-dark-mode-planet').data('angle', angle);
     });
+</script>
+
+<script>
+        function loadPageContent(page) {
+        // 显示加载动画
+        document.getElementById('dynamic-content').innerHTML = '<div class="loading">加载中...</div>';
+
+        // 使用 fetch 异步加载外部 HTML 文件
+        fetch(page)
+        .then(response => {
+        if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+        return response.text(); // 以文本形式获取响应内容
+    })
+        .then(html => {
+        document.getElementById('dynamic-content').innerHTML = html; // 将外部HTML内容插入到页面中
+    })
+        .catch(error => {
+        console.error('加载页面内容时出错:', error);
+        document.getElementById('dynamic-content').innerHTML = '<p>加载内容时出错，请稍后重试。</p>';
+    });
+    }
 </script>
 </body>
 </html>
