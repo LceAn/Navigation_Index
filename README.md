@@ -10,6 +10,7 @@
  - 页面飘落樱花
  - 归属信息中包含ip地址查询
  - 切换昼夜按钮
+ - 所有数据通过模态方式动态加载
 
 # 页面效果
 <img width="1834" alt="image" src="https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526">
