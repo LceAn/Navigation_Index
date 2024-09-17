@@ -12,6 +12,12 @@
  - 切换昼夜按钮
  - 所有数据通过模态方式动态加载
 
+## v1.0.1
+ - 卡片扫光特效
+ - 按钮凹陷效果
+ - 新增导航菜单
+ - 加入介绍页面
+
 # 页面效果
 <img width="1834" alt="image" src="https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526">
 <img width="1836" alt="image" src="https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937">
