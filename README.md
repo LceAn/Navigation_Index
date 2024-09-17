@@ -1,6 +1,12 @@
 # Navigation_Index
 我的网站导航总页面
 
+# 页面效果
+<img width="1834" alt="image" src="https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526">
+<img width="1836" alt="image" src="https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937">
+<img width="1156" alt="image" src="https://github.com/user-attachments/assets/10d05248-0709-4aa7-a09c-6283603884fe">
+
+
 # 功能
 ## v1.0.0
  - 首页点击日月转换效果
@@ -17,8 +23,3 @@
  - 按钮凹陷效果
  - 新增导航菜单
  - 加入介绍页面
-
-# 页面效果
-<img width="1834" alt="image" src="https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526">
-<img width="1836" alt="image" src="https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937">
-
