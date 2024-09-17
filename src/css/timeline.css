@@ -1,0 +1,113 @@
+/* 时间轴容器样式 */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right, #fdf1d8, #b2bcf9);
+}
+
+ul, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clearfix::after {
+    /* 清除浮动，解决塌陷问题 */
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.time-axis {
+    width: 804px;
+    margin: 50px auto;
+}
+
+.time-axis .left,
+.time-axis .right {
+    width: 400px;
+    position: relative;
+}
+
+.time-axis .left {
+    float: left;
+    border-right: 4px solid #b1bbf9;
+}
+
+.time-axis .right {
+    float: right;
+    border-left: 4px solid #b1bbf9;
+}
+
+.time-axis .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    display: block;
+    border-radius: 100%;
+    border: 2px solid #b1bbf9;
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+}
+
+.time-axis .left .dot {
+    right: -9px;
+}
+
+.time-axis .right .dot {
+    left: -9px;
+}
+
+.time-axis .jiantou {
+    width: 32px;
+    height: 32px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -18px;
+}
+
+.time-axis .left .jiantou {
+    background: url('images/r-jiantou.png');
+    right: 0;
+}
+
+.time-axis .right .jiantou {
+    background: url('images/l-jiantou.png');
+    left: 0;
+}
+
+.time-axis .con {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+}
+
+.time-axis .left .con {
+    margin-right: 22px;
+}
+
+.time-axis .right .con {
+    margin-left: 22px;
+}
+
+.time-axis .con h3 {
+    font-weight: 400;
+}
+
+.time-axis .con h3 span {
+    font-size: 38px;
+    font-family: Arial;
+    color: #b1bbf9;
+    font-weight: 800;
+}
