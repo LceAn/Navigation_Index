@@ -1,0 +1,48 @@
+/* 父级容器样式 */
+.shark-wrap {
+    position: relative; /* 确保伪元素定位正确 */
+    display: inline-block; /* 适应图片大小 */
+    overflow: hidden; /* 隐藏超出容器的部分 */
+    width: auto; /* 自动适应图片宽度 */
+    height: auto; /* 自动适应图片高度 */
+}
+
+/* 图片样式 */
+.shark-wrap img {
+    display: block; /* 移除图片默认的底部空白 */
+    width: auto; /* 图片自适应容器宽度 */
+    height: auto; /* 保持图片比例 */
+    object-fit: contain; /* 确保图片完全适应容器 */
+}
+
+/* 扫光动画 */
+@keyframes shine-animation {
+    0% {
+        left: -100%; /* 从左侧外部开始 */
+    }
+    50% {
+        left: 100%; /* 结束位置在右侧外部 */
+    }
+    100% {
+        left: 100%; /* 结束位置保持在右侧外部 */
+    }
+}
+
+/* 扫光层的伪元素 */
+.shark-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 60%);
+    animation: shark-wrap var(--shine-duration, 2s) infinite;
+    animation-delay: var(--shine-delay, 0s);
+    transform: translateX(-100%);
+    pointer-events: none; /* 禁用鼠标事件 */
+}
+
+/* 扫光动画 */
+@keyframes shark-wrap {
+    to {
+        transform: translateX(100%);
+    }
+}
