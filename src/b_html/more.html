@@ -1,0 +1,153 @@
+<div class="container">
+    <!-- 卡片1：字符生成 -->
+    <div class="box">
+        <div class="icon">01</div>
+        <div class="content">
+            <h3>字符生成</h3>
+            <p>这个网站是用于生成4~32位随机字符的。</p>
+            <a href="https://www.lcean.com/Zd/password/index.html" target="_blank">了解更多</a>
+        </div>
+    </div>
+    <!-- 卡片2：十大搜索引擎 -->
+    <div class="box">
+        <div class="icon">02</div>
+        <div class="content">
+            <h3>十大搜索引擎</h3>
+            <p>基于bootstrap框架的搜索导航。</p>
+            <a href="https://www.lcean.com/Zd/Search/index3.html" target="_blank">了解更多</a>
+        </div>
+    </div>
+    <!-- 卡片3：404导航页 -->
+    <div class="box">
+        <div class="icon">03</div>
+        <div class="content">
+            <h3>404导航页</h3>
+            <p>404notfound团队搜索导航。</p>
+            <a href="https://404notfound.free.hr/#/" target="_blank">了解更多</a>
+        </div>
+    </div>
+</div>
+
+<!-- 仅保留卡片相关的样式 -->
+<style>
+    /* 卡片容器 */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; /* 允许卡片换行 */
+        padding: 20px;
+    }
+
+    /* 卡片样式 */
+    .box {
+        position: relative;
+        width: 350px;
+        padding: 40px;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+        margin: 20px; /* 设置卡片之间的间距 */
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+    .box:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 图标样式 */
+    .icon {
+        width: 80px;
+        height: 80px;
+        color: #fff;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 40px;
+        line-height: 80px;
+        margin: 0 auto 20px; /* 自动水平居中，并增加底部间距 */
+        transition: all 0.5s ease;
+    }
+
+    /* 不同卡片的颜色设置 */
+    .box:nth-child(1) .icon {
+        box-shadow: 0 0 0 0 #e91e63;
+        background: #e91e63;
+    }
+
+    .box:nth-child(2) .icon {
+        box-shadow: 0 0 0 0 #2196f3;
+        background: #2196f3;
+    }
+
+    .box:nth-child(3) .icon {
+        box-shadow: 0 0 0 0 #4caf50;
+        background: #4caf50;
+    }
+
+    /* 悬停时的阴影效果 */
+    .box:nth-child(1):hover .icon {
+        box-shadow: 0 0 40px #e91e63;
+    }
+
+    .box:nth-child(2):hover .icon {
+        box-shadow: 0 0 40px #2196f3;
+    }
+
+    .box:nth-child(3):hover .icon {
+        box-shadow: 0 0 40px #4caf50;
+    }
+
+    /* 卡片内容样式 */
+    .content h3 {
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    .content p {
+        line-height: 25px;
+        margin: 10px 0;
+    }
+
+    .content a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        color: #000;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        margin-top: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .content a:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    /* 伪元素设置，制造动态效果 */
+    .box::before {
+        content: '';
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        z-index: 2;
+        transition: all 0.5s;
+    }
+
+    .box:hover::before {
+        left: -100%;
+    }
+
+    .content a {
+        position: relative;
+        z-index: 3;
+    }
+</style>
