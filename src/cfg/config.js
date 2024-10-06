@@ -24,14 +24,14 @@ const configData = {
             title: 'CTF',
             description: '攻防赛题目解析'
         },
-        {
-            url: 'https://www.lcean.com/Zd/jl/index.html',
-            alt: '简历',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
-            span : 'Personal',
-            title: '简历',
-            description: '我的个人简历'
-        },
+        // {
+        //     url: 'https://www.lcean.com/Zd/jl/index.html',
+        //     alt: '简历',
+        //     img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
+        //     span : 'Personal',
+        //     title: '简历',
+        //     description: '我的个人简历'
+        // },
         {
             url: 'https://tz.lcean.com',
             alt: 'tz',
@@ -56,14 +56,14 @@ const configData = {
 	    title: 'Rss',
 	    description: 'Rss订阅链接聚合'
 	},
-        {
-            url: 'https://www.lcean.com/Zd/cloudindex/index.html',
-            alt: '杂乱的导航页',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
-            span : 'Weblists',
-            title: '杂乱的小项目',
-            description: '闲暇时编写的各式各样的小web项目'
-        },
+        // {
+        //     url: 'https://www.lcean.com/Zd/cloudindex/index.html',
+        //     alt: '杂乱的导航页',
+        //     img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
+        //     span : 'Weblists',
+        //     title: '杂乱的小项目',
+        //     description: '闲暇时编写的各式各样的小web项目'
+        // },
         {
             url: 'https://www.lcean.com/Zd/unknown/The Useless Web.html',
             alt: '前往未知的网站',
