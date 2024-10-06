@@ -1,0 +1,36 @@
+/* 保持页面背景颜色 */
+body {
+    background-color: #e8e8e8;
+}
+
+/* 新按钮样式 */
+.neumorphic-btn {
+    width: 40px; /* 调整为原按钮的大小 */
+    height: 40px; /* 调整为原按钮的大小 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* 边框圆角适应按钮大小 */
+    font-size: 16px; /* 保持与之前字体大小一致 */
+    color: #333;
+    font-family: 'Didot', serif; /* 使用指定字体 */
+    background-color: #fff;
+    box-shadow:
+            4px 4px 8px rgba(0, 0, 0, 0.2),
+            -4px -4px 8px rgba(255, 255, 255, 1);
+    user-select: none;
+    transition: all 0.3s ease-out;
+    border: none; /* 移除默认按钮边框 */
+    cursor: pointer;
+    outline: none; /* 移除按钮点击时的轮廓 */
+}
+
+/* 悬停时的凸起效果 */
+.neumorphic-btn:hover {
+    box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.2),
+            0 0 0 rgba(255, 255, 255, 0.8),
+            inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+            inset -2px -2px 5px rgba(255, 255, 255, 1);
+    font-size: 14px; /* 略微调整悬停时的字体大小 */
+}

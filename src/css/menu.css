@@ -1,0 +1,44 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 页面背景 */
+body {
+    height: 100vh;
+    background: linear-gradient(200deg, #dad4ec, #f3e7e9);
+}
+
+/* 导航菜单样式 */
+.nav-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-menu li {
+    transition: 0.5s;
+    margin: 0 15px;
+}
+
+.nav-menu li a {
+    position: relative;
+    display: block;
+    text-align: center;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* 悬停时的模糊效果 */
+.nav-menu:hover li {
+    opacity: 0.2;
+    filter: blur(2px);
+}
+
+.nav-menu li:hover {
+    opacity: 1;
+    filter: blur(0px);
+}
