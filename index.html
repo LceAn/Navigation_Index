@@ -31,6 +31,36 @@
 <!--            redirect: 'https://www.lcean.com/404.html'-->
 <!--        })-->
 <!--    </script>-->
+    <style>
+        /* 引入自定义字体 */
+        @font-face {
+            font-family: 'BuWeiChuXinCaoShu'; /* 自定义字体名称 */
+            src: url('src/ttf/不违初心草书.ttf') format('truetype'); /* 字体文件路径 */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 自定义样式 */
+        .web-title {
+            font-size: 80px;  /* 增大字体大小，确保完整显示 */
+            font-family: 'BuWeiChuXinCaoShu', sans-serif; /* 使用自定义字体 */
+            font-weight: 700;  /* 设置字体加粗 */
+            color: transparent;  /* 使文字透明，背景渐变显示 */
+            background: linear-gradient(45deg, #ffd700, #ffcc00, #ff8c00); /* 设置金色渐变背景 */
+            background-clip: text; /* 让渐变效果只应用于文字 */
+            -webkit-background-clip: text; /* 为Webkit浏览器提供兼容支持 */
+            text-transform: uppercase; /* 文本全部大写 */
+            letter-spacing: 5px;  /* 字符间距 */
+            white-space: nowrap;  /* 防止文本换行，确保显示在一行 */
+            display: inline-block;  /* 设置为内联块元素 */
+            width: auto;  /* 宽度自适应 */
+            max-width: 100%;  /* 防止超出容器 */
+            text-align: center;  /* 居中文本 */
+            overflow: visible; /* 允许文本溢出 */
+            box-sizing: border-box; /* 包括内边距在内 */
+            margin: 0 auto; /* 居中 */
+        }
+    </style>
 </head>
 
 <body id="body">
@@ -38,13 +68,31 @@
 <header class="header" style="height: 100vh;">
 
 
-    <div id="victor-container"><div id="victor-output"><canvas width="1907" height="1060" style="display: block;"></canvas></div></div>
+<!--    <div id="victor-container"><div id="victor-output"><canvas width="1907" height="1060" style="display: block;"></canvas></div></div>-->
+<!--    <div class="welcome">-->
+<!--        <p>— 欢迎访问 —</p>-->
+<!--        <div class="shark-wrap">-->
+<!--                <img class="web-title" src="src/img/grw.png" alt="我的目录导航页" draggable="false">-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div id="victor-container">
+        <div id="victor-output">
+            <canvas width="1907" height="1060" style="display: block;"></canvas>
+        </div>
+    </div>
+
     <div class="welcome">
         <p>— 欢迎访问 —</p>
         <div class="shark-wrap">
-                <img class="web-title" src="src/img/grw.png" alt="我的目录导航页" draggable="false">
+            <h1 class="web-title">
+                我的目录导航页
+            </h1>
         </div>
     </div>
+
+
+
 
     <a class="scroll-down-tips" href="https://www.lcean.com/#product" onclick="if (!window.__cfRLUnblockHandlers) return false; $('html, body').animate({scrollTop: 0}, '500');return false;">
     <div id="poem-container">
