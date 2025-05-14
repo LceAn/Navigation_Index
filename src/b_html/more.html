@@ -34,15 +34,19 @@
     .container {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: stretch; /* 使卡片高度保持一致 */
         flex-wrap: wrap; /* 允许卡片换行 */
+        max-width: 1200px; /* 限制最大宽度 */
+        margin: 0 auto; /* 居中 */
+        padding: 20px; /* 添加一些内边距 */
     }
 
     /* 卡片样式 */
     .box {
         position: relative;
         width: 350px;
-        padding: 40px;
+        display: flex;
+        flex-direction: column;
         background-color: #fff;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -51,10 +55,12 @@
         overflow: hidden;
         cursor: pointer;
         transition: all 0.5s ease;
+        padding: 30px; /* 固定内边距 */
     }
 
     .box:hover {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(-10px);
     }
 
     /* 图标样式 */
@@ -100,14 +106,23 @@
     }
 
     /* 卡片内容样式 */
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* 使内容区域填充剩余空间 */
+        justify-content: space-between; /* 垂直分散对齐 */
+    }
+
     .content h3 {
         font-size: 20px;
-        margin: 10px 0;
+        margin: 15px 0;
+        flex-shrink: 0;
     }
 
     .content p {
         line-height: 25px;
         margin: 10px 0;
+        flex-grow: 1; /* 使段落占用剩余空间 */
     }
 
     .content a {
@@ -120,6 +135,7 @@
         border-radius: 4px;
         font-weight: 500;
         margin-top: 20px;
+        align-self: center; /* 水平居中 */
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -148,5 +164,19 @@
     .content a {
         position: relative;
         z-index: 3;
+    }
+
+    /* 响应式调整 */
+    @media screen and (max-width: 1024px) {
+        .box {
+            width: calc(50% - 40px); /* 两列布局 */
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .box {
+            width: 100%; /* 移动设备上单列 */
+            margin: 15px 0;
+        }
     }
 </style>

@@ -87,7 +87,7 @@
 
 
 
-    <a class="scroll-down-tips" href="#product" onclick="$('html, body').animate({scrollTop: $('#product').offset().top}, '500');return false;">
+    <a class="scroll-down-tips" href="#product">
     <div id="poem-container">
             <div class="poem-sentence" id="poem_sentence"></div>
             <div class="poem-info" id="poem_info"></div>
@@ -99,6 +99,15 @@
 
     <div class="mk-dark-mode-sky">
         <div class="mk-dark-mode-planet"></div>
+        <div class="mk-dark-mode-stars">
+            <div class="star star-1"></div>
+            <div class="star star-2"></div>
+            <div class="star star-3"></div>
+            <div class="star star-4"></div>
+            <div class="star star-5"></div>
+            <div class="star star-6"></div>
+            <div class="star star-7"></div>
+        </div>
     </div>
 
 </header>
@@ -114,6 +123,8 @@
 
             <!-- 动态模糊导航菜单 -->
             <ul class="nav-menu">
+                <link rel="stylesheet" href="./src/css/nav-menu.css">
+                <!-- <li><a href="#" onclick="loadPageContent('./src/b_html/index.html')">首页</a></li> -->
                 <link rel="stylesheet" href="./src/css/about.css">
                 <li><a href="#" onclick="loadPageContent('./src/b_html/about.html')">关于</a></li>
                 <link rel="stylesheet" href="./src/css/timeline.css">
@@ -274,40 +285,97 @@
 </script>
 
 <script>
-    /* 这里为了方便演示，点击页面中任意位置即可触发切换动画 */
-    $("body").on("click", "header", function() {
-        $("body").toggleClass("mk-dark-mode");
+    // 创建防抖函数
+    function debounce(func, delay) {
+        let timeoutId;
+        return function() {
+            const context = this;
+            const args = arguments;
+            
+            // 清除之前的定时器
+            clearTimeout(timeoutId);
+            
+            // 设置新的定时器
+            timeoutId = setTimeout(() => {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
 
-        var angle = $('.mk-dark-mode-planet').data('angle') + 360 || 360;
-        $('.mk-dark-mode-planet').css({'transform': 'rotate(' + angle + 'deg)' });
-        $('.mk-dark-mode-planet').data('angle', angle);
-    });
+    /* 点击天空背景区域或欢迎页面区域触发夜间模式切换 */
+    $("body").on("click", ".mk-dark-mode-sky", debounce(function(e) {
+        // 防止事件冒泡，确保只处理一次点击事件
+        e.stopPropagation();
+        toggleNightMode(); // 使用统一的切换函数
+    }, 500)); // 500毫秒内只允许一次切换
+    
+    // 添加点击欢迎页面区域的切换功能
+    $("#home").on("click", debounce(function(e) {
+        // 如果点击的是其他有特定功能的元素（如向下滚动按钮等），不执行夜间模式切换
+        if ($(e.target).closest('.scroll-down-tips, a, button').length) {
+            return;
+        }
+        // 否则切换夜间模式
+        toggleNightMode();
+    }, 500)); // 500毫秒内只允许一次切换
 </script>
 
 <script>
-    function loadPageContent(page) {
-        // 显示加载动画
-        document.getElementById('dynamic-content').innerHTML = '<div class="loading">加载中...</div>';
-
-        // 使用 fetch 异步加载外部 HTML 文件
-        fetch(page)
-        .then(response => {
-        if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    // 页面加载时设置当前页面的导航菜单状态
+    function setActiveNavItem() {
+        const navMenu = document.querySelector('.nav-menu');
+        const navItems = navMenu.querySelectorAll('a');
+        
+        // 获取当前页面的内容
+        const dynamicContent = document.getElementById('dynamic-content');
+        const currentContentSource = dynamicContent.innerHTML.trim();
+        
+        navItems.forEach(item => {
+            const href = item.getAttribute('onclick');
+            
+            // 判断是否为当前页面的逻辑
+            const isCurrentPage = href ? 
+                (currentContentSource.length > 0 && href.includes(getCurrentPageFileName())) : 
+                false;
+            
+            if (isCurrentPage) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
     }
-        return response.text(); // 以文本形式获取响应内容
-    })
-        .then(html => {
-        document.getElementById('dynamic-content').innerHTML = html; // 将外部HTML内容插入到页面中
-    })
-        .catch(error => {
-        console.error('加载页面内容时出错:', error);
-        document.getElementById('dynamic-content').innerHTML = '<p>加载内容时出错，请稍后重试。</p>';
-    });
+
+    // 获取当前页面的文件名
+    function getCurrentPageFileName() {
+        const dynamicContent = document.getElementById('dynamic-content');
+        const contentSource = dynamicContent.innerHTML.trim();
+        
+        // 根据不同页面的特征判断
+        if (contentSource.includes('about-container')) return 'about.html';
+        if (contentSource.includes('timeline-container')) return 'timeline.html';
+        if (contentSource.includes('更多')) return 'more.html';
+        
+        // 默认返回首页
+        return 'index.html';
+    }
+
+    // 在页面加载和内容加载后调用
+    window.addEventListener('load', setActiveNavItem);
+    
+    // 原有的loadPageContent函数
+    function loadPageContent(url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dynamic-content').innerHTML = html;
+                setActiveNavItem(); // 更新导航菜单状态
+            })
+            .catch(error => console.error('Error loading page:', error));
     }
 </script>
 
-<!-- 添加全屏滚动脚本 -->
+<!-- 添加全屏滚动脚本 - 简化版本 -->
 <script>
     // 全局变量，用于记录当前所在的section索引
     var currentSection = 0;
@@ -319,9 +387,6 @@
         let isScrolling = false;
         let touchStartY = 0;
         
-        // 获取内容区域元素
-        const contentArea = document.getElementById('content');
-        
         // 处理鼠标滚轮事件
         window.addEventListener('wheel', function(e) {
             if (isScrolling) return;
@@ -329,14 +394,12 @@
             // 如果当前在内容区域（第二个section）
             if (currentSection === 1) {
                 // 检查内容区域是否已滚动到顶部
-                if (contentArea.scrollTop <= 0 && e.deltaY < 0) {
+                const contentArea = document.getElementById('content');
+                if (contentArea && contentArea.scrollTop <= 0 && e.deltaY < 0) {
                     // 只有当内容区域已滚动到顶部且用户继续向上滚动时，才回到欢迎页面
                     currentSection = 0;
                     scrollToSection(currentSection);
                     e.preventDefault(); // 阻止默认滚动
-                } else if (contentArea.scrollTop + contentArea.clientHeight >= contentArea.scrollHeight && e.deltaY > 0) {
-                    // 如果内容区域已滚动到底部且用户继续向下滚动，暂时不做处理
-                    // 可以在这里添加下一个section的处理逻辑
                 }
                 // 其他情况下，让内容区域自然滚动
                 return;
@@ -356,7 +419,7 @@
                     scrollToSection(currentSection);
                 }
             }
-        }, { passive: false }); // 添加passive: false允许我们在需要时阻止默认事件
+        }, { passive: false });
         
         // 处理触摸事件（移动设备）
         window.addEventListener('touchstart', function(e) {
@@ -367,13 +430,14 @@
             const touchEndY = e.changedTouches[0].clientY;
             const diff = touchStartY - touchEndY;
             
-            if (Math.abs(diff) < 50) return; // 忽略小的滑动
+            if (Math.abs(diff) < 85) return; // 忽略小的滑动
             
             // 如果当前在内容区域
             if (currentSection === 1) {
                 // 检查内容区域是否已滚动到顶部
-                if (contentArea.scrollTop <= 0 && diff < 0) {
-                    // 只有当内容区域已滚动到顶部且用户继续向下滑动时，才回到欢迎页面
+                const contentArea = document.getElementById('content');
+                if (contentArea && contentArea.scrollTop <= 0 && diff < 0) {
+                    // 只有当内容区域已滚动到顶部且用户继续向上滑动时，才回到欢迎页面
                     currentSection = 0;
                     scrollToSection(currentSection);
                 }
@@ -433,14 +497,17 @@
         }
         
         // 修改向下滚动按钮的行为
-        document.querySelector('.scroll-down-tips').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (currentSection < totalSections - 1) {
-                currentSection++;
-                scrollToSection(currentSection);
-            }
-            return false;
-        });
+        const scrollDownBtn = document.querySelector('.scroll-down-tips');
+        if (scrollDownBtn) {
+            scrollDownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentSection < totalSections - 1) {
+                    currentSection++;
+                    scrollToSection(currentSection);
+                }
+                return false;
+            });
+        }
     });
 </script>
 </body>
