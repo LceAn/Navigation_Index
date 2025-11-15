@@ -166,7 +166,7 @@
                     <!-- 默认显示的内容 -->
                     <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
                         <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full">
-                            嘿，这里是我的网站汇总
+                            嘿，我是LceAn
                         </h1>
                     </div>
                     <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
@@ -191,10 +191,12 @@
     {{#each weblists}}
     <a target="_blank" rel="noopener" href="{{url}}"
        class="card p-4 md:w-1/3 sm:mb-4 mb-6 hover:shadow-xl hover:bg-gray-400 transition duration-200 ease-in rounded-lg personal">
-        <div class="rounded-lg h-64 overflow-hidden relative">
+        
+        <div class="rounded-lg h-64 overflow-hidden relative bg-gray-300"> 
 
             <img alt="{{alt}}" class="object-cover object-center h-full w-full"
-                 src="{{img_url}}"/>
+                 src="{{img_url}}"
+                 onerror="this.style.visibility='hidden'"/>
 
             <span class="bg-blue-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">{{span}}</span>
             <h2 class="text-white px-2 py-1 tracking-widest text-2xl leading-tight font-extrabold font-bree text-center w-full h-full flex justify-center items-center absolute top-0 left-0">
