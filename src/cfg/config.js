@@ -1,7 +1,7 @@
 const configData = {
     footers:[
         {
-            by : ' \u00A9 2020-2024 by LceAn',
+            by : ' \u00A9 2020-2025 by LceAn',
             beian : '皖ICP2020017839号-1 ',
         }
     ],
