@@ -59,11 +59,11 @@ const configData = {
 	// },
         {
             url: 'https://Github.lcean.com',
-            alt: '杂乱的导航页',
+            alt: 'Github镜像加速',
             img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
             span : 'Weblists',
-            title: '杂乱的小项目',
-            description: '闲暇时编写的各式各样的小web项目'
+            title: 'Github',
+            description: '部署的本地Github、Docker镜像加速'
         },
         {
             url: 'https://www.lcean.com/Zd/unknown/The Useless Web.html',
