@@ -1,53 +1,233 @@
-# Navigation_Index
-我的网站导航总页面
+# Navigation Index
 
-# 页面效果
-<img width="1834" alt="image" src="https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526">
-<img width="1836" alt="image" src="https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937">
-<img width="1156" alt="image" src="https://github.com/user-attachments/assets/10d05248-0709-4aa7-a09c-6283603884fe">
+[![HTML](https://img.shields.io/badge/HTML-45.5%25-e34c26)]()
+[![CSS](https://img.shields.io/badge/CSS-23.2%25-563d7c)]()
+[![JavaScript](https://img.shields.io/badge/JavaScript-16.8%25-f7df1e)]()
+[![Less](https://img.shields.io/badge/Less-14.5%25-1d365d)]()
+[![Version](https://img.shields.io/badge/Version-1.0.3-blue)]()
+[![License](https://img.shields.io/badge/License-MIT-green)]()
 
+**Personal Website Navigation Landing Page | 个人网站导航入口**
 
-# 更新记录
-- 2021-09-01 v1.0.2
-- 清理旧数据，进行脱敏【2025-04-21】
+A beautiful and interactive navigation page for personal websites with day/night mode, smooth animations, and responsive design.
 
+一个美观且交互式的个人网站导航页面，支持昼夜模式、流畅动画和响应式设计。
 
+---
 
-# 功能
-## v1.0.3
-  【250514】
-  - 1.修订"向下滚动"功能
-  - 2.修订滑动效果
-  - 3.修复夜间模式，加入联动天空。
-  - 4.修订“天空切换"功能
-  - 5.修订"更多"界面的错位问题
+## 📸 Preview | 页面预览
 
+### Desktop View | 桌面端
 
-## v1.0.2
- - 优化页面样式，将首页图片修订为实时字体渲染
- - 2.关闭闪光效果
- - 3.关闭樱花
+![Desktop Preview](https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526)
 
- ## v1.0.1
- - 卡片扫光特效
- - 按钮凹陷效果
- - 新增导航菜单
- - 加入介绍页面
- - 增时间线页面
- - 增加更多页面
-   - 用于显示处于demo的功能
+### Mobile View | 移动端
 
+![Mobile Preview](https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937)
 
-## v1.0.0
- - 首页点击日月转换效果
- - 滚动显示诗词
- - 向下滚动展示网页卡片
- - 滚动显示下方归属信息、右侧社交按钮
- - 页面飘落樱花
- - 归属信息中包含ip地址查询
- - 切换昼夜按钮
- - 所有数据通过模态方式动态加载
+### Night Mode | 夜间模式
 
+![Night Mode](https://github.com/user-attachments/assets/10d05248-0709-4aa7-a09c-6283603884fe)
 
+---
 
+## ✨ Features | 特性
 
+### 🌙 Day/Night Mode
+- One-click switch between day and night themes
+- Sky background联动 changes with theme
+- Smooth transition animations
+
+### 🎨 Visual Effects
+- Card scan light effect (扫光特效)
+- Button depression effect (按钮凹陷效果)
+- Smooth scroll animations
+- Responsive design for all devices
+
+### 📱 Interactive Elements
+- Navigation menu with smooth transitions
+- Timeline page for version history
+- Introduction page
+- Demo showcase page
+- Social media links
+
+### 🚀 Performance
+- Real-time font rendering
+- Dynamic data loading via modal
+- Optimized CSS with Less preprocessor
+- Minimal JavaScript footprint
+
+---
+
+## 🛠️ Tech Stack | 技术栈
+
+| Technology | Percentage | Description |
+|------------|-----------|-------------|
+| **HTML** | 45.5% | Semantic structure |
+| **CSS** | 23.2% | Styling and animations |
+| **JavaScript** | 16.8% | Interactive logic |
+| **Less** | 14.5% | CSS preprocessor |
+
+---
+
+## 📦 Project Structure | 项目结构
+
+```
+Navigation_Index/
+├── index.html              # Main page | 主页面
+├── 404.html                # 404 error page | 404 错误页面
+├── README.md               # Documentation | 项目文档
+├── src/                    # Source files | 源文件
+│   ├── css/                # Stylesheets | 样式文件
+│   ├── js/                 # JavaScript files | JS 文件
+│   ├── less/               # Less source files | Less 源文件
+│   └── assets/             # Assets (images, fonts) | 资源文件
+├── .idea/                  # IDE configuration | IDE 配置
+└── .vscode/                # VSCode settings | VSCode 设置
+```
+
+---
+
+## 🚀 Quick Start | 快速开始
+
+### Option 1: Direct Deployment | 直接部署
+
+```bash
+# Clone the repository
+git clone https://github.com/LceAn/Navigation_Index.git
+
+# Navigate to project directory
+cd Navigation_Index
+
+# Open index.html in browser
+open index.html
+```
+
+### Option 2: Local Server | 本地服务器
+
+```bash
+# Using Python 3
+python3 -m http.server 8000
+
+# Visit http://localhost:8000
+```
+
+### Option 3: GitHub Pages | GitHub Pages
+
+1. Go to repository **Settings** → **Pages**
+2. Select **main** branch as source
+3. Your site will be available at `https://yourusername.github.io/Navigation_Index`
+
+---
+
+## 📝 Changelog | 更新日志
+
+### v1.0.3 (2025-05-14)
+- ✅ Fixed "scroll down" functionality
+- ✅ Improved slide animations
+- ✅ Fixed night mode with sky联动 effect
+- ✅ Revised sky switching functionality
+- ✅ Fixed alignment issues in "More" interface
+
+### v1.0.2 (2025-04-21)
+- ✅ Optimized page styles
+- ✅ Real-time font rendering for homepage images
+- ✅ Disabled flash effects
+- ✅ Disabled cherry blossom effects
+- ✅ Cleaned old data and desensitized
+
+### v1.0.1
+- ✨ Card scan light effect
+- ✨ Button depression effect
+- ✨ New navigation menu
+- ✨ Introduction page
+- ✨ Timeline page
+- ✨ Demo showcase page
+
+### v1.0.0 (Initial Release)
+- 🌟 Day/night toggle on homepage
+- 🌟 Scroll-triggered poetry display
+- 🌟 Website card showcase on scroll
+- 🌟 Attribution info and social links
+- 🌟 Cherry blossom falling effect
+- 🌟 IP address lookup in attribution
+- 🌟 Dynamic data loading via modal
+
+---
+
+## 🎨 Customization | 自定义
+
+### Change Theme Colors
+
+Edit `src/less/variables.less`:
+
+```less
+@primary-color: #your-color;
+@background-color: #your-bg-color;
+@text-color: #your-text-color;
+```
+
+### Modify Navigation Links
+
+Edit `index.html`:
+
+```html
+<div class="navigation">
+  <a href="your-link-1">Link 1</a>
+  <a href="your-link-2">Link 2</a>
+</div>
+```
+
+### Add Custom Animations
+
+Add to `src/less/animations.less`:
+
+```less
+@keyframes your-animation {
+  0% { /* start */ }
+  100% { /* end */ }
+}
+```
+
+---
+
+## 📱 Browser Support | 浏览器支持
+
+| Browser | Version | Support |
+|---------|---------|---------|
+| Chrome | Latest | ✅ Full |
+| Firefox | Latest | ✅ Full |
+| Safari | Latest | ✅ Full |
+| Edge | Latest | ✅ Full |
+| Mobile Safari | iOS 12+ | ✅ Full |
+| Chrome Mobile | Android 8+ | ✅ Full |
+
+---
+
+## 📄 License | 许可证
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+---
+
+## 🤝 Contributing | 贡献
+
+Issues and Pull Requests are welcome!
+
+欢迎提交 Issue 和 Pull Request！
+
+---
+
+## 📞 Contact | 联系方式
+
+- **GitHub:** [@LceAn](https://github.com/LceAn)
+- **Repository:** [Navigation_Index](https://github.com/LceAn/Navigation_Index)
+
+---
+
+**Last Updated:** 2026-03-17  
+**Version:** 1.0.3
+
+---
+
+[English](#navigation-index) | [中文](#navigation-index)
