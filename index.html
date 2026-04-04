@@ -333,7 +333,7 @@
         var footerTemplate = Handlebars.compile(footerSource);
         var footerData = {
             homepage: (data.site && data.site.homepage) ? data.site.homepage : 'https://www.lcean.com',
-            copyright: (data.site && data.site.copyright) ? data.site.copyright : '',
+            copyright: (data.site && data.site.copyright) ? data.site.copyright.replace('by', '- ' + new Date().getFullYear() + ' by') : '',
             beian: (data.site && data.site.beian) ? data.site.beian : '',
             showIP: data.features && data.features.showIP,
             showVisitorCount: data.features && data.features.visitorCount,

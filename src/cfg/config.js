@@ -7,7 +7,7 @@ const configData = {
         author: 'LceAn',
         homepage: 'https://www.lcean.com',
         beian: '皖ICP2020017839号-1',
-        copyright: '\u00A9 2020-2025 by LceAn',
+        copyright: '© 2020 by LceAn',
     },
 
     // ==================== 功能开关 ====================

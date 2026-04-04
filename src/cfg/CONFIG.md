@@ -30,7 +30,7 @@ configData
 | `author` | string | 作者名 | `'LceAn'` |
 | `homepage` | string | 站点主页 URL（底部版权链接） | `'https://www.lcean.com'` |
 | `beian` | string | ICP 备案号 | `'皖ICP2020017839号-1'` |
-| `copyright` | string | 底部版权文字 | `'© 2020-2025 by LceAn'` |
+| `copyright` | string | 底部版权文字 | `'© 2020 by LceAn'` |
 
 ```javascript
 site: {
@@ -39,7 +39,7 @@ site: {
     author: 'LceAn',
     homepage: 'https://www.lcean.com',
     beian: '皖ICP2020017839号-1',
-    copyright: '© 2020-2025 by LceAn',
+    copyright: '© 2020 by LceAn',
 },
 ```
 
