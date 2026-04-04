@@ -6,12 +6,22 @@
     display: none;
 }
 
-.active {
+/* .active 全局样式已删除 - 由各组件单独定义
+   - 导航菜单：nav-menu.css 中的 .nav-menu a.active
+   - 标签过滤：.filter-* 按钮的 active 状态
+*/
+
+/* 标签过滤按钮激活状态 */
+[class^="filter-"].active,
+.filter-all.active {
     background-color: #4299e1;
     color: white;
+    border-radius: 4px;
+    padding: 2px 8px;
 }
 
-.active:hover {
+[class^="filter-"].active:hover,
+.filter-all.active:hover {
     color: white;
 }
 
