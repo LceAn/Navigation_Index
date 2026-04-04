@@ -212,7 +212,11 @@
     <span>&nbsp;|&nbsp;</span>
     <a href="https://beian.miit.gov.cn">{{beian}}</a>
     <span>&nbsp;|&nbsp;</span>
-    <a href="{{githubRepo}}" target="_blank" rel="noopener noreferrer">⭐ GitHub</a>
+    <a href="{{githubRepo}}" target="_blank" rel="noopener noreferrer" class="footer-github-link">
+        <i class="iconfont icon-github"></i>
+        <span>{{repoName}}</span>
+        <span class="footer-version">v{{version}}</span>
+    </a>
     {{#if showVisitorCount}}<span>&nbsp;|&nbsp;</span>
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>{{/if}}
     {{#if showIP}}<span>&nbsp;|&nbsp;</span>
@@ -340,6 +344,8 @@
             copyright: (data.site && data.site.copyright) ? data.site.copyright.replace('by', '- ' + new Date().getFullYear() + ' by') : '',
             beian: (data.site && data.site.beian) ? data.site.beian : '',
             githubRepo: (data.site && data.site.githubRepo) ? data.site.githubRepo : '',
+            repoName: (data.site && data.site.githubRepo) ? data.site.githubRepo.replace('https://github.com/', '') : '',
+            version: (data.site && data.site.version) ? data.site.version : '',
             showIP: data.features && data.features.showIP,
             showVisitorCount: data.features && data.features.visitorCount,
         };
