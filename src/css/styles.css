@@ -108,8 +108,22 @@
 }
 
 .card {
-    flex: 0 0 calc(33.333% - 1rem); /* 计算卡片宽度，这里假设每行最多显示三个卡片 */
+    flex: 0 0 calc(33.333% - 1rem); /* 桌面端：一行 3 个 */
     margin: 0.5rem; /* 添加卡片之间的间距 */
+}
+
+/* 平板端：一行 2 个 */
+@media (max-width: 768px) {
+    .card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+/* 手机端：一行 1 个 */
+@media (max-width: 480px) {
+    .card {
+        flex: 0 0 calc(100% - 1rem);
+    }
 }
 
 
