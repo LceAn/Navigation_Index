@@ -175,3 +175,39 @@ a {
     position: relative;
     z-index: 2;
 }
+
+/* 年份分隔标记 */
+.timeline-year {
+    clear: both;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-year::before {
+    content: attr(data-year);
+    display: inline-block;
+    padding: 6px 24px;
+    background-color: #b1bbf9;
+
+/* 年份分隔标记 */
+.timeline-year {
+    clear: both;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    z-index: 2;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.timeline-year span {
+    display: inline-block;
+    padding: 6px 24px;
+    background-color: #b1bbf9;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(177, 187, 249, 0.4);
+}
