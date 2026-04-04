@@ -19,3 +19,6 @@ temp/
 # src/cfg/config.local.js
 # .env
 # .env.local
+
+.idea/
+.vscode/
