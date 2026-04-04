@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="src/css/saogang.css"><!--扫光特效CSS-->
     <link rel="stylesheet" href="src/css/button.css"><!--按钮CSS-->
     <link rel="stylesheet" href="src/css/menu.css"><!--导航栏菜单CSS-->
+    <link rel="stylesheet" href="src/css/nav-menu.css"><!--导航菜单CSS（从<ul>内移出）-->
+    <link rel="stylesheet" href="src/css/about.css"><!--关于页面CSS（从<ul>内移出）-->
+    <link rel="stylesheet" href="src/css/timeline.css"><!--时间线CSS（从<ul>内移出）-->
 
     <style>
         /* 引入自定义字体 */
@@ -143,11 +146,8 @@
 
             <!-- 动态模糊导航菜单 -->
             <ul class="nav-menu">
-                <link rel="stylesheet" href="./src/css/nav-menu.css">
                 <!-- <li><a href="#" onclick="loadPageContent('./src/b_html/index.html')">首页</a></li> -->
-                <link rel="stylesheet" href="./src/css/about.css">
                 <li><a href="#" onclick="loadPageContent('./src/b_html/about.html')">关于</a></li>
-                <link rel="stylesheet" href="./src/css/timeline.css">
                 <li><a href="#" onclick="loadPageContent('./src/b_html/timeline.html')">时间线</a></li>
                 <li><a href="#" onclick="loadPageContent('./src/b_html/more.html')">更多</a></li>
             </ul>
@@ -238,6 +238,8 @@
 })();
 </script>
 
+<script src="src/js/jquery-3.6.0.min.js"></script>
+<script src="src/js/handlebars.min.js"></script>
 <script type="module" crossorigin="use-credentials">
     import configData from './src/cfg/config.js'; // 加载配置文件
 
@@ -282,13 +284,10 @@
 <script src="src/js/darkModeToggle.js" defer></script> <!-- 引入自动黑暗模式脚本 -->
 <script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
 <script src="src/js/TagSetting.js"></script><!--标签设定js -->
-<script src="src/js/BanMouseAndKeyboard.js"></script><!--ban键盘鼠标js -->
-<script src="src/js/BanF12.js"></script><!--ban F12 按钮js -->
 <!--<script src="src/js/sakuraPlus.js"></script>&lt;!&ndash;樱花js &ndash;&gt; 3.关闭樱花-->
 <script src="src/js/console-ban.min.js"></script><!--清除控制台、开启调试、设置回调函数js -->
 <script src="src/js/light_eveing.js"></script> <!--夜间模式按钮js -->
-<script src="src/js/jquery-3.6.0.min.js"></script>
-<script src="src/js/handlebars.min.js"></script>
+
 
 <script src="src/js/jinrishici.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -385,12 +384,16 @@
     // 在页面加载和内容加载后调用
     window.addEventListener('load', setActiveNavItem);
     
-    // 原有的loadPageContent函数
+    // loadPageContent — 使用 DOMParser 安全解析，防止 XSS
     function loadPageContent(url) {
         fetch(url)
             .then(response => response.text())
             .then(html => {
-                document.getElementById('dynamic-content').innerHTML = html;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                // 移除所有 script 标签防止 XSS 注入
+                doc.querySelectorAll('script').forEach(s => s.remove());
+                document.getElementById('dynamic-content').innerHTML = doc.body.innerHTML;
                 setActiveNavItem(); // 更新导航菜单状态
             })
             .catch(error => console.error('Error loading page:', error));

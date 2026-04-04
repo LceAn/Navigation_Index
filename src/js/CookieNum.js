@@ -4,7 +4,7 @@
     var endstr = document.cookie.indexOf(";", offset);
     if (endstr == -1)
     endstr = document.cookie.length;
-    return unescape(document.cookie.substring(offset, endstr));
+    return decodeURIComponent(document.cookie.substring(offset, endstr));
 }
 
 
@@ -32,7 +32,7 @@
     var path = (3 < argc) ? argv[3] : null;
     var domain = (4 < argc) ? argv[4] : null;
     var secure = (5 < argc) ? argv[5] : false;
-    document.cookie = name + "=" + escape(value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : "");
+    document.cookie = name + "=" + encodeURIComponent(value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : "");
 }
 
     var expdate = new Date();
