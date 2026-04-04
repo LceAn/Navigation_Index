@@ -210,9 +210,9 @@
     {{/each}}
 </script>
 
-<button id="TopButton" class="scrollToButton iconfont icon_top" onclick="scrollToTop()" style=" bottom: 100px;right: 20px;"></button>
-<button id="GitHubButton" class="scrollToButton iconfont icon-github" onclick="goToGitHub()" style=" bottom: 60px;right: 20px;"></button>
-<button id="zhihuButton" class="scrollToButton iconfont icon-zhihu-copy" onclick="goTozhihu()" style=" bottom: 20px;right: 20px;"></button>
+<button id="TopButton" class="scrollToButton iconfont icon_top" style=" bottom: 100px;right: 20px;"></button>
+<button id="GitHubButton" class="scrollToButton iconfont icon-github" style=" bottom: 60px;right: 20px;"></button>
+<button id="zhihuButton" class="scrollToButton iconfont icon-zhihu-copy" style=" bottom: 20px;right: 20px;"></button>
 
 
 
@@ -243,6 +243,9 @@
         renderWebsites(configData);
         renderFooter(configData);
         applyRandomShineEffect();
+        if (typeof initSidebarButtons === 'function') {
+            initSidebarButtons(configData.sidebarButtons);
+        }
     });
 
     // 应用站点配置（meta 信息 + 功能开关）

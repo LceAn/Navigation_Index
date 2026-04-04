@@ -57,6 +57,27 @@ site: {
 | `showIP` | `true` | 🌐 底部显示访问者 IP |
 | `visitorCount` | `true` | 📊 不蒜子访问量统计 |
 
+---
+
+## 🔘 sidebarButtons — 侧边按钮
+
+页面右下角的快捷按钮，增删按钮只需编辑此数组。
+
+| 字段 | 类型 | 说明 | 示例 |
+|------|------|------|------|
+| `id` | string | 按钮 DOM id | `'GitHubButton'` |
+| `icon` | string | iconfont 图标类名 | `'icon-github'` |
+| `action` | string | 动作类型：`scrollToTop` 回到顶部 / `goToLink` 打开链接 | `'goToLink'` |
+| `href` | string | 链接地址（action 为 `goToLink` 时必填） | `'https://github.com/LceAn'` |
+
+```javascript
+sidebarButtons: [
+    { id: 'TopButton',    icon: 'icon_top',       action: 'scrollToTop', href: null },
+    { id: 'GitHubButton', icon: 'icon-github',    action: 'goToLink',   href: 'https://github.com/LceAn' },
+    { id: 'zhihuButton',  icon: 'icon-zhihu-copy', action: 'goToLink',   href: 'https://zhihu.com/people/lcean' },
+],
+```
+
 ```javascript
 features: {
     sakura: false,        // 关闭樱花

@@ -19,6 +19,13 @@ const configData = {
         visitorCount: true,   // 不蒜子访问量统计
     },
 
+    // ==================== 侧边按钮 ====================
+    sidebarButtons: [
+        { id: 'TopButton',    icon: 'icon_top',    action: 'scrollToTop', href: null },
+        { id: 'GitHubButton', icon: 'icon-github',  action: 'goToLink',   href: 'https://github.com/LceAn' },
+        { id: 'zhihuButton',  icon: 'icon-zhihu-copy', action: 'goToLink', href: 'https://zhihu.com/people/lcean' },
+    ],
+
     // ==================== 底部信息 ====================
     footers: [
         // 由 site 配置自动生成，无需手动维护
