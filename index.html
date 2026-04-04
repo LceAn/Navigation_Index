@@ -481,39 +481,125 @@
     }
 </script>
 
-<!-- 全屏滚动脚本已移除，改为 CSS 原生自然滚动 -->
+<!-- 添加全屏滚动脚本 - 简化版本 -->
 <script>
-    // 滚动到内容区域时显示/隐藏按钮和 footer
+    // 全局变量，用于记录当前所在的section索引
+    var currentSection = 0;
+    
+    // 添加全屏滚动效果
     document.addEventListener('DOMContentLoaded', function() {
-        var scrollToTopButton = document.getElementById('TopButton');
-        var goToGitHubButton = document.getElementById('GitHubButton');
-        var goTozhihuButton = document.getElementById('zhihuButton');
-        var footer_scroll = document.getElementById('footer_scroll');
+        const sections = document.querySelectorAll('.fullpage-section');
+        const totalSections = sections.length;
+        let isScrolling = false;
+        let touchStartY = 0;
+        let scrollLockTimer = null;
 
-        // 按钮默认隐藏，滚动后显示
-        function updateVisibility() {
-            var scrollY = window.scrollY || document.documentElement.scrollTop;
-            var show = scrollY > window.innerHeight * 0.5;
-            if (scrollToTopButton) scrollToTopButton.style.display = show ? 'block' : 'none';
-            if (goToGitHubButton) goToGitHubButton.style.display = show ? 'block' : 'none';
-            if (goTozhihuButton) goTozhihuButton.style.display = show ? 'block' : 'none';
-            if (footer_scroll) footer_scroll.style.display = show ? 'block' : 'none';
+        // 处理鼠标滚轮事件
+        window.addEventListener('wheel', function(e) {
+            if (isScrolling) {
+                e.preventDefault();
+                return;
+            }
+
+            // 如果当前在内容区域（第二个section）
+            if (currentSection === 1) {
+                const contentArea = document.getElementById('content');
+                if (contentArea && contentArea.scrollTop <= 0 && e.deltaY < 0) {
+                    currentSection = 0;
+                    scrollToSection(currentSection);
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            // 欢迎页 — 吸附翻页
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                if (currentSection < totalSections - 1) {
+                    currentSection++;
+                    scrollToSection(currentSection);
+                }
+            } else {
+                if (currentSection > 0) {
+                    currentSection--;
+                    scrollToSection(currentSection);
+                }
+            }
+        }, { passive: false });
+
+        // 处理触摸事件（移动设备）
+        window.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        window.addEventListener('touchend', function(e) {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+
+            if (Math.abs(diff) < 50) return;
+
+            if (currentSection === 1) {
+                const contentArea = document.getElementById('content');
+                if (contentArea && contentArea.scrollTop <= 0 && diff < 0) {
+                    currentSection = 0;
+                    scrollToSection(currentSection);
+                }
+                return;
+            }
+
+            if (diff > 0) {
+                if (currentSection < totalSections - 1) {
+                    currentSection++;
+                    scrollToSection(currentSection);
+                }
+            } else {
+                if (currentSection > 0) {
+                    currentSection--;
+                    scrollToSection(currentSection);
+                }
+            }
+        });
+
+        // 滚动到指定区域
+        function scrollToSection(index) {
+            isScrolling = true;
+
+            // 按钮和 footer 显隐
+            var buttons = ['TopButton', 'GitHubButton', 'zhihuButton'];
+            buttons.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.style.display = index > 0 ? 'block' : 'none';
+            });
+            var footer = document.getElementById('footer_scroll');
+            if (footer) footer.style.display = index > 0 ? 'block' : 'none';
+
+            // 用 scrollTo 替代 scrollIntoView，更精确可控
+            var targetY = sections[index].offsetTop;
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+
+            // 清除之前的定时器，防止快速操作冲突
+            if (scrollLockTimer) clearTimeout(scrollLockTimer);
+            scrollLockTimer = setTimeout(function() {
+                isScrolling = false;
+            }, 600);
         }
-
-        window.addEventListener('scroll', updateVisibility, { passive: true });
-        updateVisibility();
 
         // 向下滚动按钮
         var scrollDownBtn = document.querySelector('.scroll-down-tips');
         if (scrollDownBtn) {
             scrollDownBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.getElementById('product').scrollIntoView({ behavior: 'smooth' });
+                if (currentSection < totalSections - 1) {
+                    currentSection++;
+                    scrollToSection(currentSection);
+                }
                 return false;
             });
         }
     });
-</script>
 </script>
 </body>
 </html>

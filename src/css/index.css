@@ -22,7 +22,14 @@ html, body {
 }
 
 #content {
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox 隐藏滚动条 */
+    -ms-overflow-style: none;  /* IE/Edge 隐藏滚动条 */
+}
+
+#content::-webkit-scrollbar {
+    display: none;  /* Chrome/Safari 隐藏滚动条 */
 }
 
 a {
