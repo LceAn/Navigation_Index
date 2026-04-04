@@ -120,39 +120,89 @@ python3 -m http.server 8000
 
 ### 方式三：GitHub Pages
 
-1. 进入仓库 **Settings** → **Pages**
-2. 选择 **main** 分支作为源
-3. 网站将部署在 `https://yourusername.github.io/Navigation_Index`
+1. Fork 本仓库
+2. 进入仓库 **Settings** → **Pages**
+3. 选择 **main** 分支作为源
+4. 网站将部署在 `https://yourusername.github.io/Navigation_Index`
 
 ---
 
-## 📝 更新日志
+## 📝 配置指南
 
-详见 [CHANGELOG.md](./CHANGELOG.md)
+### 核心配置文件
 
----
-
-## 🎨 自定义
-
-### 📝 配置文件
-
-所有可配置项都在 `src/cfg/config.js` 中，修改保存即生效。
+所有可配置项都在 `src/cfg/config.js` 中，修改后保存即生效（无需编译）。
 
 详细说明请查阅 **[CONFIG.md](./src/cfg/CONFIG.md)**
 
-**快速上手：**
+### 快速上手
+
+#### 1️⃣ 修改站点信息
 
 ```javascript
 // src/cfg/config.js
+site: {
+    title: '你的站点名称',
+    description: '你的站点描述',
+    homepage: 'https://yourdomain.com',
+    beian: '你的备案号',
+    copyright: '© 2020 by YourName'
+}
+```
 
-// 站点信息
-site: { title: 'LceAn', description: '...', ... },
+#### 2️⃣ 功能开关
 
-// 功能开关
-features: { sakura: false, poetry: true, showIP: true, ... },
+```javascript
+features: {
+    sakura: false,      // 樱花飘落特效
+    poetry: true,       // 滚动显示诗词
+    showIP: true,       // 显示访客 IP
+    visitorCount: true, // 显示访问量
+    sidebarButtons: true // 侧边按钮
+}
+```
 
-// 导航卡片 — 添加新卡片只需往 weblists 数组里加对象
-weblists: [ { url: '...', title: '...', ... } ],
+#### 3️⃣ 添加导航卡片
+
+```javascript
+weblists: [
+    {
+        url: 'https://your-blog.com',
+        title: '技术博客',
+        description: '我的个人技术博客',
+        logo: 'https://your-blog.com/logo.png',
+        color: 'linear-gradient(to right, #667eea, #764ba2)'
+    }
+]
+```
+
+#### 4️⃣ 自定义侧边按钮
+
+```javascript
+sidebarButtons: [
+    {
+        id: 'TopButton',
+        icon: 'icon_top',
+        action: 'scrollToTop'
+    },
+    {
+        id: 'GitHubButton',
+        icon: 'icon-github',
+        action: 'goToLink',
+        href: 'https://github.com/yourusername'
+    }
+]
+```
+
+#### 5️⃣ 修改页脚信息
+
+```javascript
+footers: [
+    {
+        text: '© 2020 - 2026 by LceAn',
+        url: 'https://www.lcean.com/'
+    }
+]
 ```
 
 ### 修改主题颜色
@@ -165,6 +215,16 @@ weblists: [ { url: '...', title: '...', ... } ],
 @text-color: #your-text-color;
 ```
 
+然后编译 Less：
+
+```bash
+# 安装 Less 编译器
+npm install -g less
+
+# 编译 CSS
+lessc src/less/style.less src/css/style.css
+```
+
 ### 添加自定义动画
 
 在 `src/less/animations.less` 中添加：
@@ -174,6 +234,94 @@ weblists: [ { url: '...', title: '...', ... } ],
   0% { /* 起始状态 */ }
   100% { /* 结束状态 */ }
 }
+
+.your-element {
+  animation: your-animation 2s ease-in-out infinite;
+}
+```
+
+---
+
+## ❓ 常见问题
+
+### Q: 修改配置后不生效？
+A: 浏览器缓存问题，强制刷新（`Ctrl+Shift+R` / `Cmd+Shift+R`）或清空缓存。
+
+### Q: 如何修改 Logo？
+A: 替换 `src/img/logoTM.png`，或修改 `config.js` 中的 `logo` 路径。
+
+### Q: 如何禁用樱花特效？
+A: `config.js` → `features.sakura = false`
+
+### Q: 如何添加新页面？
+A: 
+1. 在 `src/b_html/` 创建新 HTML 文件
+2. 在 `config.js` → `navMenu` 添加菜单项
+3. 在 `index.html` → 导航菜单添加链接
+
+### Q: 夜间模式切换无效？
+A: 检查 `src/js/light_eveing.js` 是否正常加载，或浏览器控制台查看错误。
+
+### Q: 如何部署到生产环境？
+A: 推荐方案：
+- **GitHub Pages**（免费，适合静态站点）
+- **Vercel / Netlify**（免费，自动部署）
+- **Nginx**（自有服务器）
+- **Docker**（容器化部署）
+
+---
+
+## ️ 开发指南
+
+### 环境要求
+
+- Node.js 16+（可选，用于 Less 编译）
+- 现代浏览器（Chrome/Firefox/Safari/Edge）
+
+### 本地开发
+
+```bash
+# 克隆仓库
+git clone https://github.com/LceAn/Navigation_Index.git
+cd Navigation_Index
+
+# 启动本地服务器
+python3 -m http.server 8000
+
+# 访问 http://localhost:8000
+```
+
+### 编译 Less（可选）
+
+```bash
+# 安装 Less 编译器
+npm install -g less
+
+# 监听模式（自动编译）
+lessc --watch src/less/style.less src/css/style.css
+```
+
+### 项目结构
+
+```
+Navigation_Index/
+├── index.html              # 主页面
+├── 404.html                # 404 错误页面
+├── CHANGELOG.md            # 更新日志
+├── README.md               # 项目文档（中文）
+├── README.en.md            # 项目文档（English）
+├── src/                    # 源文件
+│   ├── cfg/                # 配置文件
+│   │   ├── config.js       # 主配置（改这个！）
+│   │   └── CONFIG.md       # 配置说明文档
+│   ├── css/                # 样式文件
+│   ├── js/                 # JavaScript 文件
+│   ├── b_html/             # 子页面
+│   ├── img/                # 图片资源
+│   ├── less/               # Less 源文件
+│   └── ttf/                # 字体文件
+├── .idea/                  # IDE 配置
+└── .vscode/                # VSCode 设置
 ```
 
 ---
@@ -191,7 +339,7 @@ weblists: [ { url: '...', title: '...', ... } ],
 
 ---
 
-## 📄 许可证
+##  许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
 
@@ -201,14 +349,42 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 欢迎提交 Issue 和 Pull Request！
 
+### 贡献流程
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
+
+### 贡献指南
+
+- 遵循现有代码风格
+- 添加必要的注释
+- 更新文档（如适用）
+- 测试后再提交
+
 ---
 
 ## 📞 联系方式
 
 - **GitHub:** [@LceAn](https://github.com/LceAn)
-- **仓库:** [Navigation_Index](https://github.com/LceAn/Navigation_Index)
+- **邮箱:** admin@lcean.com
+- **博客:** https://ae.lcean.com/
 
 ---
 
-**最后更新:** 2026-04-04
-**版本:** 1.1.0
+## 🙏 致谢
+
+感谢以下开源项目：
+
+- [Font Awesome](https://fontawesome.com/) - 图标库
+- [今日诗词](https://www.jinrishici.com/) - 诗词 API
+- [Handlebars](https://handlebarsjs.com/) - 模板引擎
+- [jQuery](https://jquery.com/) - DOM 操作库
+
+---
+
+**最后更新:** 2026-04-05  
+**版本:** 1.1.0  
+**Star 数:** ⭐️ 如果这个项目对你有帮助，请给个 Star！
