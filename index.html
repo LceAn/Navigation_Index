@@ -68,6 +68,27 @@
             box-sizing: border-box; /* 包括内边距在内 */
             margin: 0 auto; /* 居中 */
         }
+
+        /* 欢迎页响应式适配 */
+        @media screen and (max-width: 768px) {
+            .web-title {
+                font-size: 48px;
+                letter-spacing: 3px;
+            }
+            .welcome > p {
+                font-size: 28px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .web-title {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+            .welcome > p {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+        }
         /* 修正导航栏链接的色彩对比度 */
         .nav-menu li a {
             color: #555; /* 将默认的 #999999 替换为更深的颜色 */
