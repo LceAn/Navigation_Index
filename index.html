@@ -236,7 +236,8 @@
     <a href="{{githubRepo}}" target="_blank" rel="noopener noreferrer" class="footer-github-link">
         <i class="iconfont icon-github"></i>
         <span>{{repoName}}</span>
-        <span class="footer-item footer-ver">&nbsp;<svg class="footer-ver-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.752 1.752 0 011 7.775zm1.75-.585a.25.25 0 00-.354 0l-.707.707a.25.25 0 00.354.354l.707-.707a.25.25 0 000-.354zM8 5.5a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg><span class="footer-version">{{version}}</span></span>
+        <svg class="footer-ver-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.752 1.752 0 011 7.775zm1.75-.585a.25.25 0 00-.354 0l-.707.707a.25.25 0 00.354.354l.707-.707a.25.25 0 000-.354zM8 5.5a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
+        <span class="footer-version">{{version}}</span>
     </a>
     {{#if showVisitorCount}}<span class="footer-item footer-visitor">&nbsp;|&nbsp;
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span></span>{{/if}}
@@ -260,8 +261,6 @@
         applySiteConfig(configData);
         renderWebsites(configData);
         renderFooter(configData);
-        adjustFooter();
-        window.addEventListener('resize', adjustFooter);
         applyRandomShineEffect();
         if (typeof initSidebarButtons === 'function') {
             initSidebarButtons(configData.sidebarButtons);
@@ -381,40 +380,8 @@
                 .then(r => r.json())
                 .then(d => {
                     var ipEl = document.getElementById('user-ip');
-                    if (ipEl) {
-                        ipEl.textContent = d.ip;
-                        // IP 加载完成后重新计算 footer 布局
-                        if (typeof adjustFooter === 'function') adjustFooter();
-                    }
+                    if (ipEl) ipEl.textContent = d.ip;
                 });
-        }
-    }
-
-    // Footer 自适应：根据实际宽度动态隐藏低优先级元素，绝不截断
-    function adjustFooter() {
-        var container = document.querySelector('#footer_scroll');
-        if (!container) return;
-        // 获取实际内容区域（排除固定定位的 padding）
-        var content = container.querySelector('p') || container.querySelector('.container');
-        if (!content) return;
-
-        // 按优先级从低到高：IP(P4) → 访问量(P3) → 版本号(P2)
-        var hideTargets = [
-            content.querySelector('.footer-ip'),
-            content.querySelector('.footer-visitor'),
-            content.querySelector('.footer-ver')
-        ].filter(Boolean);
-
-        // 先全部恢复显示
-        hideTargets.forEach(function(el) { el.style.display = ''; });
-
-        // 逐个隐藏直到不溢出
-        for (var i = 0; i < hideTargets.length; i++) {
-            if (content.scrollWidth > container.clientWidth) {
-                hideTargets[i].style.display = 'none';
-            } else {
-                break;
-            }
         }
     }
 
