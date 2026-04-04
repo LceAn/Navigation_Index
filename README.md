@@ -122,36 +122,7 @@ python3 -m http.server 8000
 
 ## 📝 Changelog | 更新日志
 
-### v1.0.3 (2025-05-14)
-- ✅ Fixed "scroll down" functionality
-- ✅ Improved slide animations
-- ✅ Fixed night mode with sky联动 effect
-- ✅ Revised sky switching functionality
-- ✅ Fixed alignment issues in "More" interface
-
-### v1.0.2 (2025-04-21)
-- ✅ Optimized page styles
-- ✅ Real-time font rendering for homepage images
-- ✅ Disabled flash effects
-- ✅ Disabled cherry blossom effects
-- ✅ Cleaned old data and desensitized
-
-### v1.0.1
-- ✨ Card scan light effect
-- ✨ Button depression effect
-- ✨ New navigation menu
-- ✨ Introduction page
-- ✨ Timeline page
-- ✨ Demo showcase page
-
-### v1.0.0 (Initial Release)
-- 🌟 Day/night toggle on homepage
-- 🌟 Scroll-triggered poetry display
-- 🌟 Website card showcase on scroll
-- 🌟 Attribution info and social links
-- 🌟 Cherry blossom falling effect
-- 🌟 IP address lookup in attribution
-- 🌟 Dynamic data loading via modal
+详见 [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 

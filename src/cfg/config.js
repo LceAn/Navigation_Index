@@ -1,4 +1,10 @@
 const configData = {
+    // ==================== 功能开关 ====================
+    features: {
+        sakura: false,       // 樱花飘落效果 (true: 开启, false: 关闭)
+        scanLight: true,     // 卡片扫光效果 (true: 开启, false: 关闭)
+    },
+
     footers:[
         {
             by : ' \u00A9 2020-2025 by LceAn',

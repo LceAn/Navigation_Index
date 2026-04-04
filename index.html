@@ -276,6 +276,13 @@
             var gradient = gradients[i % gradients.length];
             el.dataset.fallbackBg = gradient;
         });
+
+        // 根据配置加载樱花效果
+        if (configData.features && configData.features.sakura) {
+            var sakuraScript = document.createElement('script');
+            sakuraScript.src = 'src/js/sakuraPlus.js';
+            document.body.appendChild(sakuraScript);
+        }
     }
 
     function renderFooter(data) {
@@ -306,7 +313,6 @@
 <script src="src/js/darkModeToggle.js" defer></script> <!-- 引入自动黑暗模式脚本 -->
 <script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
 <script src="src/js/TagSetting.js"></script><!--标签设定js -->
-<!--<script src="src/js/sakuraPlus.js"></script>&lt;!&ndash;樱花js &ndash;&gt; 3.关闭樱花-->
 <script src="src/js/console-ban.min.js"></script><!--清除控制台、开启调试、设置回调函数js -->
 <script src="src/js/light_eveing.js"></script> <!--夜间模式按钮js -->
 
