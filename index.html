@@ -475,90 +475,89 @@
     }
 </script>
 
-<!-- 添加全屏滚动脚本 - 简化版本 -->
+<!-- 全屏滚动脚本 - 单滚动条方案 -->
 <script>
-    // 全局变量，用于记录当前所在的section索引
     var currentSection = 0;
-    
-    // 添加全屏滚动效果
+
     document.addEventListener('DOMContentLoaded', function() {
         const sections = document.querySelectorAll('.fullpage-section');
         const totalSections = sections.length;
-        let isScrolling = false;
+        let isAnimating = false;
+        let animTimer = null;
         let touchStartY = 0;
-        let scrollLockTimer = null;
 
         // 处理鼠标滚轮事件
         window.addEventListener('wheel', function(e) {
-            if (isScrolling) {
+            if (isAnimating) {
                 e.preventDefault();
                 return;
             }
 
-            // 如果当前在内容区域（第二个section）
-            if (currentSection === 1) {
-                const contentArea = document.getElementById('content');
-                if (contentArea && contentArea.scrollTop <= 0 && e.deltaY < 0) {
-                    currentSection = 0;
-                    scrollToSection(currentSection);
+            if (currentSection === 0) {
+                // 在第一页（欢迎页）— 向下滚进入第二页
+                if (e.deltaY > 0) {
                     e.preventDefault();
+                    currentSection = 1;
+                    scrollToSection(1);
                 }
+                // 向上滚：已经在第一页顶部，不需要处理
                 return;
             }
 
-            // 欢迎页 — 吸附翻页
-            e.preventDefault();
-            if (e.deltaY > 0) {
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
-                }
-            } else {
-                if (currentSection > 0) {
-                    currentSection--;
-                    scrollToSection(currentSection);
-                }
-            }
+            // 在第二页及之后 — 自然滚动，不拦截
+            // 但如果用户滚到了页面最顶部，自动回第一页
         }, { passive: false });
+
+        // 监听滚动位置，检测是否需要切回第一页
+        window.addEventListener('scroll', function() {
+            if (isAnimating) return;
+            if (window.scrollY <= 5 && currentSection === 1) {
+                currentSection = 0;
+                updateUI(0);
+            }
+        });
 
         // 处理触摸事件（移动设备）
         window.addEventListener('touchstart', function(e) {
             touchStartY = e.touches[0].clientY;
         });
 
+        window.addEventListener('touchmove', function(e) {
+            // 在第一页时拦截触摸滚动，防止浏览器默认滚动
+            if (currentSection === 0 && !isAnimating) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
         window.addEventListener('touchend', function(e) {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
+            var touchEndY = e.changedTouches[0].clientY;
+            var diff = touchStartY - touchEndY;
 
             if (Math.abs(diff) < 50) return;
 
-            if (currentSection === 1) {
-                const contentArea = document.getElementById('content');
-                if (contentArea && contentArea.scrollTop <= 0 && diff < 0) {
-                    currentSection = 0;
-                    scrollToSection(currentSection);
-                }
-                return;
-            }
-
-            if (diff > 0) {
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
-                }
-            } else {
-                if (currentSection > 0) {
-                    currentSection--;
-                    scrollToSection(currentSection);
+            if (currentSection === 0) {
+                if (diff > 0) {
+                    currentSection = 1;
+                    scrollToSection(1);
                 }
             }
         });
 
-        // 滚动到指定区域
         function scrollToSection(index) {
-            isScrolling = true;
+            isAnimating = true;
+            var targetY = sections[index].offsetTop;
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+            updateUI(index);
+            if (animTimer) clearTimeout(animTimer);
+            animTimer = setTimeout(function() {
+                isAnimating = false;
+            }, 600);
+        }
 
-            // 按钮和 footer 显隐
+        function updateUI(index) {
             var buttons = ['TopButton', 'GitHubButton', 'zhihuButton'];
             buttons.forEach(function(id) {
                 var el = document.getElementById(id);
@@ -566,19 +565,6 @@
             });
             var footer = document.getElementById('footer_scroll');
             if (footer) footer.style.display = index > 0 ? 'block' : 'none';
-
-            // 用 scrollTo 替代 scrollIntoView，更精确可控
-            var targetY = sections[index].offsetTop;
-            window.scrollTo({
-                top: targetY,
-                behavior: 'smooth'
-            });
-
-            // 清除之前的定时器，防止快速操作冲突
-            if (scrollLockTimer) clearTimeout(scrollLockTimer);
-            scrollLockTimer = setTimeout(function() {
-                isScrolling = false;
-            }, 600);
         }
 
         // 向下滚动按钮
@@ -586,9 +572,9 @@
         if (scrollDownBtn) {
             scrollDownBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
+                if (currentSection === 0) {
+                    currentSection = 1;
+                    scrollToSection(1);
                 }
                 return false;
             });
