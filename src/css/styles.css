@@ -60,35 +60,6 @@
     width: 100%;
     text-align: center;
     z-index: 9998; /* 确保位于页面最上层 */
-    white-space: nowrap; /* 始终单行显示 */
-    overflow: hidden; /* 超出部分隐藏 */
-    text-overflow: ellipsis;
-}
-
-/* footer 渐进精简：保证始终单行 */
-/* 小屏 (≤768px): 隐藏 IP (P4) */
-@media (max-width: 768px) {
-    .custom-footer .footer-ip {
-        display: none;
-    }
-}
-
-/* 手机 (≤480px): 隐藏访问量 (P3) */
-@media (max-width: 480px) {
-    .custom-footer .footer-visitor {
-        display: none;
-    }
-}
-
-/* 极小屏 (≤360px): 隐藏版本号 (P2)，只留版权+备案+GitHub */
-@media (max-width: 360px) {
-    .custom-footer .footer-ver-icon,
-    .custom-footer .footer-version {
-        display: none;
-    }
-    .custom-footer .footer-github-link .iconfont {
-        font-size: 11px;
-    }
 }
 
 .custom-footer a {
