@@ -37,8 +37,8 @@ a {
 .time-axis::before {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 33px;
+    bottom: 33px;
     width: 4px;
     background-color: #b1bbf9;
     left: 50%;
