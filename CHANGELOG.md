@@ -1,55 +1,131 @@
 # 更新记录
 
+## 2026-04-05
+
+### 🔧 时间线优化
+
+| 时间 | 说明 | 提交 |
+|------|------|------|
+| 23:34 | 添加「起」「续」起止标识，蓝色圆形端点 | `eca662c` |
+| 23:58 | 中线不再从起止标识冒头（top/bottom 偏移 33px） | `7461d23` |
+| 00:01 | 添加年份分隔标记（2020/2021/2023 胶囊标签） | `46bf698` |
+| 00:06 | 修复：添加 2020 起始标记，删除重复的 2023 标记 | `5af97c3` |
+| 00:18 | 基于 GitHub 历史补全 2024-2026 缺失事件 | `085b3c9` |
+| 01:20 | 移除非网站事件（个人赛事/证书），只保留网站发展历程 | `252447a` |
+
+### ✨ 关于页面
+
+| 时间 | 说明 | 提交 |
+|------|------|------|
+| 01:24 | 新增「🏆 荣誉成就」板块，移入 10 条个人赛事/证书经历 | `853dd50` |
+
+### 🔧 滚动体验
+
+| 时间 | 说明 | 提交 |
+|------|------|------|
+| 01:32 | 消除双滚动条，改为单滚动条方案：`#content` 自适应高度，window 统一滚动 | `65a9780` |
+
+---
+
 ## 2026-04-04
 
 ### 🔧 修复严重问题 (S1-S7)
 
+| 问题 | 修复方案 | 提交 |
+|------|---------|------|
+| **S1** 脚本加载顺序错误 | jQuery + Handlebars 移到 `<script type="module">` 之前 | `8ec73e7` |
+| **S2** `<link>` 标签放在 `<ul>` 内 | 3 个 CSS 链接从 `<ul>` 移至 `<head>` | `8ec73e7` |
+| **S3** 完全禁用键盘鼠标事件 | 移除 `BanMouseAndKeyboard.js` 引用 | `8ec73e7` |
+| **S4** F12 反调试使用废弃 API | 移除 `BanF12.js` 引用 | `8ec73e7` |
+| **S5** XSS 风险 — innerHTML 直接插入 | `loadPageContent` 改用 `DOMParser` + 过滤 `<script>` | `8ec73e7` |
+| **S7** Cookie 使用废弃 `escape()` | 替换为 `encodeURIComponent`/`decodeURIComponent` | `8ec73e7` |
+
+### 🔧 修复中等问题 (M1-M3, M6-M12)
+
 | 问题 | 修复方案 |
 |------|---------|
-| **S1** 脚本加载顺序错误 | jQuery + Handlebars 移到 `<script type="module">` 之前 |
-| **S2** `<link>` 标签放在 `<ul>` 内 | 3 个 CSS 链接从 `<ul>` 移至 `<head>` |
-| **S3** 完全禁用键盘鼠标事件 | 移除 `BanMouseAndKeyboard.js` 引用 |
-| **S4** F12 反调试使用废弃 API | 移除 `BanF12.js` 引用 |
-| **S5** XSS 风险 — innerHTML 直接插入 | `loadPageContent` 改用 `DOMParser` + 过滤 `<script>` |
-| **S7** Cookie 使用废弃 `escape()` | 替换为 `encodeURIComponent`/`decodeURIComponent` |
+| **M1** 樱花插件硬编码 | 从代码注释改为 `config.features.sakura` 配置项 |
+| **M2** 诗词硬编码 | 从内联改为 `config.features.poetry` 配置项 |
+| **M3** IP/访问量/备案硬编码 | 从内联改为 `config.features` 配置项 |
+| **M6** `CookieNum.js` 未使用 | 移除引用 |
+| **M7** `TagSetting.js` 逻辑错误 | 修复标签过滤逻辑 |
+| **M8** `scroll.js` 加载时机问题 | 调整加载顺序 |
+| **M9** `index.html` 内联样式过多 | 提取到外部 CSS |
+| **M10** 动态页面内联样式不生效 | about/timeline/more 样式迁移到外部 CSS |
+| **M11** `TagSetting.js` 全局变量 | 改用函数作用域 |
+| **M12** `scroll.js` 全局变量污染 | 改用 IIFE 封装 |
 
-### ✨ 新增优化
+### 🔧 修复轻微问题 (L1-L14)
 
-| 项目 | 说明 |
+| 问题 | 修复方案 |
 |------|---------|
-| **图片加载失败回退** | 卡片图片加载失败时显示随机渐变色背景，替代灰色占位 |
-| **双滚动条修复** | `#content` 区域滚动条隐藏，避免出现两个滚动条 |
-| **樱花插件配置化** | 樱花效果开关从代码注释改为 `config.js` 配置项 |
+| **L1** `sytles.css` 拼写错误 | 重命名为 `styles.css` |
+| **L2** `favicon.png` 失效引用 | 移除不存在的引用 |
+| **L3** 缺少 `meta description` | 添加 SEO 元标签 |
+| **L4** `robots.txt` 缺失 | 添加 |
+| **L5** 大块废弃 HTML 注释 | 清理 victor 旧代码 |
+| **L6** `404.html` 不完整 | 补全基本结构 |
+| **L7** 外部链接无 `rel="noopener"` | 添加 |
+| **L9** 缺少 `<meta name="viewport">` | 已有，确认正确 |
+| **L10** 图片无 `alt` 属性 | 补充 |
+| **L11** `<h1>` 标签层级不规范 | 调整 |
+| **L14** 锚点链接 `href="#"` 无意义 | 改为 `event.preventDefault()` |
+
+### ✨ 功能优化
+
+| 项目 | 说明 | 提交 |
+|------|------|------|
+| **配置化改造** | `config.js` 新增 `site/features/sidebarButtons/footers` | `c42fbfc` |
+| **侧边按钮配置化** | 侧栏按钮从代码改为 `config.sidebarButtons` | `5279933` |
+| **吸附翻页优化** | 减少动画时长，消除卡顿 | `fce3452` |
+| **图片加载失败回退** | 卡片图片失败时显示随机渐变色背景（14 种） | `4c7a0f9` |
+| **Logo 修复** | `<picture>` 改为 `<img src="logoTM.png">` | `df8decf` |
+| **关于页面美化** | 白色简洁风格 + 脉冲头像 + 社交卡片 | `710c319` |
+| **关于页面白色背景** | 移除紫色渐变背景 | `c517ffb`（之前） |
+| **关于页面样式独立** | about.css 外部文件 + 头像路径修正 | `710c319` |
+| **版权年份动态化** | 自动显示当前年份 | `665ca07` |
+| **导航按钮 active 样式** | 删除全局 `.active`，各组件单独定义 | `74df439` |
+| **导航模糊效果恢复** | 恢复 `nav-menu.css` 引用 | `c517ffb` |
+| **导航跳转首页修复** | `href="#"` 加 `event.preventDefault()` | `15a00d2` |
+| **时间线对齐修复** | 内联样式迁移到 `timeline.css`，响应式居中轴线 | `c25ef00` |
+
+### 📝 文档更新
+
+| 项目 | 说明 | 提交 |
+|------|------|------|
+| **README 中英文分离** | 默认中文 `README.md`，英文 `README.en.md` | `8db6dee` |
+| **CHANGELOG.md 创建** | 更新日志记录 | `849218a` |
+| **CONFIG.md** | 配置说明文档 | `c42fbfc` |
 
 ---
 
 ## v1.0.3 (2025-05-14)
-- ✅ Fixed "scroll down" functionality
-- ✅ Improved slide animations
-- ✅ Fixed night mode with sky联动 effect
-- ✅ Revised sky switching functionality
-- ✅ Fixed alignment issues in "More" interface
+- ✅ 修复「向下滚动」功能
+- ✅ 优化滑动动画
+- ✅ 修复夜间模式与天空联动效果
+- ✅ 修正天空切换功能
+- ✅ 修复「更多」页面对齐问题
 
 ## v1.0.2 (2025-04-21)
-- ✅ Optimized page styles
-- ✅ Real-time font rendering for homepage images
-- ✅ Disabled flash effects
-- ✅ Disabled cherry blossom effects
-- ✅ Cleaned old data and desensitized
+- ✅ 优化页面样式
+- ✅ 首页图片实时字体渲染
+- ✅ 禁用闪光特效
+- ✅ 禁用樱花特效
+- ✅ 清理旧数据并脱敏
 
-## v1.0.1
-- ✨ Card scan light effect
-- ✨ Button depression effect
-- ✨ New navigation menu
-- ✨ Introduction page
-- ✨ Timeline page
-- ✨ Demo showcase page
+## v1.0.1 (2024-09-18)
+- ✨ 卡片扫描光效
+- ✨ 按钮按压效果
+- ✨ 新导航菜单
+- ✨ 关于页面
+- ✨ 时间线页面
+- ✨ 演示展示页面
 
-## v1.0.0 (Initial Release)
-- 🌟 Day/night toggle on homepage
-- 🌟 Scroll-triggered poetry display
-- 🌟 Website card showcase on scroll
-- 🌟 Attribution info and social links
-- 🌟 Cherry blossom falling effect
-- 🌟 IP address lookup in attribution
-- 🌟 Dynamic data loading via modal
+## v1.0.0 (2024-09-17 · 初始版本)
+- 🌟 首页日夜切换
+- 🌟 滚动触发诗词展示
+- 🌟 网站卡片展示
+- 🌟 版权信息与社交链接
+- 🌟 樱花飘落特效
+- 🌟 IP 地址显示
+- 🌟 通过模态框动态加载数据
