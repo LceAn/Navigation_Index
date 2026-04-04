@@ -67,22 +67,7 @@ a {
 }
 
 .time-axis .jiantou {
-    width: 32px;
-    height: 32px;
-    display: block;
-    position: absolute;
-    top: 50%;
-    margin-top: -18px;
-}
-
-.time-axis .left .jiantou {
-    background: url('images/r-jiantou.png');
-    right: 0;
-}
-
-.time-axis .right .jiantou {
-    background: url('images/l-jiantou.png');
-    left: 0;
+    display: none; /* 箭头图片已移除，使用居中轴线替代 */
 }
 
 .time-axis .con {

@@ -1,18 +1,27 @@
-// darkModeToggle.js
+// darkModeToggle.js — 自动根据时间切换暗色模式
 
 function toggleDarkMode() {
     var hours = new Date().getHours();
     var body = document.body;
-    if (hours >= 20 || hours < 6) { // 如果当前时间是晚上8点到早上6点之间，则切换到黑暗模式
+    if (hours >= 20 || hours < 6) {
         body.classList.add('dark-mode');
-    } else { // 否则切换回正常模式
+    } else {
         body.classList.remove('dark-mode');
     }
 }
 
-// 在页面加载时调用 toggleDarkMode 函数
 document.addEventListener('DOMContentLoaded', function () {
     toggleDarkMode();
-    // 每分钟检查一次是否切换黑暗模式
-    setInterval(toggleDarkMode, 60000);
+    // 每分钟检查一次，保存引用以便清理
+    var darkModeTimer = setInterval(toggleDarkMode, 60000);
+
+    // 页面隐藏时停止检查，节省资源
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(darkModeTimer);
+        } else {
+            darkModeTimer = setInterval(toggleDarkMode, 60000);
+            toggleDarkMode(); // 页面可见时立即更新
+        }
+    });
 });

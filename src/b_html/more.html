@@ -1,11 +1,11 @@
-<div class="container">
+<div class="more-container">
     <!-- 卡片1：字符生成 -->
     <div class="box">
         <div class="icon">01</div>
         <div class="content">
             <h3>字符生成</h3>
             <p>这个网站是用于生成4~32位随机字符的。</p>
-            <a href="https://www.lcean.com/Zd/password/index.html" target="_blank">了解更多</a>
+            <a href="https://www.lcean.com/Zd/password/index.html" target="_blank" rel="noopener noreferrer">了解更多</a>
         </div>
     </div>
     <!-- 卡片2：十大搜索引擎 -->
@@ -14,7 +14,7 @@
         <div class="content">
             <h3>十大搜索引擎</h3>
             <p>基于bootstrap框架的搜索导航。</p>
-            <a href="https://www.lcean.com/Zd/Search/index3.html" target="_blank">了解更多</a>
+            <a href="https://www.lcean.com/Zd/Search/index3.html" target="_blank" rel="noopener noreferrer">了解更多</a>
         </div>
     </div>
     <!-- 卡片3：404导航页 -->
@@ -23,15 +23,14 @@
         <div class="content">
             <h3>404导航页</h3>
             <p>404notfound团队搜索导航。</p>
-            <a href="https://404notfound.free.hr/#/" target="_blank">了解更多</a>
+            <a href="https://404notfound.free.hr/#/" target="_blank" rel="noopener noreferrer">了解更多</a>
         </div>
     </div>
 </div>
 
 <!-- 仅保留卡片相关的样式 -->
 <style>
-    /* 卡片容器 */
-    .container {
+    .more-container {
         display: flex;
         justify-content: center;
         align-items: stretch; /* 使卡片高度保持一致 */
@@ -76,32 +75,30 @@
         transition: all 0.5s ease;
     }
 
-    /* 不同卡片的颜色设置 */
-    .box:nth-child(1) .icon {
+    .more-container .box:nth-child(1) .icon {
         box-shadow: 0 0 0 0 #e91e63;
         background: #e91e63;
     }
 
-    .box:nth-child(2) .icon {
+    .more-container .box:nth-child(2) .icon {
         box-shadow: 0 0 0 0 #2196f3;
         background: #2196f3;
     }
 
-    .box:nth-child(3) .icon {
+    .more-container .box:nth-child(3) .icon {
         box-shadow: 0 0 0 0 #4caf50;
         background: #4caf50;
     }
 
-    /* 悬停时的阴影效果 */
-    .box:nth-child(1):hover .icon {
+    .more-container .box:nth-child(1):hover .icon {
         box-shadow: 0 0 40px #e91e63;
     }
 
-    .box:nth-child(2):hover .icon {
+    .more-container .box:nth-child(2):hover .icon {
         box-shadow: 0 0 40px #2196f3;
     }
 
-    .box:nth-child(3):hover .icon {
+    .more-container .box:nth-child(3):hover .icon {
         box-shadow: 0 0 40px #4caf50;
     }
 
@@ -157,14 +154,11 @@
         transition: all 0.5s;
     }
 
-    .box:hover::before {
+    .more-container .box:hover::before {
         left: -100%;
     }
 
-    .content a {
-        position: relative;
-        z-index: 3;
-    }
+    .more-container .content a {
 
     /* 响应式调整 */
     @media screen and (max-width: 1024px) {

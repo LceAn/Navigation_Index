@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta name="generator" content="gao v1.3.0"/>
     <meta charset="UTF-8"/>
@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="author" content="LceAn" id="meta-author"/>
     <meta name="description" content="嘿，我是LceAn" id="meta-description"/>
-    <title>LceAn</title>
+    <meta name="keywords" content="LceAn，导航页，个人网站，技术博客，CTF，Docker，服务器监控"/>
+    <meta property="og:title" content="LceAn - 个人网站导航页"/>
+    <meta property="og:description" content="LceAn 个人网站导航页 - 技术博客、CTF 攻防、时光相册、Docker 状态等"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.lcean.com"/>    <title>LceAn - 个人网站导航页</title>
 
     <link rel="icon" href="src/img/favicon.png" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="src/img/logoTM.png">
@@ -21,6 +25,7 @@
 
     <link rel="preload" href="src/css/sytles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="src/css/sytles.css"></noscript>
+    <link rel="stylesheet" href="src/css/styles.css" id="styles-css" />
 
     <link rel="stylesheet" href="src/css/base.min.css"><!--自己的CSS压缩版-->
 
@@ -90,7 +95,7 @@
 
     <div id="victor-container">
         <div id="victor-output">
-            <canvas width="1907" height="1060" style="display: block;"></canvas>
+            <canvas id="victor-canvas" style="display: block; width: 100%; height: 100%;"></canvas>
         </div>
     </div>
 
@@ -135,11 +140,10 @@
 
 <section class="fullpage-section" id="product">
     <header class="text-gray-700 body-font sticky top-0 bg-white z-10">
-        <a name="product"></a>
         <div class="container mx-auto flex flex-wrap p-5 items-center justify-between">
             <a class="flex title-font font-medium items-center" href="https://www.lcean.com">
                 <picture>
-                    <source srcset="src/img/logoTM.png" type="image/webp">
+                    <source srcset="src/img/logoTM.webp" type="image/webp">
                     <img src="src/img/logoTM.png" width="50" height="50" alt="Logo">
                 </picture>
             </a>
@@ -196,6 +200,7 @@
 
             <img alt="{{alt}}" class="object-cover object-center h-full w-full"
                  src="{{img_url}}"
+                 loading="lazy"
                  onerror="this.style.visibility='hidden';this.parentElement.style.background=this.parentElement.dataset.fallbackBg"/>
 
             <span class="bg-blue-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">{{span}}</span>

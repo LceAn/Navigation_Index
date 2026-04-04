@@ -13,6 +13,8 @@ const filter = (event, type) => {
                 .querySelectorAll(`.${type}`)
                 .forEach((item) => item.classList.remove("hide"));
         } else {
+            // 筛选不在指定类型列表中的卡片
+            var specificTypes = allTypes.filter(t => t !== 'all' && t !== 'other');
             document
                 .querySelectorAll(
                     `.card${specificTypes.map((type) => `:not(.${type})`).join("")}`
