@@ -17,17 +17,21 @@
 
 ## 📸 页面预览
 
-### 桌面端
+### 桌面端 - 欢迎页
 
-![桌面端预览](https://github.com/user-attachments/assets/5bd0b4cb-1c81-4d21-88d6-2223de6a6526)
+![欢迎页](screenshots/homepage.png)
 
-### 移动端
+### 桌面端 - 导航卡片
 
-![移动端预览](https://github.com/user-attachments/assets/4518165b-347f-407b-be0b-f48153b49937)
+![导航卡片](screenshots/content.png)
 
-### 夜间模式
+### 夜间模式 - 欢迎页
 
-![夜间模式](https://github.com/user-attachments/assets/10d05248-0709-4aa7-a09c-6283603884fe)
+![夜间模式欢迎页](screenshots/dark-homepage.png)
+
+### 夜间模式 - 导航卡片
+
+![夜间模式导航卡片](screenshots/dark-content.png)
 
 ---
 
