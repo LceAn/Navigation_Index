@@ -268,3 +268,41 @@
     color: #333;
     line-height: 1.5;
 }
+
+/* 版本信息样式 */
+.version-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.version-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.version-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.version-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+
+.version-link {
+    color: #1890ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.version-link:hover {
+    text-decoration: underline;
+}
