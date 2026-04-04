@@ -62,18 +62,29 @@
     z-index: 9998; /* 确保位于页面最上层 */
 }
 
-/* 手机端 footer 自适应 */
+/* 手机端 footer 自适应 - 渐进精简 */
+/* 平板 (≤768px): 隐藏 IP 显示 */
+@media (max-width: 768px) {
+    .custom-footer .footer-ip {
+        display: none;
+    }
+}
+
+/* 手机 (≤480px): 额外隐藏访问量，只保留版权+备案+GitHub */
 @media (max-width: 480px) {
     .custom-footer {
-        font-size: 10px;
+        font-size: 11px;
         padding: 0 8px;
     }
+    .custom-footer .footer-visitor {
+        display: none;
+    }
     .custom-footer .footer-github-link .iconfont {
-        font-size: 10px;
+        font-size: 11px;
     }
     .custom-footer .footer-ver-icon {
-        width: 8px;
-        height: 8px;
+        width: 9px;
+        height: 9px;
     }
     .custom-footer .footer-version {
         font-size: 10px;
