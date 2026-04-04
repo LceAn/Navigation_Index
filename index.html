@@ -481,140 +481,39 @@
     }
 </script>
 
-<!-- 添加全屏滚动脚本 - 简化版本 -->
+<!-- 全屏滚动脚本已移除，改为 CSS 原生自然滚动 -->
 <script>
-    // 全局变量，用于记录当前所在的section索引
-    var currentSection = 0;
-    
-    // 添加全屏滚动效果
+    // 滚动到内容区域时显示/隐藏按钮和 footer
     document.addEventListener('DOMContentLoaded', function() {
-        const sections = document.querySelectorAll('.fullpage-section');
-        const totalSections = sections.length;
-        let isScrolling = false;
-        let touchStartY = 0;
-        
-        // 处理鼠标滚轮事件
-        window.addEventListener('wheel', function(e) {
-            if (isScrolling) return;
-            
-            // 如果当前在内容区域（第二个section）
-            if (currentSection === 1) {
-                // 检查内容区域是否已滚动到顶部
-                const contentArea = document.getElementById('content');
-                if (contentArea && contentArea.scrollTop <= 0 && e.deltaY < 0) {
-                    // 只有当内容区域已滚动到顶部且用户继续向上滚动时，才回到欢迎页面
-                    currentSection = 0;
-                    scrollToSection(currentSection);
-                    e.preventDefault(); // 阻止默认滚动
-                }
-                // 其他情况下，让内容区域自然滚动
-                return;
-            }
-            
-            // 对于欢迎页，正常处理全屏滚动
-            if (e.deltaY > 0) {
-                // 向下滚动
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
-                }
-            } else {
-                // 向上滚动
-                if (currentSection > 0) {
-                    currentSection--;
-                    scrollToSection(currentSection);
-                }
-            }
-        }, { passive: false });
-        
-        // 处理触摸事件（移动设备）
-        window.addEventListener('touchstart', function(e) {
-            touchStartY = e.touches[0].clientY;
-        });
-        
-        window.addEventListener('touchend', function(e) {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
-            
-            if (Math.abs(diff) < 85) return; // 忽略小的滑动
-            
-            // 如果当前在内容区域
-            if (currentSection === 1) {
-                // 检查内容区域是否已滚动到顶部
-                const contentArea = document.getElementById('content');
-                if (contentArea && contentArea.scrollTop <= 0 && diff < 0) {
-                    // 只有当内容区域已滚动到顶部且用户继续向上滑动时，才回到欢迎页面
-                    currentSection = 0;
-                    scrollToSection(currentSection);
-                }
-                // 其他情况下，让内容区域自然滚动
-                return;
-            }
-            
-            // 对于欢迎页，正常处理全屏滚动
-            if (diff > 0) {
-                // 向上滑动 (向下翻页)
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
-                }
-            } else {
-                // 向下滑动 (向上翻页)
-                if (currentSection > 0) {
-                    currentSection--;
-                    scrollToSection(currentSection);
-                }
-            }
-        });
-        
-        // 滚动到指定区域
-        function scrollToSection(index) {
-            isScrolling = true;
-            
-            // 调整显示滚动按钮和footer
-            var scrollToTopButton = document.getElementById('TopButton');
-            var goToGitHubButton = document.getElementById('GitHubButton');
-            var goTozhihuButton = document.getElementById('zhihuButton');
-            var footer_scroll = document.getElementById('footer_scroll');
-            
-            if (index > 0) {
-                // 显示滚动按钮和footer
-                if (scrollToTopButton) scrollToTopButton.style.display = 'block';
-                if (goToGitHubButton) goToGitHubButton.style.display = 'block';
-                if (goTozhihuButton) goTozhihuButton.style.display = 'block';
-                if (footer_scroll) footer_scroll.style.display = 'block';
-            } else {
-                // 隐藏滚动按钮和footer
-                if (scrollToTopButton) scrollToTopButton.style.display = 'none';
-                if (goToGitHubButton) goToGitHubButton.style.display = 'none';
-                if (goTozhihuButton) goTozhihuButton.style.display = 'none';
-                if (footer_scroll) footer_scroll.style.display = 'none';
-            }
-            
-            // 平滑滚动到对应区域
-            sections[index].scrollIntoView({
-                behavior: 'smooth'
-            });
-            
-            // 防抖
-            setTimeout(function() {
-                isScrolling = false;
-            }, 1000);
+        var scrollToTopButton = document.getElementById('TopButton');
+        var goToGitHubButton = document.getElementById('GitHubButton');
+        var goTozhihuButton = document.getElementById('zhihuButton');
+        var footer_scroll = document.getElementById('footer_scroll');
+
+        // 按钮默认隐藏，滚动后显示
+        function updateVisibility() {
+            var scrollY = window.scrollY || document.documentElement.scrollTop;
+            var show = scrollY > window.innerHeight * 0.5;
+            if (scrollToTopButton) scrollToTopButton.style.display = show ? 'block' : 'none';
+            if (goToGitHubButton) goToGitHubButton.style.display = show ? 'block' : 'none';
+            if (goTozhihuButton) goTozhihuButton.style.display = show ? 'block' : 'none';
+            if (footer_scroll) footer_scroll.style.display = show ? 'block' : 'none';
         }
-        
-        // 修改向下滚动按钮的行为
-        const scrollDownBtn = document.querySelector('.scroll-down-tips');
+
+        window.addEventListener('scroll', updateVisibility, { passive: true });
+        updateVisibility();
+
+        // 向下滚动按钮
+        var scrollDownBtn = document.querySelector('.scroll-down-tips');
         if (scrollDownBtn) {
             scrollDownBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (currentSection < totalSections - 1) {
-                    currentSection++;
-                    scrollToSection(currentSection);
-                }
+                document.getElementById('product').scrollIntoView({ behavior: 'smooth' });
                 return false;
             });
         }
     });
+</script>
 </script>
 </body>
 </html>
