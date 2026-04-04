@@ -1,4 +1,4 @@
-/* 时间轴容器样式 */
+/* 时间轴容器样式 - 响应式居中轴线版本 */
 body {
     margin: 0;
     padding: 0;
@@ -19,80 +19,134 @@ a {
 }
 
 .clearfix::after {
-    /* 清除浮动，解决塌陷问题 */
     content: '';
     display: block;
     clear: both;
 }
 
 .time-axis {
-    width: 804px;
+    width: 90%;
+    max-width: 1200px;
     margin: 50px auto;
+    position: relative;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-.time-axis .left,
-.time-axis .right {
-    width: 400px;
+/* 中线 */
+.time-axis::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #b1bbf9;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.time-axis .left, .time-axis .right {
+    width: 50%;
     position: relative;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    clear: both;
 }
 
 .time-axis .left {
     float: left;
-    border-right: 4px solid #b1bbf9;
+    text-align: right;
 }
 
 .time-axis .right {
     float: right;
-    border-left: 4px solid #b1bbf9;
+    text-align: left;
 }
 
 .time-axis .dot {
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
     background-color: #fff;
     display: block;
-    border-radius: 100%;
-    border: 2px solid #b1bbf9;
+    border-radius: 50%;
+    border: 3px solid #b1bbf9;
     position: absolute;
     top: 50%;
-    margin-top: -7px;
+    margin-top: -10px;
+    z-index: 1;
 }
 
 .time-axis .left .dot {
-    right: -9px;
+    right: -10px;
 }
 
 .time-axis .right .dot {
-    left: -9px;
+    left: -10px;
 }
 
 .time-axis .jiantou {
-    display: none; /* 箭头图片已移除，使用居中轴线替代 */
+    display: none; /* 移除箭头，使用居中线 */
 }
 
 .time-axis .con {
     background-color: #fff;
-    padding: 15px;
+    padding: 20px;
     border-radius: 10px;
-    text-align: center;
-    margin: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease;
 }
 
-.time-axis .left .con {
-    margin-right: 22px;
-}
-
-.time-axis .right .con {
-    margin-left: 22px;
+.time-axis .con:hover {
+    transform: scale(1.02);
 }
 
 .time-axis .con h3 {
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px 0;
 }
 
 .time-axis .con h3 span {
-    font-size: 38px;
-    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
     color: #b1bbf9;
-    font-weight: 800;
+    margin: 0 5px;
+}
+
+.time-axis .con p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+    .time-axis {
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    .time-axis::before {
+        left: 30px;
+    }
+
+    .time-axis .left, .time-axis .right {
+        width: 100%;
+        padding: 15px 15px 15px 60px;
+        text-align: left;
+    }
+
+    .time-axis .left .dot, .time-axis .right .dot {
+        left: 10px;
+    }
+
+    .time-axis .left {
+        float: none;
+    }
+
+    .time-axis .right {
+        float: none;
+    }
 }
