@@ -227,3 +227,44 @@
         justify-content: center;
     }
 }
+
+/* 荣誉成就样式 */
+.honor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.honor-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.honor-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.honor-date {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+    min-width: 60px;
+}
+
+.honor-badge {
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+.honor-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
