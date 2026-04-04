@@ -100,12 +100,12 @@ const configData = {
             description: 'GO'
         },
         {
-            url: 'https://v2.lcean.com/',
-            alt: '前往未知的网站',
+            url: 'https://md.lcean.com/',
+            alt: '前往日记本',
             img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/15.jpg',
-            span: '✈️',
-            title: '私人机场',
-            description: 'V2board'
+            span: '📝',
+            title: '个人日记',
+            description: 'MkDocs'
         },
         {
             url: 'https://alist.lcean.com/',
