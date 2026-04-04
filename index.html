@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://at.alicdn.com" crossorigin>
     <link rel="preconnect" href="https://v2.jinrishici.com" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="author" content="LceAn"/>
-    <meta name="description" content="嘿，我是LceAn"/>
+    <meta name="author" content="LceAn" id="meta-author"/>
+    <meta name="description" content="嘿，我是LceAn" id="meta-description"/>
     <title>LceAn</title>
 
     <link rel="icon" href="src/img/favicon.png" type="image/x-icon"/>
@@ -217,26 +217,21 @@
 
 
 <script id="footer_template" type="text/x-handlebars-template">
-    {{#each footers}}
-    <a href="https://www.lcean.com/">{{by}}</a>
+    <a href="{{homepage}}">{{copyright}}</a>
     <span>&nbsp;|&nbsp;</span>
     <a href="https://beian.miit.gov.cn">{{beian}}</a>
-    <span>&nbsp;|&nbsp;</span>
-    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
-    <span>&nbsp;|&nbsp;</span>
+    {{#if showVisitorCount}}<span>&nbsp;|&nbsp;</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>{{/if}}
+    {{#if showIP}}<span>&nbsp;|&nbsp;</span>
     <span class="copyright">您的IP：
         <span id="user-ip"></span>
-    </span>
-    {{/each}}
+    </span>{{/if}}
 </script>
 
+<script id="init-features" type="text/x-handlebars-template"></script>
 
-<script>(async function() {
-    const response = await fetch('https://api.ipify.org?format=json');
-    const data = await response.json();
-    document.getElementById('user-ip').textContent = data.ip;
-})();
-</script>
+
+<script id="ip-fetch" type="text/x-handlebars-template"></script>
 
 <script src="src/js/jquery-3.6.0.min.js"></script>
 <script src="src/js/handlebars.min.js"></script>
@@ -244,10 +239,66 @@
     import configData from './src/cfg/config.js'; // 加载配置文件
 
     $(document).ready(function () {
+        applySiteConfig(configData);
         renderWebsites(configData);
         renderFooter(configData);
-        applyRandomShineEffect(); // 调用随机扫光效果函数
+        applyRandomShineEffect();
     });
+
+    // 应用站点配置（meta 信息 + 功能开关）
+    function applySiteConfig(data) {
+        if (data.site) {
+            document.title = data.site.title || document.title;
+            var descMeta = document.getElementById('meta-description');
+            if (descMeta && data.site.description) descMeta.content = data.site.description;
+            var authorMeta = document.getElementById('meta-author');
+            if (authorMeta && data.site.author) authorMeta.content = data.site.author;
+        }
+
+        // 根据功能开关动态加载
+        if (data.features) {
+            // 樱花效果
+            if (data.features.sakura) {
+                var sakuraScript = document.createElement('script');
+                sakuraScript.src = 'src/js/sakuraPlus.js';
+                document.body.appendChild(sakuraScript);
+            }
+            // 今日诗词
+            if (data.features.poetry) {
+                var poetryScript = document.createElement('script');
+                poetryScript.src = 'src/js/jinrishici.js';
+                poetryScript.setAttribute('charset', 'utf-8');
+                poetryScript.onload = function() {
+                    jinrishici.load(function(result) {
+                        var sentence = document.querySelector("#poem_sentence");
+                        var info = document.querySelector("#poem_info");
+                        if (sentence) sentence.textContent = result.data.content;
+                        if (info) {
+                            var origin = result.data.origin;
+                            info.textContent = '【' + origin.dynasty + '】' + origin.author + '《' + origin.title + '》';
+                        }
+                    });
+                };
+                document.body.appendChild(poetryScript);
+            }
+            // IP 显示
+            if (data.features.showIP) {
+                fetch('https://api.ipify.org?format=json')
+                    .then(r => r.json())
+                    .then(d => {
+                        var ipEl = document.getElementById('user-ip');
+                        if (ipEl) ipEl.textContent = d.ip;
+                    });
+            }
+            // 访问量统计
+            if (data.features.visitorCount) {
+                var busuanziScript = document.createElement('script');
+                busuanziScript.src = 'src/js/busuanzi.pure.mini.js';
+                busuanziScript.async = true;
+                document.body.appendChild(busuanziScript);
+            }
+        }
+    }
 
     function renderWebsites(data) {
         var templateSource = document.getElementById('index_list').innerHTML;
@@ -288,8 +339,25 @@
     function renderFooter(data) {
         var footerSource = document.getElementById('footer_template').innerHTML;
         var footerTemplate = Handlebars.compile(footerSource);
-        var footerHtml = footerTemplate({ footers: data.footers });
+        var footerData = {
+            homepage: (data.site && data.site.homepage) ? data.site.homepage : 'https://www.lcean.com',
+            copyright: (data.site && data.site.copyright) ? data.site.copyright : '',
+            beian: (data.site && data.site.beian) ? data.site.beian : '',
+            showIP: data.features && data.features.showIP,
+            showVisitorCount: data.features && data.features.visitorCount,
+        };
+        var footerHtml = footerTemplate(footerData);
         $('#footer').html(footerHtml);
+
+        // IP 和统计需要在 DOM 渲染后触发
+        if (data.features && data.features.showIP) {
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(d => {
+                    var ipEl = document.getElementById('user-ip');
+                    if (ipEl) ipEl.textContent = d.ip;
+                });
+        }
     }
 
     // 新增的随机扫光效果函数
@@ -309,29 +377,14 @@
 </script>
 
 <!-- 其他脚本 -->
-<script async src="src/js/busuanzi.pure.mini.js"></script> <!--计数js -->
-<script src="src/js/darkModeToggle.js" defer></script> <!-- 引入自动黑暗模式脚本 -->
+<!-- 访问量统计由 config.features.visitorCount 控制动态加载 -->
+<!--<script async src="src/js/busuanzi.pure.mini.js"></script>-->
 <script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
 <script src="src/js/TagSetting.js"></script><!--标签设定js -->
 <script src="src/js/console-ban.min.js"></script><!--清除控制台、开启调试、设置回调函数js -->
 <script src="src/js/light_eveing.js"></script> <!--夜间模式按钮js -->
 
-
-<script src="src/js/jinrishici.js" charset="utf-8"></script>
-<script type="text/javascript">
-    jinrishici.load(function(result) {
-        var sentence = document.querySelector("#poem_sentence");
-        var info = document.querySelector("#poem_info");
-
-        // 显示古诗内容
-        sentence.textContent = result.data.content;
-
-        // 显示古诗信息：朝代、作者、诗名
-        var origin = result.data.origin;
-        var infoText = '【' + origin.dynasty + '】' + origin.author + '《' + origin.title + '》';
-        info.textContent = infoText;
-    });
-</script>
+<!-- 今日诗词由 config.features.poetry 控制动态加载，无需手动修改 -->
 
 <script>
     // 创建防抖函数

@@ -4,7 +4,7 @@
 [![CSS](https://img.shields.io/badge/CSS-23.2%25-563d7c)]()
 [![JavaScript](https://img.shields.io/badge/JavaScript-16.8%25-f7df1e)]()
 [![Less](https://img.shields.io/badge/Less-14.5%25-1d365d)]()
-[![Version](https://img.shields.io/badge/Version-1.0.3-blue)]()
+[![Version](https://img.shields.io/badge/Version-1.1.0-blue)]()
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
 **Personal Website Navigation Landing Page | 个人网站导航入口**
@@ -76,12 +76,17 @@ A beautiful and interactive navigation page for personal websites with day/night
 Navigation_Index/
 ├── index.html              # Main page | 主页面
 ├── 404.html                # 404 error page | 404 错误页面
+├── CHANGELOG.md            # Update log | 更新日志
 ├── README.md               # Documentation | 项目文档
 ├── src/                    # Source files | 源文件
+│   ├── cfg/                # Configuration | 配置文件
+│   │   ├── config.js       # Main config (edit this!) | 主配置（改这个！）
+│   │   └── CONFIG.md       # Config documentation | 配置说明文档
 │   ├── css/                # Stylesheets | 样式文件
 │   ├── js/                 # JavaScript files | JS 文件
-│   ├── less/               # Less source files | Less 源文件
-│   └── assets/             # Assets (images, fonts) | 资源文件
+│   ├── b_html/             # Sub-pages | 子页面
+│   ├── img/                # Images | 图片资源
+│   └── ttf/                # Fonts | 字体文件
 ├── .idea/                  # IDE configuration | IDE 配置
 └── .vscode/                # VSCode settings | VSCode 设置
 ```
@@ -127,6 +132,27 @@ python3 -m http.server 8000
 ---
 
 ## 🎨 Customization | 自定义
+
+### 📝 Configuration | 配置文件
+
+所有可配置项都在 `src/cfg/config.js` 中，修改保存即生效。
+
+详细说明请查阅 **[CONFIG.md](./src/cfg/CONFIG.md)**
+
+**快速上手：**
+
+```javascript
+// src/cfg/config.js
+
+// 站点信息
+site: { title: 'LceAn', description: '...', ... },
+
+// 功能开关
+features: { sakura: false, poetry: true, showIP: true, ... },
+
+// 导航卡片 — 添加新卡片只需往 weblists 数组里加对象
+weblists: [ { url: '...', title: '...', ... } ],
+```
 
 ### Change Theme Colors
 
@@ -196,8 +222,8 @@ Issues and Pull Requests are welcome!
 
 ---
 
-**Last Updated:** 2026-03-17  
-**Version:** 1.0.3
+**Last Updated:** 2026-04-04  
+**Version:** 1.1.0
 
 ---
 
