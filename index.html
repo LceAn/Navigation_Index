@@ -4,6 +4,8 @@
     <meta name="generator" content="gao v1.3.0"/>
     <meta charset="UTF-8"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://at.alicdn.com" crossorigin>
     <link rel="preconnect" href="https://v2.jinrishici.com" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -22,13 +24,12 @@
     <link rel="preload" href="src/css/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="src/css/tailwind.min.css"></noscript>
 
-    <link rel="preload" href="src/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="src/css/styles.css"></noscript>
-    <link rel="stylesheet" href="src/css/styles.css" id="styles-css" />
+    <link rel="preload" href="src/css/styles.css?t=14" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="src/css/styles.css?t=14"></noscript>
 
     <link rel="stylesheet" href="src/css/base.min.css"><!--自己的CSS压缩版-->
 
-    <link rel="stylesheet" href="src/css/index.css"><!--滚动页面CSS-->
+    <link rel="stylesheet" href="src/css/index.css?t=12"><!--滚动页面CSS-->
     <link rel="stylesheet" href="src/css/nav-menu.css"><!--导航菜单 CSS（模糊效果）-->
 
     <link rel="stylesheet" href="src/css/about.css"><!--关于页面 CSS-->
@@ -201,22 +202,18 @@
 <script id="index_list" type="text/x-handlebars-template">
     {{#each weblists}}
     <a target="_blank" rel="noopener" href="{{url}}"
-       class="card p-4 md:w-1/3 sm:mb-4 mb-6 hover:shadow-xl hover:bg-gray-400 transition duration-200 ease-in rounded-lg personal">
-        
-        <div class="rounded-lg h-64 overflow-hidden relative bg-gray-300"> 
+       class="card personal">
 
-            <img alt="{{alt}}" class="object-cover object-center h-full w-full"
+        <div class="card-image">
+            <img alt="{{alt}}" class="card-img"
                  src="{{img_url}}"
                  loading="lazy"
-                 onerror="this.style.visibility='hidden';this.parentElement.style.background=this.parentElement.dataset.fallbackBg"/>
-
-            <span class="bg-blue-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">{{span}}</span>
-            <h2 class="text-white px-2 py-1 tracking-widest text-2xl leading-tight font-extrabold font-bree text-center w-full h-full flex justify-center items-center absolute top-0 left-0">
-                {{title}}
-            </h2>
-            <p class="text-white px-2 py-1 tracking-widest text-md leading-tight font-light w-full text-center absolute bottom-0 left-0">
-                {{description}}
-            </p>
+                 onerror="this.style.visibility='hidden';var bg=this.parentElement.dataset.fallbackBg;if(bg)this.parentElement.style.background=bg;"/>
+            <div class="card-overlay">
+                <span class="card-badge">{{span}}</span>
+                <h2 class="card-title">{{title}}</h2>
+                <p class="card-desc">{{description}}</p>
+            </div>
         </div>
     </a>
     {{/each}}

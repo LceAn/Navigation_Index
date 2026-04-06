@@ -1,11 +1,72 @@
 @charset "utf-8";
+/* ==================== Design System Variables ==================== */
+/* 默认：白色主题 */
+:root {
+    /* 背景阶梯 (亮色) */
+    --bg-base:       #ffffff;
+    --bg-panel:      #f8f9fa;
+    --bg-surface:    #ffffff;
+    --bg-elevated:   #f1f3f5;
+    --bg-hover:      #e9ecef;
+
+    /* 文字阶梯 */
+    --text-primary:   #1a1a2e;
+    --text-secondary: #495057;
+    --text-tertiary:  #868e96;
+    --text-quaternary:#adb5bd;
+
+    /* 强调色 — 紫蓝 */
+    --accent:         #5e6ad2;
+    --accent-hover:   #4f5bb7;
+    --accent-muted:   rgba(94, 106, 210, 0.08);
+
+    /* 边框 */
+    --border-subtle:  rgba(0, 0, 0, 0.04);
+    --border-default: rgba(0, 0, 0, 0.08);
+    --border-hover:   rgba(0, 0, 0, 0.15);
+
+    /* 阴影 */
+    --shadow-card:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover:    0 8px 25px rgba(0,0,0,0.10), 0 4px 10px rgba(0,0,0,0.06);
+    --shadow-inset:    inset 0 1px 0 rgba(255,255,255,0.6);
+
+    /* 排版 */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
+
+    /* 间距 (8px 基准) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-8: 48px;
+    --space-10: 64px;
+
+    /* 圆角 */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --radius-pill: 9999px;
+
+    /* 过渡 */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 400ms ease;
+}
+
+/* ==================== Reset & Base ==================== */
 * {
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: Microsoft Yahei, 微软雅黑, helvetica neue, Helvetica, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
@@ -29,7 +90,12 @@ html, body {
 }
 
 a {
-    text-decoration: none
+    text-decoration: none;
+    color: var(--text-primary)
+}
+
+a:hover {
+    color: var(--accent-hover)
 }
 
 a:focus {
@@ -122,7 +188,8 @@ img {
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    position: relative
+    position: relative;
+    padding: 0 var(--space-4);
 }
 
 .mk-item-box {
@@ -193,9 +260,11 @@ img {
 
 .mk-sub-title {
     text-align: center;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 26px;
-    margin: 20px 0 13px
+    margin: var(--space-6) 0 var(--space-3);
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 .mk-sub-title > span {
@@ -206,8 +275,8 @@ img {
 .mk-title-describe {
     text-align: center;
     font-size: 16px;
-    color: #666;
-    margin-bottom: 20px
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-5);
 }
 
 .mk-color-item {
@@ -602,4 +671,50 @@ img {
     to {
         transform: scaleX(1)
     }
+}
+
+/* ==================== Dark Mode Overrides ==================== */
+body.mk-dark-mode {
+    --bg-base:       #08090a;
+    --bg-panel:      #0f1011;
+    --bg-surface:    #191a1b;
+    --bg-elevated:   #28282c;
+    --bg-hover:      #333338;
+
+    --text-primary:   #f7f8f8;
+    --text-secondary: #d0d6e0;
+    --text-tertiary:  #8a8f98;
+    --text-quaternary:#62666d;
+
+    --accent:         #5e6ad2;
+    --accent-hover:   #7170ff;
+    --accent-muted:   rgba(94, 106, 210, 0.15);
+
+    --border-subtle:  rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.10);
+    --border-hover:   rgba(255, 255, 255, 0.18);
+
+    --shadow-card:    0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-hover:    0 8px 25px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.2);
+    --shadow-inset:    inset 0 1px 0 rgba(255,255,255,0.04);
+
+    color: var(--text-primary);
+    background: var(--bg-base);
+}
+
+/* 暗色模式：页面背景和内容区 */
+body.mk-dark-mode #content {
+    background: var(--bg-base);
+    color: var(--text-primary);
+}
+
+body.mk-dark-mode .custom-footer {
+    background: var(--bg-panel);
+    border-top-color: var(--border-subtle);
+    color: var(--text-tertiary);
+}
+
+body.mk-dark-mode .footer-version {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--text-tertiary) !important;
 }
