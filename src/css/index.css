@@ -186,14 +186,26 @@ img {
     -ms-transform: translateX(-50%);
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
-    bottom: 20px;
-    color: #dcdcdc;
-    cursor: pointer
+    bottom: 32px;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: opacity var(--transition-normal);
+}
+
+.scroll-down-tips:hover {
+    color: rgba(255,255,255,0.8);
 }
 
 .scroll-down-tips > .fa {
-    -webkit-animation: upDown 2s infinite;
-    animation: upDown 2s infinite
+    -webkit-animation: upDown 2s ease-in-out infinite;
+    animation: upDown 2s ease-in-out infinite;
+    font-size: 16px;
 }
 
 .container {

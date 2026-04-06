@@ -75,19 +75,7 @@
         @keyframes cards-spin {
             to { transform: rotate(360deg); }
         }
-        #box {
-            /* 卡片通过 JS 逐个显示 */
-        }
-        #box .card {
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #box .card.card-visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        /* 卡片逐个弹出动画 — 样式在 styles.css 中 */
         body.mk-dark-mode .cards-loading-text {
             color: var(--text-tertiary);
         }
@@ -408,38 +396,67 @@
         });
 
         // 等待所有卡片图片加载完成后，逐个显示卡片
+        var startTime = Date.now();
         var loader = document.getElementById('cards-loader');
         var box = document.getElementById('box');
         var done = false;
-        function reveal() {
-            if (done) return;
-            done = true;
-            if (loader) loader.style.display = 'none';
-            // 逐个弹出卡片
-            var cards = document.querySelectorAll('#box .card');
-            cards.forEach(function(card, i) {
-                setTimeout(function() {
-                    card.classList.add('card-visible');
-                }, i * 60);
+        var pageReady = false;
+        // 强制等待浏览器完成首帧渲染后再允许 reveal
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                pageReady = true;
             });
+        });
+        function reveal() {
+            if (done || !pageReady) return;
+            done = true;
+            // 确保 loader 至少显示 3 秒，让用户有时间滚动下去看到加载动画
+            var minDisplayTime = 3000;
+            var elapsedTime = Date.now() - startTime;
+            var delay = Math.max(0, minDisplayTime - elapsedTime);
+            setTimeout(function() {
+                // 逐个弹出卡片（loader 保持显示直到第一张卡片出现）
+                var cards = document.querySelectorAll('#box .card');
+                cards.forEach(function(card, i) {
+                    setTimeout(function() {
+                        card.classList.add('card-visible');
+                        // 第一张卡片显示后隐藏 loader
+                        if (i === 0 && loader) loader.style.display = 'none';
+                    }, i * 80);
+                });
+            }, delay);
         }
+        // 图片全部就绪后触发 reveal
+        var imagesReady = false;
         function checkAllLoaded() {
             var imgs = document.querySelectorAll('#box .card-img');
             var allSettled = true;
             imgs.forEach(function(img) {
-                // 未重试的：还没加载完
-                // 已重试的：第二次图片也 settled
                 if (!img.complete) allSettled = false;
             });
-            if (allSettled) reveal();
+            if (allSettled) {
+                imagesReady = true;
+                if (pageReady) reveal();
+            }
         }
-        // 用全局捕获监听，覆盖初始加载和 retry 换图
-        box.addEventListener('load', checkAllLoaded, true);
-        box.addEventListener('error', checkAllLoaded, true);
-        // 初始检查（可能全部已 cached/errored）
-        setTimeout(checkAllLoaded, 100);
-        // 超时兜底：8秒
-        setTimeout(reveal, 8000);
+        // 直接监听每张图片的 load/error 事件（load 事件不冒泡，必须直接绑定）
+        function bindImgEvents(img) {
+            // 如果图片已经加载完成（包括 error），立即检查
+            if (img.complete || img.naturalWidth === 0) {
+                checkAllLoaded();
+                return;
+            }
+            img.addEventListener('load', function() { checkAllLoaded(); });
+            img.addEventListener('error', function() { checkAllLoaded(); });
+        }
+        // 为现有和未来添加的图片绑定事件
+        document.querySelectorAll('#box .card-img').forEach(bindImgEvents);
+        // 初始检查：等首帧渲染后再检查图片状态
+        setTimeout(function() {
+            if (!imagesReady) checkAllLoaded();
+        }, 500);
+        // 超时兜底：1 秒后强制触发 reveal（确保 loader 至少显示 3 秒）
+        setTimeout(reveal, 1000);
 
         // 根据配置加载樱花效果
         if (configData.features && configData.features.sakura) {
