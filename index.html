@@ -76,7 +76,17 @@
             to { transform: rotate(360deg); }
         }
         #box {
-            transition: opacity 0.5s ease;
+            /* 卡片通过 JS 逐个显示 */
+        }
+        #box .card {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #box .card.card-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
         body.mk-dark-mode .cards-loading-text {
             color: var(--text-tertiary);
@@ -219,7 +229,7 @@
                             <div class="cards-loading-spinner"></div>
                             <p class="cards-loading-text">正在加载卡片...</p>
                         </div>
-                        <a id="box" style="opacity:0;"></a>
+                        <a id="box"></a>
                         <!-- 网站列表动态加载块-->
                     </div>
                 </div>
@@ -397,7 +407,7 @@
             el.dataset.fallbackBg = gradient;
         });
 
-        // 等待所有卡片图片加载完成后显示
+        // 等待所有卡片图片加载完成后，逐个显示卡片
         var loader = document.getElementById('cards-loader');
         var box = document.getElementById('box');
         var done = false;
@@ -405,7 +415,13 @@
             if (done) return;
             done = true;
             if (loader) loader.style.display = 'none';
-            if (box) box.style.opacity = '1';
+            // 逐个弹出卡片
+            var cards = document.querySelectorAll('#box .card');
+            cards.forEach(function(card, i) {
+                setTimeout(function() {
+                    card.classList.add('card-visible');
+                }, i * 60);
+            });
         }
         function checkAllLoaded() {
             var imgs = document.querySelectorAll('#box .card-img');

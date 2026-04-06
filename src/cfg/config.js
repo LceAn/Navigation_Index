@@ -12,7 +12,7 @@ const configData = {
         beian: '皖ICP2020017839号-1',
         copyright: '© 2020 by LceAn',
         githubRepo: 'https://github.com/LceAn/Navigation_Index',
-        version: '1.4.0',
+        version: '1.4.1',
     },
 
     // ==================== 功能开关 ====================

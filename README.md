@@ -1,6 +1,6 @@
 # Navigation Index
 
-[![Version](https://img.shields.io/badge/Version-1.3.0-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.3.0)
+[![Version](https://img.shields.io/badge/Version-1.4.1-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.4.1)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/预览-lcean.com-5e6ad2)](https://www.lcean.com)
 
@@ -21,10 +21,11 @@
 - **统一强调色** — 紫蓝 `#5e6ad2`，避免多色干扰
 
 ### 🖼️ 卡片系统
-- **炫彩渐变** — 14 种渐变配色作为图片加载失败的 fallback
-- **Bing 壁纸** — 图片 403 时自动加载 Bing 随机历史壁纸（2020 年至今）
-- **双层 Fallback** — 原图 → Bing 随机壁纸 → 炫彩渐变，三级降级
-- **加载动画** — 卡片区域显示 spinner，全部图片加载完成后淡入
+- **三级 Fallback** — 卡片背景图片自动降级：`img_url 指定图片` → `Bing 随机壁纸` → `炫彩渐变`
+- **指定图片** — 在 config.js 中为每张卡片配置 `img_url` 字段，优先级最高
+- **Bing 壁纸** — `img_url` 加载失败时，自动加载 Bing 随机历史壁纸（2020 年至今）
+- **炫彩渐变** — Bing 也失败时，使用 14 种预设渐变配色作为兜底
+- **逐个弹出动画** — 卡片加载完成后依次弹出，每张间隔 60ms，弹性缓动
 - **交互特效** — hover 上浮 + 阴影加深 + 边框高亮 + 图片缩放
 
 ### 🌙 暗色模式
@@ -75,7 +76,7 @@ Navigation_Index/
 │   ├── b_html/             # 子页面（关于/时间线/更多）
 │   ├── img/                # 图片资源
 │   └── ttf/                # 自定义字体
-└── screenshots/            # 截图
+└── src/img/                # 图片资源
 ```
 
 ---
@@ -153,7 +154,7 @@ weblists: [
 | 问题 | 解决方案 |
 |------|---------|
 | 修改配置不生效 | 强制刷新 `Ctrl+Shift+R`，或清除浏览器缓存 |
-| 卡片图片显示渐变 | 正常行为，图片 403 时自动降级为 Bing 壁纸 → 炫彩渐变 |
+| 卡片图片显示渐变 | 正常行为，图片加载失败的降级顺序：img_url → Bing 壁纸 → 炫彩渐变 |
 | 夜间模式部分区域白色 | Tailwind 的 `bg-white` 需要手动覆盖，已在 CSS 中处理 |
 | Logo 不显示 | 替换 `src/img/logoTM.png` 或修改 config 中的 `logo` 路径 |
 
