@@ -208,7 +208,7 @@
             <img alt="{{alt}}" class="card-img"
                  src="{{img_url}}"
                  loading="lazy"
-                 onerror="this.style.visibility='hidden';var bg=this.parentElement.dataset.fallbackBg;if(bg)this.parentElement.style.background=bg;"/>
+                 onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://bing.img.run/rand.php?c='+Math.random();}else{this.style.visibility='hidden';var bg=this.parentElement.dataset.fallbackBg;if(bg)this.parentElement.style.background=bg;}"/>
             <div class="card-overlay">
                 <span class="card-badge">{{span}}</span>
                 <h2 class="card-title">{{title}}</h2>
