@@ -41,7 +41,7 @@ const configData = {
         {
             url: 'https://ae.lcean.com/',
             alt: '技术博客',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/2.jpg',
+            img_url: '',
             span: 'Personal',
             title: '技术博客',
             description: '我的个人技术博客'
@@ -49,7 +49,7 @@ const configData = {
         {
             url: 'https://ctf.lcean.com',
             alt: 'CTF',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/4.jpg',
+            img_url: '',
             span: 'WP',
             title: 'CTF',
             description: '攻防赛题目解析'
@@ -57,7 +57,7 @@ const configData = {
         {
             url: 'https://time.lcean.com/',
             alt: 'images',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/13.jpg',
+            img_url: '',
             span: 'Img',
             title: '时光相册',
             description: '路途遥远，让我和你 岁月相随。'
@@ -65,7 +65,7 @@ const configData = {
         {
             url: 'https://docker.lcean.com/',
             alt: 'docker',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
+            img_url: '',
             span: 'Personal',
             title: 'Docker',
             description: '我的Docker状态'
@@ -73,7 +73,7 @@ const configData = {
         {
             url: 'https://tz.lcean.com',
             alt: 'tz',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/8.jpg',
+            img_url: '',
             span: 'status',
             title: '探针',
             description: '我的服务器状态监控'
@@ -81,7 +81,7 @@ const configData = {
         {
             url: 'https://Github.lcean.com',
             alt: 'Github镜像加速',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/7.jpg',
+            img_url: '',
             span: 'Weblists',
             title: 'Github',
             description: '部署的本地Github、Docker镜像加速'
@@ -89,7 +89,7 @@ const configData = {
         {
             url: 'https://www.lcean.com/Zd/unknown/The Useless Web.html',
             alt: '前往未知的网站',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/1.jpg',
+            img_url: '',
             span: 'Unknown',
             title: '前往未知的网站',
             description: 'Let\'s go it!'
@@ -97,7 +97,7 @@ const configData = {
         {
             url: 'https://mail.lcean.com/',
             alt: 'Mail',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/16.jpg',
+            img_url: '',
             span: 'Unknown',
             title: '我的邮箱',
             description: 'GO'
@@ -105,7 +105,7 @@ const configData = {
         {
             url: 'https://md.lcean.com/',
             alt: '前往日记本',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/15.jpg',
+            img_url: '',
             span: '📝',
             title: '个人日记',
             description: 'MkDocs'
@@ -113,7 +113,7 @@ const configData = {
         {
             url: 'https://alist.lcean.com/',
             alt: 'alist',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/11.jpg',
+            img_url: '',
             span: '☁️',
             title: 'Alist',
             description: '云盘'
@@ -121,7 +121,7 @@ const configData = {
         {
             url: 'https://vs.lcean.com/',
             alt: 'cloudcode',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/0.jpg',
+            img_url: '',
             span: 'code️',
             title: 'VS Code',
             description: '在线代码编辑器'
@@ -129,7 +129,7 @@ const configData = {
         {
             url: 'https://ql.lcean.com/',
             alt: 'qinglong',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/12.jpg',
+            img_url: '',
             span: 'Shell',
             title: '青龙',
             description: '脚本云托管平台'
@@ -137,7 +137,7 @@ const configData = {
         {
             url: 'https://book.lcean.com/',
             alt: 'book',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/20.jpg',
+            img_url: '',
             span: 'Img',
             title: '图书馆',
             description: '默默看书'
@@ -145,7 +145,7 @@ const configData = {
         {
             url: 'https://www.lcean.com/Zd/Sakuramain/index.html',
             alt: '导航',
-            img_url: 'https://picreso.oss-cn-beijing.aliyuncs.com/10.jpg',
+            img_url: '',
             span: 'CD️',
             title: '导航',
             description: '我的新导航'
