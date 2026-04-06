@@ -49,6 +49,39 @@
             font-display: swap;
         }
 
+        /* 卡片加载动画 */
+        .cards-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 300px;
+            gap: 16px;
+        }
+        .cards-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(94, 106, 210, 0.15);
+            border-top-color: #5e6ad2;
+            border-radius: 50%;
+            animation: cards-spin 0.8s linear infinite;
+        }
+        .cards-loading-text {
+            font-size: 14px;
+            color: #8a8fa0;
+            font-family: 'Inter', sans-serif;
+        }
+        @keyframes cards-spin {
+            to { transform: rotate(360deg); }
+        }
+        #box {
+            transition: opacity 0.5s ease;
+        }
+        body.mk-dark-mode .cards-loading-text {
+            color: var(--text-tertiary);
+        }
+
         /* 自定义样式 */
         .web-title {
             font-size: 80px;  /* 增大字体大小，确保完整显示 */
@@ -182,7 +215,11 @@
                         </h1>
                     </div>
                     <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-                        <a id="box"></a>
+                        <div id="cards-loader" class="cards-loading">
+                            <div class="cards-loading-spinner"></div>
+                            <p class="cards-loading-text">正在加载卡片...</p>
+                        </div>
+                        <a id="box" style="opacity:0;"></a>
                         <!-- 网站列表动态加载块-->
                     </div>
                 </div>
@@ -359,6 +396,34 @@
             var gradient = gradients[i % gradients.length];
             el.dataset.fallbackBg = gradient;
         });
+
+        // 等待所有卡片图片加载完成后显示
+        var loader = document.getElementById('cards-loader');
+        var box = document.getElementById('box');
+        var done = false;
+        function reveal() {
+            if (done) return;
+            done = true;
+            if (loader) loader.style.display = 'none';
+            if (box) box.style.opacity = '1';
+        }
+        function checkAllLoaded() {
+            var imgs = document.querySelectorAll('#box .card-img');
+            var allSettled = true;
+            imgs.forEach(function(img) {
+                // 未重试的：还没加载完
+                // 已重试的：第二次图片也 settled
+                if (!img.complete) allSettled = false;
+            });
+            if (allSettled) reveal();
+        }
+        // 用全局捕获监听，覆盖初始加载和 retry 换图
+        box.addEventListener('load', checkAllLoaded, true);
+        box.addEventListener('error', checkAllLoaded, true);
+        // 初始检查（可能全部已 cached/errored）
+        setTimeout(checkAllLoaded, 100);
+        // 超时兜底：8秒
+        setTimeout(reveal, 8000);
 
         // 根据配置加载樱花效果
         if (configData.features && configData.features.sakura) {
