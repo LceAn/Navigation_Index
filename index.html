@@ -112,9 +112,9 @@
     </div>
 
     <div class="welcome">
-        <p>— 欢迎访问 —</p>
+        <p id="welcome-text">— 欢迎访问 —</p>
         <div>
-            <h1 class="web-title">
+            <h1 class="web-title" id="nav-title">
                 我的导航页
             </h1>
         </div>
@@ -177,7 +177,7 @@
                 <div id="dynamic-content">
                     <!-- 默认显示的内容 -->
                     <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
-                        <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full">
+                        <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full" id="intro-text">
                             嘿，我是LceAn
                         </h1>
                     </div>
@@ -272,6 +272,19 @@
             if (descMeta && data.site.description) descMeta.content = data.site.description;
             var authorMeta = document.getElementById('meta-author');
             if (authorMeta && data.site.author) authorMeta.content = data.site.author;
+            // 动态文本
+            if (data.site.subtitle) {
+                var navTitle = document.getElementById('nav-title');
+                if (navTitle) navTitle.textContent = data.site.subtitle;
+            }
+            if (data.site.welcome) {
+                var welcomeText = document.getElementById('welcome-text');
+                if (welcomeText) welcomeText.textContent = '— ' + data.site.welcome + ' —';
+            }
+            if (data.site.intro) {
+                var introText = document.getElementById('intro-text');
+                if (introText) introText.textContent = data.site.intro;
+            }
         }
 
         // 根据功能开关动态加载
