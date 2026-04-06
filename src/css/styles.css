@@ -352,6 +352,11 @@ body.mk-dark-mode .card-desc {
 }
 
 /* 夜间模式：顶部导航栏 + 内容区域 */
+section#product > header {
+    margin: 0;
+    padding: 0;
+}
+
 body.mk-dark-mode section#product > header {
     background: var(--bg-panel) !important;
     color: var(--text-primary) !important;

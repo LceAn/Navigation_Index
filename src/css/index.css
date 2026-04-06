@@ -85,6 +85,17 @@ html, body {
     height: 100vh;
 }
 
+/* 第二屏添加白色背景，覆盖天空背景 */
+.fullpage-section#product {
+    background: #ffffff;
+    padding: 0;
+    margin: 0;
+}
+
+body.mk-dark-mode .fullpage-section#product {
+    background: var(--bg-base);
+}
+
 #content {
     min-height: calc(100vh - 64px);
 }

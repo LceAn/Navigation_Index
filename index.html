@@ -564,28 +564,6 @@
 
     // 在页面加载和内容加载后调用
     window.addEventListener('load', setActiveNavItem);
-    
-    // loadPageContent — 使用 DOMParser 安全解析，防止 XSS
-    function loadPageContent(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                // 移除所有 script 标签防止 XSS 注入
-                doc.querySelectorAll('script').forEach(s => s.remove());
-                document.getElementById('dynamic-content').innerHTML = doc.body.innerHTML;
-                setActiveNavItem(); // 更新导航菜单状态
-
-                            // 加载关于页面后执行版本检测
-                if (url.includes('about.html')) {
-                    import('./src/cfg/config.js?t=' + Date.now())
-                        .then(m => checkVersion(m.default))
-                        .catch(() => {});
-                }
-            })
-            .catch(error => console.error('Error loading page:', error));
-    }
 
     // 版本检测 — 对比本地版本与 GitHub 最新版本
     function checkVersion(data) {
@@ -746,6 +724,36 @@
             var footer = document.getElementById('footer_scroll');
             if (footer) footer.style.display = index > 0 ? 'block' : 'none';
         }
+
+        // loadPageContent — 使用 DOMParser 安全解析，防止 XSS
+        function loadPageContent(url) {
+            // 如果在第一屏（欢迎页），先滚动到第二屏
+            if (currentSection === 0) {
+                currentSection = 1;
+                scrollToSection(1);
+            }
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    // 移除所有 script 标签防止 XSS 注入
+                    doc.querySelectorAll('script').forEach(s => s.remove());
+                    document.getElementById('dynamic-content').innerHTML = doc.body.innerHTML;
+                    setActiveNavItem(); // 更新导航菜单状态
+
+                    // 加载关于页面后执行版本检测
+                    if (url.includes('about.html')) {
+                        import('./src/cfg/config.js?t=' + Date.now())
+                            .then(m => checkVersion(m.default))
+                            .catch(() => {});
+                    }
+                })
+                .catch(error => console.error('Error loading page:', error));
+        }
+        // 暴露到全局作用域，供 HTML onclick 调用
+        window.loadPageContent = loadPageContent;
 
         // 向下滚动按钮
         var scrollDownBtn = document.querySelector('.scroll-down-tips');

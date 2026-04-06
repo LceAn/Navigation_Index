@@ -56,15 +56,20 @@ html, body {
     transition: all 2s ease;
 }
 
-/* 月亮效果 - 简单圆形 */
+/* 月亮效果 - 月牙形（通过 JS 随机大小） */
 .mk-dark-mode .mk-dark-mode-planet:after {
-    width: 100px;
-    height: 100px;
-    background: #ffffff;
+    width: var(--moon-size, 100px);
+    height: var(--moon-size, 100px);
+    background: transparent;
     border-radius: 50%;
     left: 40%;
     top: 45%;
-    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
+    box-shadow:
+        /* 月牙：内阴影遮住右侧，形成左弯月牙 */
+        inset calc(var(--moon-size, 100px) * 0.25) calc(var(--moon-size, 100px) * -0.05) 0 0 #ffffff,
+        /* 月牙柔光 */
+        0 0 calc(var(--moon-size, 100px) * 0.15) calc(var(--moon-size, 100px) * 0.03) rgba(255, 255, 255, 0.5),
+        0 0 calc(var(--moon-size, 100px) * 0.4) calc(var(--moon-size, 100px) * 0.08) rgba(180, 180, 255, 0.15);
 }
 
 /* 移除半月阴影 */
