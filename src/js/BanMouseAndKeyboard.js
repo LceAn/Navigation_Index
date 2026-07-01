@@ -14,6 +14,6 @@ window.addEventListener("keydown", function (e) {
     if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
         // Process event...
-        document.getElementById("test").innerHTML = "ctrl+s成功";
+        console.log("ctrl+s 已被拦截");
     }
 }, false);

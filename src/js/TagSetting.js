@@ -1,4 +1,4 @@
-<!--标签设定js -->
+// 标签设定js
 
 const allTypes = ["all", "personal", "project",];
 const filter = (event, type) => {

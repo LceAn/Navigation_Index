@@ -1,4 +1,4 @@
-<!--ban F12 按钮js -->
+// ban F12 按钮js
 // 有效禁止原网页打开F12跳转，其他页面打开f12后加载页面失效
 !function (e) {
     function n(e) {
