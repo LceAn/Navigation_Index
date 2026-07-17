@@ -1,143 +1,131 @@
-<!-- about.html - 关于我页面 -->
-<div class="about-container">
-    <div class="about-card">
-        <div class="about-header">
-            <div class="avatar-wrapper">
-                <img src="src/img/TX.jpg" alt="头像" class="profile-pic">
-                <div class="avatar-ring"></div>
-            </div>
-            <h1 class="about-title">关于我</h1>
-            <p class="about-subtitle">网络安全与开发专业人员</p>
-        </div>
-        
-        <div class="about-content">
-            <div class="about-section">
-                <h2 class="section-title">
-                    <span class="icon">👋</span> 个人简介
-                </h2>
-                <p class="section-text">
-                    你好！我是 LceAn，一名专注于现代网络安全和开发的专业人员。
-                    我对技术有浓厚的兴趣，并致力于提供最好的安全服务。
-                    热爱探索新技术，享受解决复杂问题的过程。
-                </p>
-            </div>
-            
-            <div class="about-section">
-                <h2 class="section-title">
-                    <span class="icon">📧</span> 联系方式
-                </h2>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <span class="contact-icon">✉️</span>
-                        <div class="contact-info">
-                            <span class="contact-label">邮箱</span>
-                            <a href="mailto:admin@lcean.com" class="contact-link">admin@lcean.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div class="contact-info">
-                            <span class="contact-label">地区</span>
-                            <span class="contact-text">上海市</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="about-section">
-                <h2 class="section-title">
-                    <span class="icon">🌐</span> 社交媒体
-                </h2>
-                <div class="social-links">
-                    <a href="https://github.com/lcean" target="_blank" rel="noopener noreferrer" class="social-link github">
-                        <span class="social-icon">🐙</span>
-                        <span class="social-name">GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/lcean" target="_blank" rel="noopener noreferrer" class="social-link linkedin">
-                        <span class="social-icon">💼</span>
-                        <span class="social-name">LinkedIn</span>
-                    </a>
-                    <a href="https://twitter.com/lcean666" target="_blank" rel="noopener noreferrer" class="social-link twitter">
-                        <span class="social-icon">🐦</span>
-                        <span class="social-name">Twitter</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="about-section">
-                <h2 class="section-title">
-                    <span class="icon">🏆</span> 荣誉成就
-                </h2>
-                <div class="honor-list">
-                    <div class="honor-item">
-                        <span class="honor-date">2020-10</span>
-                        <span class="honor-text">全国大学生网络攻防赛（省赛），获奖</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2020-11</span>
-                        <span class="honor-text">电信行业网络安全管理职业技能竞赛（省赛）</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2020-12</span>
-                        <span class="honor-text">1+X Web 前端开发职业技能等级证书</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-05</span>
-                        <span class="honor-text">全国大学生信息安全竞赛，入围分区赛</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-06</span>
-                        <span class="honor-text">华东北分区赛 · 全国大学生信息安全竞赛</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-06</span>
-                        <span class="honor-text">全国职业院校技能大赛大数据技术与应用赛项，三等奖</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-09</span>
-                        <span class="honor-badge">🥇</span>
-                        <span class="honor-text">安徽省赛大学生网络攻防赛，一等奖</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-10</span>
-                        <span class="honor-text">安徽省大数据与人工智能作品赛，三等奖</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-10</span>
-                        <span class="honor-text">安徽省大学生网络与分布式系统创新设计大赛，三等奖</span>
-                    </div>
-                    <div class="honor-item">
-                        <span class="honor-date">2021-12</span>
-                        <span class="honor-text">中国电信杯安徽省高校杯网络安全邀请赛，三等奖</span>
-                    </div>
-                </div>
-            </div>
+<div class="about-page">
+    <section class="about-intro" aria-labelledby="about-name">
+        <img class="about-avatar" src="src/img/TX.jpg" alt="LceAn 的头像">
 
-            <div class="about-section">
-                <h2 class="section-title">
-                    <span class="icon">📦</span> 版本信息
-                </h2>
-                <div class="version-info">
-                    <div class="version-row">
-                        <span class="version-label">当前版本</span>
-                        <span class="version-value" id="local-version">加载中...</span>
-                    </div>
-                    <div class="version-row">
-                        <span class="version-label">最新版本</span>
-                        <span class="version-value" id="remote-version">检测中...</span>
-                    </div>
-                    <div class="version-row">
-                        <span class="version-label">版本状态</span>
-                        <span class="version-value" id="version-status">检测中...</span>
-                    </div>
-                    <div class="version-row">
-                        <span class="version-label">开源仓库</span>
-                        <span class="version-value">
-                            <a href="https://github.com/LceAn/Navigation_Index" target="_blank" rel="noopener noreferrer" class="version-link">GitHub</a>
-                        </span>
-                    </div>
-                </div>
+        <div class="about-intro-copy">
+            <p class="about-role">Security · Development</p>
+            <h3 id="about-name">你好，我是 LceAn。</h3>
+            <p>
+                一名专注于现代网络安全和开发的专业人员。
+                我喜欢探索新技术，也享受拆解和解决复杂问题的过程，
+                并在这里记录持续构建中的思考与实践。
+            </p>
+        </div>
+
+        <nav class="about-social" aria-label="社交媒体">
+            <a href="https://github.com/lcean" target="_blank" rel="noopener noreferrer">
+                <span>GitHub</span>
+                <span class="material-symbols-rounded" aria-hidden="true">north_east</span>
+            </a>
+            <a href="https://www.linkedin.com/in/lcean" target="_blank" rel="noopener noreferrer">
+                <span>LinkedIn</span>
+                <span class="material-symbols-rounded" aria-hidden="true">north_east</span>
+            </a>
+            <a href="https://twitter.com/lcean666" target="_blank" rel="noopener noreferrer">
+                <span>Twitter</span>
+                <span class="material-symbols-rounded" aria-hidden="true">north_east</span>
+            </a>
+        </nav>
+    </section>
+
+    <dl class="about-contact-grid" aria-label="联系信息">
+        <div class="about-contact-item">
+            <span class="material-symbols-rounded" aria-hidden="true">mail</span>
+            <div>
+                <dt>邮箱</dt>
+                <dd><a href="mailto:admin@lcean.com">admin@lcean.com</a></dd>
             </div>
         </div>
-    </div>
+        <div class="about-contact-item">
+            <span class="material-symbols-rounded" aria-hidden="true">location_on</span>
+            <div>
+                <dt>地区</dt>
+                <dd>上海市</dd>
+            </div>
+        </div>
+        <div class="about-contact-item">
+            <span class="material-symbols-rounded" aria-hidden="true">language</span>
+            <div>
+                <dt>个人主页</dt>
+                <dd><a href="https://www.lcean.com" target="_blank" rel="noopener noreferrer">lcean.com</a></dd>
+            </div>
+        </div>
+    </dl>
+
+    <section class="about-section" aria-labelledby="honor-overview-title">
+        <header class="about-section-heading">
+            <div>
+                <p>Selected experience</p>
+                <h3 id="honor-overview-title">荣誉概览</h3>
+            </div>
+            <p>仅按领域展示累计经历，不公开具体赛事、时间与名次。</p>
+        </header>
+
+        <div class="honor-grid" role="list">
+            <article class="honor-badge" role="listitem">
+                <span class="material-symbols-rounded honor-icon" aria-hidden="true">shield</span>
+                <div class="honor-content">
+                    <strong>网络安全类</strong>
+                    <small>攻防、安全与信息保护</small>
+                </div>
+                <span class="honor-count" aria-label="共 5 项">× 5</span>
+            </article>
+
+            <article class="honor-badge" role="listitem">
+                <span class="material-symbols-rounded honor-icon" aria-hidden="true">database</span>
+                <div class="honor-content">
+                    <strong>数据技术类</strong>
+                    <small>数据应用与智能实践</small>
+                </div>
+                <span class="honor-count" aria-label="共 2 项">× 2</span>
+            </article>
+
+            <article class="honor-badge" role="listitem">
+                <span class="material-symbols-rounded honor-icon" aria-hidden="true">code</span>
+                <div class="honor-content">
+                    <strong>软件开发类</strong>
+                    <small>前端、系统与创新设计</small>
+                </div>
+                <span class="honor-count" aria-label="共 2 项">× 2</span>
+            </article>
+
+            <article class="honor-badge" role="listitem">
+                <span class="material-symbols-rounded honor-icon" aria-hidden="true">workspace_premium</span>
+                <div class="honor-content">
+                    <strong>职业认证类</strong>
+                    <small>专业技能与能力认证</small>
+                </div>
+                <span class="honor-count" aria-label="共 1 项">× 1</span>
+            </article>
+        </div>
+    </section>
+
+    <section class="about-section about-version-section" aria-labelledby="about-version-title">
+        <header class="about-section-heading">
+            <div>
+                <p>Open source</p>
+                <h3 id="about-version-title">站点信息</h3>
+            </div>
+            <p>这个导航页保持开放，也会随着我的使用习惯持续更新。</p>
+        </header>
+
+        <div class="version-grid">
+            <div class="version-cell">
+                <span>当前版本</span>
+                <strong id="local-version">加载中…</strong>
+            </div>
+            <div class="version-cell">
+                <span>最新版本</span>
+                <strong id="remote-version">检测中…</strong>
+            </div>
+            <div class="version-cell">
+                <span>版本状态</span>
+                <strong id="version-status">检测中…</strong>
+            </div>
+            <div class="version-cell">
+                <span>开源仓库</span>
+                <a href="https://github.com/LceAn/Navigation_Index" target="_blank" rel="noopener noreferrer">Navigation_Index</a>
+            </div>
+        </div>
+    </section>
 </div>

@@ -1,804 +1,116 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta name="generator" content="gao v1.3.0"/>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="LceAn" id="meta-author">
+    <meta name="description" content="LceAn 的个人网站导航" id="meta-description">
+    <meta name="theme-color" content="#fbf8f1">
+    <meta property="og:title" content="LceAn - 个人网站导航">
+    <meta property="og:description" content="技术、生活与持续构建中的个人数字入口">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lcean.com">
+    <title>LceAn - 个人网站导航</title>
+
+    <link rel="icon" type="image/png" href="src/img/logoTM.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://at.alicdn.com" crossorigin>
-    <link rel="preconnect" href="https://v2.jinrishici.com" crossorigin>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="author" content="LceAn" id="meta-author"/>
-    <meta name="description" content="嘿，我是LceAn" id="meta-description"/>
-    <meta name="keywords" content="LceAn，导航页，个人网站，技术博客，CTF，Docker，服务器监控"/>
-    <meta property="og:title" content="LceAn - 个人网站导航页"/>
-    <meta property="og:description" content="LceAn 个人网站导航页 - 技术博客、CTF 攻防、时光相册、Docker 状态等"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://www.lcean.com"/>    <title>LceAn - 个人网站导航页</title>
-
-    <link rel="shortcut icon" type="image/x-icon" href="src/img/logoTM.png">
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"></noscript>
-
-    <link rel="preload" href="src/css/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="src/css/tailwind.min.css"></noscript>
-
-    <link rel="preload" href="src/css/styles.css?t=14" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="src/css/styles.css?t=14"></noscript>
-
-    <link rel="stylesheet" href="src/css/base.min.css"><!--自己的CSS压缩版-->
-
-    <link rel="stylesheet" href="src/css/index.css?t=12"><!--滚动页面CSS-->
-    <link rel="stylesheet" href="src/css/nav-menu.css"><!--导航菜单 CSS（模糊效果）-->
-
-    <link rel="stylesheet" href="src/css/about.css"><!--关于页面 CSS-->
-    <link rel="stylesheet" href="src/css/CircadianAnimation.css">
-    <link rel="stylesheet" href="src/css/saogang.css"><!--扫光特效CSS-->
-    <link rel="stylesheet" href="src/css/button.css"><!--按钮CSS-->
-    <link rel="stylesheet" href="src/css/menu.css"><!--导航栏菜单CSS-->
-    <link rel="stylesheet" href="src/css/timeline.css"><!--时间线CSS（从<ul>内移出）-->
-
-    <style>
-        /* 引入自定义字体 */
-        @font-face {
-            font-family: 'BuWeiChuXinCaoShu'; /* 自定义字体名称 */
-            src: url('src/ttf/不违初心草书.ttf') format('truetype'); /* 字体文件路径 */
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        /* 卡片加载动画 */
-        .cards-loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 300px;
-            gap: 16px;
-        }
-        .cards-loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(94, 106, 210, 0.15);
-            border-top-color: #5e6ad2;
-            border-radius: 50%;
-            animation: cards-spin 0.8s linear infinite;
-        }
-        .cards-loading-text {
-            font-size: 14px;
-            color: #8a8fa0;
-            font-family: 'Inter', sans-serif;
-        }
-        @keyframes cards-spin {
-            to { transform: rotate(360deg); }
-        }
-        /* 卡片逐个弹出动画 — 样式在 styles.css 中 */
-        body.mk-dark-mode .cards-loading-text {
-            color: var(--text-tertiary);
-        }
-
-        /* 自定义样式 */
-        .web-title {
-            font-size: 80px;  /* 增大字体大小，确保完整显示 */
-            font-family: 'BuWeiChuXinCaoShu', sans-serif; /* 使用自定义字体 */
-            font-weight: 700;  /* 设置字体加粗 */
-            color: transparent;  /* 使文字透明，背景渐变显示 */
-            background: linear-gradient(45deg, #ffd700, #ffcc00, #ff8c00); /* 设置金色渐变背景 */
-            background-clip: text; /* 让渐变效果只应用于文字 */
-            -webkit-background-clip: text; /* 为Webkit浏览器提供兼容支持 */
-            text-transform: uppercase; /* 文本全部大写 */
-            letter-spacing: 5px;  /* 字符间距 */
-            white-space: nowrap;  /* 防止文本换行，确保显示在一行 */
-            display: inline-block;  /* 设置为内联块元素 */
-            width: auto;  /* 宽度自适应 */
-            max-width: 100%;  /* 防止超出容器 */
-            text-align: center;  /* 居中文本 */
-            overflow: visible; /* 允许文本溢出 */
-            box-sizing: border-box; /* 包括内边距在内 */
-            margin: 0 auto; /* 居中 */
-        }
-
-        /* 欢迎页响应式适配 */
-        @media screen and (max-width: 768px) {
-            .web-title {
-                font-size: 48px;
-                letter-spacing: 3px;
-            }
-            .welcome > p {
-                font-size: 28px;
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .web-title {
-                font-size: 32px;
-                letter-spacing: 2px;
-            }
-            .welcome > p {
-                font-size: 20px;
-                margin-bottom: 12px;
-            }
-        }
-        /* 修正导航栏链接的色彩对比度 */
-        .nav-menu li a {
-            color: #555; /* 将默认的 #999999 替换为更深的颜色 */
-        }
-        /* 也可以顺便定义悬停状态 */
-        .nav-menu li a:hover {
-            color: #000;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0,0&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/iconfont.css">
+    <link rel="stylesheet" href="src/css/redesign.css">
 </head>
 
-<body id="body">
-
-<section class="fullpage-section" id="home">
-    <header class="header" style="height: 100vh;">
-    <div id="victor-container">
-        <div id="victor-output">
-            <canvas id="victor-canvas" style="display: block; width: 100%; height: 100%;"></canvas>
-        </div>
-    </div>
-
-    <div class="welcome">
-        <p id="welcome-text">— 欢迎访问 —</p>
-        <div>
-            <h1 class="web-title" id="nav-title">
-                我的导航页
-            </h1>
-        </div>
-    </div>
-
-
-
-
-    <a class="scroll-down-tips" href="#product">
-    <div id="poem-container">
-            <div class="poem-sentence" id="poem_sentence"></div>
-            <div class="poem-info" id="poem_info"></div>
-        </div>
-        <i class="fa fa-angle-double-down" aria-hidden="true">
-            向下滚动
-        </i>
-    </a>
-
-    <div class="mk-dark-mode-sky">
-        <div class="mk-dark-mode-planet"></div>
-        <div class="mk-dark-mode-stars">
-            <div class="star star-1"></div>
-            <div class="star star-2"></div>
-            <div class="star star-3"></div>
-            <div class="star star-4"></div>
-            <div class="star star-5"></div>
-            <div class="star star-6"></div>
-            <div class="star star-7"></div>
-        </div>
-    </div>
-
-</header>
-</section>
-
-<section class="fullpage-section" id="product">
-    <header class="text-gray-700 body-font sticky top-0 bg-white z-10">
-        <div class="container mx-auto flex flex-wrap p-5 items-center justify-between">
-            <a class="flex title-font font-medium items-center" href="https://www.lcean.com">
-                <img src="src/img/logoTM.png" width="50" height="50" alt="Logo">
+<body>
+    <header class="site-header" id="site-header" aria-hidden="true" inert>
+        <div class="header-inner">
+            <a class="brand" href="#home" aria-label="返回首页" data-home-link>
+                <img src="src/img/logoTM.png" alt="" width="42" height="42">
+                <span>LceAn</span>
             </a>
 
-            <!-- 动态模糊导航菜单 -->
-            <ul class="nav-menu">
-                <li><a href="#" onclick="event.preventDefault();loadPageContent('./src/b_html/about.html')">关于</a></li>
-                <li><a href="#" onclick="event.preventDefault();loadPageContent('./src/b_html/timeline.html')">时间线</a></li>
-                <li><a href="#" onclick="event.preventDefault();loadPageContent('./src/b_html/more.html')">更多</a></li>
-            </ul>
-
-            <nav class="flex items-center text-base justify-center">
-                <button class="neumorphic-btn iconfont icon-yejian" onclick="toggleNightMode()" aria-label="切换夜间模式"></button>
+            <nav class="primary-nav" aria-label="主导航">
+                <button class="nav-link" type="button" data-page="about">关于</button>
+                <button class="nav-link" type="button" data-page="timeline">时间线</button>
+                <button class="nav-link" type="button" data-page="more">更多</button>
+                <span class="nav-divider" aria-hidden="true"></span>
+                <a class="icon-link iconfont icon-github"
+                   href="https://github.com/LceAn"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="访问 GitHub"></a>
+                <button class="theme-toggle" type="button" aria-label="切换昼夜主题" aria-pressed="false">
+                    <span class="material-symbols-rounded theme-icon theme-icon-sun" aria-hidden="true">light_mode</span>
+                    <span class="material-symbols-rounded theme-icon theme-icon-moon" aria-hidden="true">dark_mode</span>
+                </button>
             </nav>
         </div>
     </header>
 
-    <!-- 这里是页面内容区域 -->
-    <div id="content" class="sticky bg-white">
-        <section class="text-gray-700 body-font">
-            <div class="container px-5 py-8 mx-auto">
+    <main>
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="hero-kicker" id="hero-kicker">我的导航页</p>
+                <h1 id="hero-title">在技术与生活之间</h1>
+                <img class="headline-brush" src="src/img/headline-brush.png" alt="" aria-hidden="true">
+                <p class="hero-note">这里记录我的思考、实践与生活片段。</p>
+            </div>
+
+            <figure class="hero-art" aria-label="日落海岸山水">
+                <img class="hero-image hero-image-day"
+                     src="src/img/hero-landscape-day.png"
+                     alt="日落时分的海岸、山崖与松林">
+                <img class="hero-image hero-image-night"
+                     src="src/img/hero-landscape-night.png"
+                     alt=""
+                     aria-hidden="true">
+                <figcaption class="hero-poem">
+                    <span id="poem-sentence">深秋帘幕千家雨，落日楼台一笛风。</span>
+                    <small id="poem-source">[唐代] 杜牧《题宣州开元寺水阁阁下宛溪夹溪居人》</small>
+                </figcaption>
+            </figure>
+
+            <a class="explore-link" href="#directory">
+                <span class="material-symbols-rounded" aria-hidden="true">south</span>
+                <span>向下探索</span>
+            </a>
+        </section>
+
+        <section class="directory-section" id="directory" aria-label="个人网站入口">
+            <div class="section-shell">
+                <p class="directory-label" data-directory-label>LCEAN · PERSONAL INDEX</p>
+                <div class="section-heading">
+                    <div>
+                        <p class="section-eyebrow"></p>
+                        <h2 id="directory-title"></h2>
+                    </div>
+                    <button class="back-to-directory" type="button" data-back-to-directory hidden>
+                        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+                        返回入口
+                    </button>
+                </div>
+
                 <div id="dynamic-content">
-                    <!-- 默认显示的内容 -->
-                    <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
-                        <h1 class="text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0 text-center w-full" id="intro-text">
-                            嘿，我是LceAn
-                        </h1>
-                    </div>
-                    <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-                        <div id="cards-loader" class="cards-loading">
-                            <div class="cards-loading-spinner"></div>
-                            <p class="cards-loading-text">正在加载卡片...</p>
-                        </div>
-                        <a id="box"></a>
-                        <!-- 网站列表动态加载块-->
-                    </div>
+                    <div class="cards-grid" id="cards-grid" aria-live="polite"></div>
                 </div>
             </div>
         </section>
-    </div>
-</section>
+    </main>
 
-<footer id = "footer_scroll"  class="text-gray-700 body-font bg-white custom-footer text-muted" style="display:none;">
-    <div class="container mx-auto items-center justify-between">
-        <p id="footer" class="text-xs text-gray-500">
-            <!--#归属信息动态加载块-->
-        </p>
-    </div>
-</footer>
-
-<script id="index_list" type="text/x-handlebars-template">
-    {{#each weblists}}
-    <a target="_blank" rel="noopener" href="{{url}}"
-       class="card personal">
-
-        <div class="card-image">
-            <img alt="{{alt}}" class="card-img"
-                 src="{{img_url}}"
-                 loading="lazy"
-                 onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://bing.img.run/rand.php?c='+Math.random();}else{this.style.visibility='hidden';var bg=this.parentElement.dataset.fallbackBg;if(bg)this.parentElement.style.background=bg;}"/>
-            <div class="card-overlay">
-                <span class="card-badge">{{span}}</span>
-                <h2 class="card-title">{{title}}</h2>
-                <p class="card-desc">{{description}}</p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-identity">
+                <span id="footer-copy">© 2020 by LceAn</span>
+                <span class="footer-separator" aria-hidden="true">·</span>
+                <a id="footer-record" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP2020017839号-1</a>
+            </div>
+            <div class="footer-metrics" aria-label="站点访问数据">
+                <span id="busuanzi_container_site_pv">访问 <strong id="busuanzi_value_site_pv">--</strong></span>
+                <span id="busuanzi_container_site_uv">访客 <strong id="busuanzi_value_site_uv">--</strong></span>
+                <span class="footer-ip">IP <strong id="user-ip">获取中</strong></span>
             </div>
         </div>
-    </a>
-    {{/each}}
-</script>
+    </footer>
 
-<button id="TopButton" class="scrollToButton iconfont icon_top" style=" bottom: 100px;right: 20px;"></button>
-<button id="GitHubButton" class="scrollToButton iconfont icon-github" style=" bottom: 60px;right: 20px;"></button>
-<button id="zhihuButton" class="scrollToButton iconfont icon-zhihu-copy" style=" bottom: 20px;right: 20px;"></button>
-
-
-
-<script id="footer_template" type="text/x-handlebars-template">
-    <a href="{{homepage}}">{{copyright}}</a>
-    <span>&nbsp;|&nbsp;</span>
-    <a href="https://beian.miit.gov.cn">{{beian}}</a>
-    <span>&nbsp;|&nbsp;</span>
-    <a href="{{githubRepo}}" target="_blank" rel="noopener noreferrer" class="footer-github-link">
-        <i class="iconfont icon-github"></i>
-        <span>{{repoName}}</span>
-        <svg class="footer-ver-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.752 1.752 0 011 7.775zm1.75-.585a.25.25 0 00-.354 0l-.707.707a.25.25 0 00.354.354l.707-.707a.25.25 0 000-.354zM8 5.5a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0z"/></svg>
-        <span class="footer-version">{{version}}</span>
-    </a>
-    {{#if showVisitorCount}}<span class="footer-item footer-visitor">&nbsp;|&nbsp;
-    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span></span>{{/if}}
-    {{#if showIP}}<span class="footer-item footer-ip">&nbsp;|&nbsp;
-    <span class="copyright">您的IP：
-        <span id="user-ip"></span>
-    </span></span>{{/if}}
-</script>
-
-<script id="init-features" type="text/x-handlebars-template"></script>
-
-
-<script id="ip-fetch" type="text/x-handlebars-template"></script>
-
-<script src="src/js/jquery-3.7.1.min.js"></script>
-<script src="src/js/handlebars.min.js"></script>
-<script type="module" crossorigin="use-credentials">
-    import configData from './src/cfg/config.js'; // 加载配置文件
-
-    $(document).ready(function () {
-        applySiteConfig(configData);
-        renderWebsites(configData);
-        renderFooter(configData);
-        applyRandomShineEffect();
-        if (typeof initSidebarButtons === 'function') {
-            initSidebarButtons(configData.sidebarButtons);
-        }
-    });
-
-    // 应用站点配置（meta 信息 + 功能开关）
-    function applySiteConfig(data) {
-        if (data.site) {
-            document.title = data.site.title || document.title;
-            var descMeta = document.getElementById('meta-description');
-            if (descMeta && data.site.description) descMeta.content = data.site.description;
-            var authorMeta = document.getElementById('meta-author');
-            if (authorMeta && data.site.author) authorMeta.content = data.site.author;
-            // 动态文本
-            if (data.site.subtitle) {
-                var navTitle = document.getElementById('nav-title');
-                if (navTitle) navTitle.textContent = data.site.subtitle;
-            }
-            if (data.site.welcome) {
-                var welcomeText = document.getElementById('welcome-text');
-                if (welcomeText) welcomeText.textContent = '— ' + data.site.welcome + ' —';
-            }
-            if (data.site.intro) {
-                var introText = document.getElementById('intro-text');
-                if (introText) introText.textContent = data.site.intro;
-            }
-        }
-
-        // 根据功能开关动态加载
-        if (data.features) {
-            // 樱花效果
-            if (data.features.sakura) {
-                var sakuraScript = document.createElement('script');
-                sakuraScript.src = 'src/js/sakuraPlus.js';
-                document.body.appendChild(sakuraScript);
-            }
-            // 今日诗词
-            if (data.features.poetry) {
-                var poetryScript = document.createElement('script');
-                poetryScript.src = 'src/js/jinrishici.js';
-                poetryScript.setAttribute('charset', 'utf-8');
-                poetryScript.onload = function() {
-                    jinrishici.load(function(result) {
-                        var sentence = document.querySelector("#poem_sentence");
-                        var info = document.querySelector("#poem_info");
-                        if (sentence) sentence.textContent = result.data.content;
-                        if (info) {
-                            var origin = result.data.origin;
-                            info.textContent = '【' + origin.dynasty + '】' + origin.author + '《' + origin.title + '》';
-                        }
-                    });
-                };
-                document.body.appendChild(poetryScript);
-            }
-            // IP 显示
-            if (data.features.showIP) {
-                fetch('https://api.ipify.org?format=json')
-                    .then(r => r.json())
-                    .then(d => {
-                        var ipEl = document.getElementById('user-ip');
-                        if (ipEl) ipEl.textContent = d.ip;
-                    });
-            }
-            // 访问量统计
-            if (data.features.visitorCount) {
-                var busuanziScript = document.createElement('script');
-                busuanziScript.src = 'src/js/busuanzi.pure.mini.js';
-                busuanziScript.async = true;
-                document.body.appendChild(busuanziScript);
-            }
-        }
-    }
-
-    function renderWebsites(data) {
-        var templateSource = document.getElementById('index_list').innerHTML;
-        var template = Handlebars.compile(templateSource);
-        var html = template({ weblists: data.weblists });
-        $('#box').html(html);
-
-        // 为每个卡片设置随机渐变背景（图片加载失败时显示）
-        var gradients = [
-            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-            'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-            'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
-            'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
-            'linear-gradient(135deg, #f5576c 0%, #ff9a9e 100%)',
-            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-            'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)',
-            'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
-            'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)'
-        ];
-        document.querySelectorAll('#box .card > div:first-child').forEach(function(el, i) {
-            var gradient = gradients[i % gradients.length];
-            el.dataset.fallbackBg = gradient;
-        });
-
-        // 等待所有卡片图片加载完成后，逐个显示卡片
-        var startTime = Date.now();
-        var loader = document.getElementById('cards-loader');
-        var box = document.getElementById('box');
-        var done = false;
-        var pageReady = false;
-        // 强制等待浏览器完成首帧渲染后再允许 reveal
-        requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-                pageReady = true;
-            });
-        });
-        function reveal() {
-            if (done || !pageReady) return;
-            done = true;
-            // 确保 loader 至少显示 3 秒，让用户有时间滚动下去看到加载动画
-            var minDisplayTime = 3000;
-            var elapsedTime = Date.now() - startTime;
-            var delay = Math.max(0, minDisplayTime - elapsedTime);
-            setTimeout(function() {
-                // 逐个弹出卡片（loader 保持显示直到第一张卡片出现）
-                var cards = document.querySelectorAll('#box .card');
-                cards.forEach(function(card, i) {
-                    setTimeout(function() {
-                        card.classList.add('card-visible');
-                        // 第一张卡片显示后隐藏 loader
-                        if (i === 0 && loader) loader.style.display = 'none';
-                    }, i * 80);
-                });
-            }, delay);
-        }
-        // 图片全部就绪后触发 reveal
-        var imagesReady = false;
-        function checkAllLoaded() {
-            var imgs = document.querySelectorAll('#box .card-img');
-            var allSettled = true;
-            imgs.forEach(function(img) {
-                if (!img.complete) allSettled = false;
-            });
-            if (allSettled) {
-                imagesReady = true;
-                if (pageReady) reveal();
-            }
-        }
-        // 直接监听每张图片的 load/error 事件（load 事件不冒泡，必须直接绑定）
-        function bindImgEvents(img) {
-            // 如果图片已经加载完成（包括 error），立即检查
-            if (img.complete || img.naturalWidth === 0) {
-                checkAllLoaded();
-                return;
-            }
-            img.addEventListener('load', function() { checkAllLoaded(); });
-            img.addEventListener('error', function() { checkAllLoaded(); });
-        }
-        // 为现有和未来添加的图片绑定事件
-        document.querySelectorAll('#box .card-img').forEach(bindImgEvents);
-        // 初始检查：等首帧渲染后再检查图片状态
-        setTimeout(function() {
-            if (!imagesReady) checkAllLoaded();
-        }, 500);
-        // 超时兜底：1 秒后强制触发 reveal（确保 loader 至少显示 3 秒）
-        setTimeout(reveal, 1000);
-
-        // 根据配置加载樱花效果
-        if (configData.features && configData.features.sakura) {
-            var sakuraScript = document.createElement('script');
-            sakuraScript.src = 'src/js/sakuraPlus.js';
-            document.body.appendChild(sakuraScript);
-        }
-    }
-
-    function renderFooter(data) {
-        var footerSource = document.getElementById('footer_template').innerHTML;
-        var footerTemplate = Handlebars.compile(footerSource);
-        var footerData = {
-            homepage: (data.site && data.site.homepage) ? data.site.homepage : 'https://www.lcean.com',
-            copyright: (data.site && data.site.copyright) ? data.site.copyright.replace('by', '- ' + new Date().getFullYear() + ' by') : '',
-            beian: (data.site && data.site.beian) ? data.site.beian : '',
-            githubRepo: (data.site && data.site.githubRepo) ? data.site.githubRepo : '',
-            repoName: (data.site && data.site.githubRepo) ? data.site.githubRepo.replace('https://github.com/', '').split('/')[1] || '' : '',
-            version: (data.site && data.site.version) ? data.site.version : '',
-            showIP: data.features && data.features.showIP,
-            showVisitorCount: data.features && data.features.visitorCount,
-        };
-        var footerHtml = footerTemplate(footerData);
-        $('#footer').html(footerHtml);
-
-        // IP 和统计需要在 DOM 渲染后触发
-        if (data.features && data.features.showIP) {
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(d => {
-                    var ipEl = document.getElementById('user-ip');
-                    if (ipEl) ipEl.textContent = d.ip;
-                });
-        }
-    }
-
-    // 新增的随机扫光效果函数
-    function applyRandomShineEffect() {
-        const cards = document.querySelectorAll('.shark-wrap'); // 获取所有卡片
-
-        cards.forEach(card => {
-            // 生成一个随机的持续时间或延迟时间（例如0到5秒之间）
-            const randomDelay = Math.random() * 10; // 随机延迟0到5秒
-            const randomDuration = 2 + Math.random() * 3; // 随机持续时间2到5秒
-
-            // 将随机的动画样式应用到每个卡片的伪元素上
-            card.style.setProperty('--shine-delay', `${randomDelay}s`);
-            card.style.setProperty('--shine-duration', `${randomDuration}s`);
-        });
-    }
-</script>
-
-<!-- 其他脚本 -->
-<!-- 访问量统计由 config.features.visitorCount 控制动态加载 -->
-<script src="src/js/scroll.js"></script><!--侧边按钮设定js -->
-<script src="src/js/TagSetting.js"></script><!--标签设定js -->
-<script src="src/js/console-ban.min.js"></script><!--清除控制台、开启调试、设置回调函数js -->
-<script src="src/js/light_eveing.js"></script> <!--夜间模式按钮js -->
-
-<!-- 今日诗词由 config.features.poetry 控制动态加载，无需手动修改 -->
-
-<script>
-    // 创建防抖函数
-    function debounce(func, delay) {
-        let timeoutId;
-        return function() {
-            const context = this;
-            const args = arguments;
-            
-            // 清除之前的定时器
-            clearTimeout(timeoutId);
-            
-            // 设置新的定时器
-            timeoutId = setTimeout(() => {
-                func.apply(context, args);
-            }, delay);
-        };
-    }
-
-    /* 点击天空背景区域或欢迎页面区域触发夜间模式切换 */
-    $("body").on("click", ".mk-dark-mode-sky", debounce(function(e) {
-        // 防止事件冒泡，确保只处理一次点击事件
-        e.stopPropagation();
-        toggleNightMode(); // 使用统一的切换函数
-    }, 500)); // 500毫秒内只允许一次切换
-    
-    // 添加点击欢迎页面区域的切换功能
-    $("#home").on("click", debounce(function(e) {
-        // 如果点击的是其他有特定功能的元素（如向下滚动按钮等），不执行夜间模式切换
-        if ($(e.target).closest('.scroll-down-tips, a, button').length) {
-            return;
-        }
-        // 否则切换夜间模式
-        toggleNightMode();
-    }, 500)); // 500毫秒内只允许一次切换
-</script>
-
-<script>
-    // 页面加载时设置当前页面的导航菜单状态
-    function setActiveNavItem() {
-        const navMenu = document.querySelector('.nav-menu');
-        const navItems = navMenu.querySelectorAll('a');
-        
-        // 获取当前页面的内容
-        const dynamicContent = document.getElementById('dynamic-content');
-        const currentContentSource = dynamicContent.innerHTML.trim();
-        
-        navItems.forEach(item => {
-            const href = item.getAttribute('onclick');
-            
-            // 判断是否为当前页面的逻辑
-            const isCurrentPage = href ? 
-                (currentContentSource.length > 0 && href.includes(getCurrentPageFileName())) : 
-                false;
-            
-            if (isCurrentPage) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
-    }
-
-    // 获取当前页面的文件名
-    function getCurrentPageFileName() {
-        const dynamicContent = document.getElementById('dynamic-content');
-        const contentSource = dynamicContent.innerHTML.trim();
-        
-        // 根据不同页面的特征判断
-        if (contentSource.includes('about-container')) return 'about.html';
-        if (contentSource.includes('timeline-container')) return 'timeline.html';
-        if (contentSource.includes('更多')) return 'more.html';
-        
-        // 默认返回首页
-        return 'index.html';
-    }
-
-    // 在页面加载和内容加载后调用
-    window.addEventListener('load', setActiveNavItem);
-
-    // 版本检测 — 对比本地版本与 GitHub 最新版本
-    function checkVersion(data) {
-        var site = data && data.site ? data.site : null;
-        if (!site || !site.githubRepo || !site.version) return;
-
-        var versionEl = document.getElementById('version-status');
-        if (!versionEl) return;
-        var remoteVersionEl = document.getElementById('remote-version');
-        var localVersionEl = document.getElementById('local-version');
-
-        // 显示本地版本
-        if (localVersionEl) localVersionEl.textContent = site.version;
-
-        // 从 GitHub API 获取最新 release/tag
-        var apiParts = site.githubRepo.replace('https://github.com/', '').split('/');
-        if (apiParts.length < 2) return;
-        var owner = apiParts[0], repo = apiParts[1];
-
-        // 先尝试获取最新的 release
-        fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest')
-            .then(r => r.ok ? r.json() : null)
-            .then(release => {
-                if (release && release.tag_name) {
-                    var remoteVersion = release.tag_name.replace(/^v/, '');
-                    if (remoteVersionEl) remoteVersionEl.textContent = 'v' + remoteVersion;
-                    compareVersions(site.version, remoteVersion, versionEl, release.html_url);
-                } else {
-                    // 没有 release，回退到最新 commit date
-                    fetch('https://api.github.com/repos/' + owner + '/' + repo + '/commits?per_page=1')
-                        .then(r => r.json())
-                        .then(commits => {
-                            if (commits && commits[0]) {
-                                var date = new Date(commits[0].commit.committer.date);
-                                var dateStr = date.getFullYear() + '-' +
-                                    String(date.getMonth() + 1).padStart(2, '0') + '-' +
-                                    String(date.getDate()).padStart(2, '0');
-                                if (remoteVersionEl) remoteVersionEl.textContent = dateStr + ' (最新提交)';
-                                versionEl.innerHTML = '<span style="color:#999">✅ 已是最新</span>';
-                            }
-                        });
-                }
-            })
-            .catch(() => {
-                if (remoteVersionEl) remoteVersionEl.textContent = '检测失败';
-                versionEl.innerHTML = '<span style="color:#999">⚠️ 无法连接 GitHub</span>';
-            });
-    }
-
-    function compareVersions(local, remote, statusEl, releaseUrl) {
-        var lParts = local.replace(/^v/, '').split('.').map(Number);
-        var rParts = remote.replace(/^v/, '').split('.').map(Number);
-        var isLatest = true;
-        for (var i = 0; i < Math.max(lParts.length, rParts.length); i++) {
-            if ((rParts[i] || 0) > (lParts[i] || 0)) { isLatest = false; break; }
-        }
-        if (isLatest) {
-            statusEl.innerHTML = '<span style="color:#52c41a">✅ 已是最新版本</span>';
-        } else {
-            statusEl.innerHTML = '<a href="' + releaseUrl + '" target="_blank" rel="noopener noreferrer" ' +
-                'style="color:#1890ff;text-decoration:none;font-weight:500">🔄 发现新版本 v' + remoteVersionEl.textContent.replace(/^v/, '') + '，点击更新</a>';
-        }
-    }
-
-    // 暴露到全局，供 onclick 调用
-    window.loadPageContent = loadPageContent;
-    window.checkVersion = checkVersion;
-</script>
-
-<!-- 全屏滚动脚本 - 单滚动条方案 -->
-<script>
-    var currentSection = 0;
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const sections = document.querySelectorAll('.fullpage-section');
-        const totalSections = sections.length;
-        let isAnimating = false;
-        let animTimer = null;
-        let touchStartY = 0;
-
-        // 处理鼠标滚轮事件
-        window.addEventListener('wheel', function(e) {
-            if (isAnimating) {
-                e.preventDefault();
-                return;
-            }
-
-            if (currentSection === 0) {
-                // 在第一页（欢迎页）— 向下滚进入第二页
-                if (e.deltaY > 0) {
-                    e.preventDefault();
-                    currentSection = 1;
-                    scrollToSection(1);
-                }
-                // 向上滚：已经在第一页顶部，不需要处理
-                return;
-            }
-
-            // 在第二页及之后 — 自然滚动，不拦截
-            // 但如果用户滚到了页面最顶部，自动回第一页
-        }, { passive: false });
-
-        // 监听滚动位置，检测是否需要切回第一页
-        window.addEventListener('scroll', function() {
-            if (isAnimating) return;
-            if (window.scrollY <= 5 && currentSection === 1) {
-                currentSection = 0;
-                updateUI(0);
-            }
-        });
-
-        // 处理触摸事件（移动设备）
-        window.addEventListener('touchstart', function(e) {
-            touchStartY = e.touches[0].clientY;
-        });
-
-        window.addEventListener('touchmove', function(e) {
-            // 在第一页时拦截触摸滚动，防止浏览器默认滚动
-            if (currentSection === 0 && !isAnimating) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        window.addEventListener('touchend', function(e) {
-            var touchEndY = e.changedTouches[0].clientY;
-            var diff = touchStartY - touchEndY;
-
-            if (Math.abs(diff) < 50) return;
-
-            if (currentSection === 0) {
-                if (diff > 0) {
-                    currentSection = 1;
-                    scrollToSection(1);
-                }
-            }
-        });
-
-        function scrollToSection(index) {
-            isAnimating = true;
-            var targetY = sections[index].offsetTop;
-            window.scrollTo({
-                top: targetY,
-                behavior: 'smooth'
-            });
-            updateUI(index);
-            if (animTimer) clearTimeout(animTimer);
-            animTimer = setTimeout(function() {
-                isAnimating = false;
-            }, 600);
-        }
-
-        function updateUI(index) {
-            var buttons = ['TopButton', 'GitHubButton', 'zhihuButton'];
-            buttons.forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el) el.style.display = index > 0 ? 'block' : 'none';
-            });
-            var footer = document.getElementById('footer_scroll');
-            if (footer) footer.style.display = index > 0 ? 'block' : 'none';
-        }
-
-        // loadPageContent — 使用 DOMParser 安全解析，防止 XSS
-        function loadPageContent(url) {
-            // 如果在第一屏（欢迎页），先滚动到第二屏
-            if (currentSection === 0) {
-                currentSection = 1;
-                scrollToSection(1);
-            }
-            
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    // 移除所有 script 标签防止 XSS 注入
-                    doc.querySelectorAll('script').forEach(s => s.remove());
-                    document.getElementById('dynamic-content').innerHTML = doc.body.innerHTML;
-                    setActiveNavItem(); // 更新导航菜单状态
-
-                    // 加载关于页面后执行版本检测
-                    if (url.includes('about.html')) {
-                        import('./src/cfg/config.js?t=' + Date.now())
-                            .then(m => checkVersion(m.default))
-                            .catch(() => {});
-                    }
-                })
-                .catch(error => console.error('Error loading page:', error));
-        }
-        // 暴露到全局作用域，供 HTML onclick 调用
-        window.loadPageContent = loadPageContent;
-
-        // 向下滚动按钮
-        var scrollDownBtn = document.querySelector('.scroll-down-tips');
-        if (scrollDownBtn) {
-            scrollDownBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (currentSection === 0) {
-                    currentSection = 1;
-                    scrollToSection(1);
-                }
-                return false;
-            });
-        }
-    });
-</script>
+    <script type="module" src="src/js/redesign.js"></script>
 </body>
 </html>
