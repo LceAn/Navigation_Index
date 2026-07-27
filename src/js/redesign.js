@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js";
+import configData from "../cfg/config.js?20260727v3";
 
 const state = {
     currentView: "directory",
@@ -137,10 +137,15 @@ function createCard(item, index) {
     image.loading = index < 3 ? "eager" : "lazy";
     image.decoding = "async";
     image.referrerPolicy = "no-referrer";
-    image.src = item.img_url || `https://bing.img.run/rand.php?c=lcean-${index}-${encodeURIComponent(item.title)}`;
     image.addEventListener("error", () => {
         image.hidden = true;
+        image.removeAttribute("src");
     }, { once: true });
+    if (item.img_url) {
+        image.src = item.img_url;
+    } else {
+        image.hidden = true;
+    }
 
     const badge = document.createElement("span");
     badge.className = "card-badge";
