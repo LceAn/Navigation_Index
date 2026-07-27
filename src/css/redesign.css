@@ -98,10 +98,8 @@ a[href] {
     width: 100%;
     z-index: 100;
     height: var(--header-height);
-    background: color-mix(in srgb, var(--paper) 91%, transparent);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: var(--paper);
+    border-bottom: 0;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -111,7 +109,6 @@ a[href] {
         opacity 220ms ease,
         visibility 0s linear 320ms,
         background-color 360ms ease;
-    will-change: transform;
 }
 
 body.is-header-visible .site-header {
@@ -280,10 +277,7 @@ html.theme-dark .theme-icon-moon {
     left: var(--page-padding);
     top: 50%;
     width: min(45vw, 650px);
-    opacity: var(--hero-copy-opacity, 1);
     transform: translateY(-46%);
-    translate: 0 var(--hero-copy-shift, 0px);
-    will-change: opacity, translate;
 }
 
 .hero-kicker {
@@ -334,8 +328,7 @@ html.theme-dark .theme-icon-moon {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    opacity: var(--hero-art-opacity, 1);
-    translate: var(--hero-art-shift, 0px) 0;
+    opacity: 0;
     -webkit-mask-image: url("../img/hero-brush-mask.png");
     mask-image: url("../img/hero-brush-mask.png");
     -webkit-mask-size: 100% 100%;
@@ -344,12 +337,22 @@ html.theme-dark .theme-icon-moon {
     mask-position: center;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    clip-path: inset(0 100% 0 0);
-    will-change: clip-path, opacity, translate;
 }
 
 body.is-ready .hero-art {
-    animation: reveal-landscape 1600ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+    animation: reveal-landscape 760ms ease-out 80ms forwards;
+}
+
+.hero-art::after {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 32px;
+    background: linear-gradient(to bottom, transparent, var(--paper));
+    pointer-events: none;
 }
 
 .hero-image {
@@ -359,11 +362,7 @@ body.is-ready .hero-art {
     height: 100%;
     object-fit: cover;
     object-position: left center;
-    transition: opacity 900ms ease, transform 9s ease;
-}
-
-body.is-ready .hero-image {
-    transform: scale(1.025);
+    transition: opacity 500ms ease;
 }
 
 .hero-image-night {
@@ -415,7 +414,6 @@ html.theme-dark .hero-image-night {
     align-items: center;
     gap: 6px;
     color: var(--ink-soft);
-    opacity: var(--hero-explore-opacity, 1);
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 0.08em;
@@ -1125,8 +1123,11 @@ html.theme-dark .version-row {
 }
 
 @keyframes reveal-landscape {
+    from {
+        opacity: 0;
+    }
     to {
-        clip-path: inset(0 0 0 0);
+        opacity: 1;
     }
 }
 
@@ -1508,6 +1509,6 @@ html.theme-dark .version-row {
     }
 
     .hero-art {
-        clip-path: inset(0);
+        opacity: 1;
     }
 }

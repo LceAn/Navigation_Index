@@ -295,33 +295,19 @@ function initTheme() {
 
 function initHeaderReveal() {
     let animationFrame = 0;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let resizeFrame = 0;
+    let revealThreshold = 160;
+    let isHeaderVisible = null;
 
     const updateHeader = () => {
         animationFrame = 0;
-        const heroHeight = Math.max(elements.directory.offsetTop, window.innerHeight);
-        const revealThreshold = Math.max(160, heroHeight - Math.max(110, window.innerHeight * 0.14));
         const shouldReveal = window.scrollY > revealThreshold;
 
+        if (shouldReveal === isHeaderVisible) return;
+        isHeaderVisible = shouldReveal;
         elements.body.classList.toggle("is-header-visible", shouldReveal);
         elements.siteHeader.toggleAttribute("inert", !shouldReveal);
         elements.siteHeader.setAttribute("aria-hidden", String(!shouldReveal));
-
-        if (prefersReducedMotion.matches) {
-            elements.root.style.removeProperty("--hero-copy-opacity");
-            elements.root.style.removeProperty("--hero-copy-shift");
-            elements.root.style.removeProperty("--hero-art-opacity");
-            elements.root.style.removeProperty("--hero-art-shift");
-            elements.root.style.removeProperty("--hero-explore-opacity");
-            return;
-        }
-
-        const progress = Math.min(1, Math.max(0, window.scrollY / (heroHeight * 0.92)));
-        elements.root.style.setProperty("--hero-copy-opacity", String(1 - progress * 0.34));
-        elements.root.style.setProperty("--hero-copy-shift", `${progress * -18}px`);
-        elements.root.style.setProperty("--hero-art-opacity", String(1 - progress * 0.1));
-        elements.root.style.setProperty("--hero-art-shift", `${progress * 10}px`);
-        elements.root.style.setProperty("--hero-explore-opacity", String(Math.max(0, 1 - progress * 2.2)));
     };
 
     const requestUpdate = () => {
@@ -329,11 +315,22 @@ function initHeaderReveal() {
         animationFrame = window.requestAnimationFrame(updateHeader);
     };
 
+    const recalculateThreshold = () => {
+        resizeFrame = 0;
+        const heroHeight = Math.max(elements.directory.offsetTop, window.innerHeight);
+        revealThreshold = Math.max(160, heroHeight - Math.max(110, window.innerHeight * 0.14));
+        requestUpdate();
+    };
+
+    const requestRecalculation = () => {
+        if (resizeFrame) return;
+        resizeFrame = window.requestAnimationFrame(recalculateThreshold);
+    };
+
     window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    window.addEventListener("pageshow", requestUpdate);
-    prefersReducedMotion.addEventListener("change", requestUpdate);
-    updateHeader();
+    window.addEventListener("resize", requestRecalculation);
+    window.addEventListener("pageshow", recalculateThreshold);
+    recalculateThreshold();
 }
 
 function bindNavigation() {
