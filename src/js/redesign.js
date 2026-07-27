@@ -21,7 +21,7 @@ const pageMap = {
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html",
+        path: "./src/b_html/timeline.html?20260727v2",
         title: "时间线",
         eyebrow: "Timeline"
     },
