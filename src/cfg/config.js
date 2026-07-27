@@ -47,14 +47,6 @@ const configData = {
             description: '我的个人技术博客'
         },
         {
-            url: 'https://ctf.lcean.com',
-            alt: 'CTF',
-            img_url: 'src/img/cards/ctf.webp',
-            span: 'WP',
-            title: 'CTF',
-            description: '攻防赛题目解析'
-        },
-        {
             url: 'https://time.lcean.com/',
             alt: 'images',
             img_url: 'src/img/cards/gallery.webp',
