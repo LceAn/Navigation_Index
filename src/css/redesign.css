@@ -2,7 +2,9 @@
 
 @font-face {
     font-family: "LceAn Brush";
-    src: url("../ttf/不违初心草书.ttf") format("truetype");
+    src: url("../ttf/lcean-brush-subset.ttf?v=20260731v1") format("truetype");
+    font-weight: 400;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -136,7 +138,7 @@ body.is-header-visible .site-header {
     text-decoration: none;
     font-size: 23px;
     font-weight: 650;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
 }
 
 .brand img {
@@ -284,7 +286,7 @@ html.theme-dark .theme-icon-moon {
     margin: 0 0 28px;
     color: var(--amber);
     font-family: "LceAn Brush", "KaiTi", cursive;
-    font-size: clamp(34px, 3vw, 48px);
+    font-size: 46px;
     line-height: 1;
     letter-spacing: 0.08em;
 }
@@ -294,10 +296,10 @@ html.theme-dark .theme-icon-moon {
     margin: 0;
     color: var(--ink);
     font-family: "Noto Serif SC", "Songti SC", serif;
-    font-size: clamp(52px, 5.15vw, 78px);
+    font-size: 72px;
     font-weight: 600;
     line-height: 1.18;
-    letter-spacing: -0.06em;
+    letter-spacing: 0;
     text-wrap: balance;
 }
 
@@ -328,19 +330,16 @@ html.theme-dark .theme-icon-moon {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    opacity: 0;
-    -webkit-mask-image: url("../img/hero-brush-mask.png");
-    mask-image: url("../img/hero-brush-mask.png");
+    opacity: 1;
+    animation: reveal-landscape 760ms ease-out 80ms backwards;
+    -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
+    mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
     -webkit-mask-position: center;
     mask-position: center;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-}
-
-body.is-ready .hero-art {
-    animation: reveal-landscape 760ms ease-out 80ms forwards;
 }
 
 .hero-art::after {
@@ -391,7 +390,7 @@ html.theme-dark .hero-image-night {
 .hero-poem span {
     display: block;
     font-family: "Noto Serif SC", serif;
-    font-size: clamp(18px, 1.7vw, 26px);
+    font-size: 24px;
     font-weight: 600;
     line-height: 1.5;
 }
@@ -480,9 +479,9 @@ html.theme-dark .hero-image-night {
     margin: 0;
     color: var(--ink);
     font-family: "Noto Serif SC", serif;
-    font-size: clamp(32px, 3.4vw, 46px);
+    font-size: 42px;
     font-weight: 600;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
 }
 
 .back-to-directory {
@@ -581,9 +580,7 @@ html.theme-dark .hero-image-night {
     padding: 6px 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 999px;
-    background: rgba(20, 24, 31, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(20, 24, 31, 0.58);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -599,10 +596,10 @@ html.theme-dark .hero-image-night {
 
 .card-copy h3 {
     margin: 0;
-    font-size: clamp(21px, 2vw, 27px);
+    font-size: 25px;
     font-weight: 650;
     line-height: 1.2;
-    letter-spacing: -0.035em;
+    letter-spacing: 0;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.48);
 }
 
@@ -656,9 +653,9 @@ html.theme-dark .hero-image-night {
     margin: 0;
     color: var(--ink);
     font-family: "Noto Serif SC", serif;
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: 36px;
     font-weight: 600;
-    letter-spacing: -0.045em;
+    letter-spacing: 0;
 }
 
 .about-intro-copy > p:last-child {
@@ -783,7 +780,7 @@ html.theme-dark .hero-image-night {
     font-family: "Noto Serif SC", serif;
     font-size: 25px;
     font-weight: 600;
-    letter-spacing: -0.035em;
+    letter-spacing: 0;
 }
 
 .about-section-heading > p {
@@ -856,7 +853,7 @@ html.theme-dark .hero-image-night {
     font-family: "Inter", sans-serif;
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
 }
 
 .version-grid {
@@ -1166,7 +1163,7 @@ html.theme-dark .version-row {
     }
 
     .hero h1 {
-        font-size: clamp(48px, 6vw, 64px);
+        font-size: 60px;
     }
 
     .cards-grid {
@@ -1260,7 +1257,7 @@ html.theme-dark .version-row {
 
     .hero h1 {
         max-width: 340px;
-        font-size: clamp(40px, 11vw, 52px);
+        font-size: 44px;
         line-height: 1.22;
     }
 
@@ -1284,6 +1281,10 @@ html.theme-dark .version-row {
         mask-size: 112% 100%;
         -webkit-mask-position: left center;
         mask-position: left center;
+    }
+
+    .hero-image {
+        object-position: 68% center;
     }
 
     .hero-poem {

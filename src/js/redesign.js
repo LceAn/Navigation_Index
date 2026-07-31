@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js?20260727v4";
+import configData from "../cfg/config.js?20260731v1";
 
 const state = {
     currentView: "directory",
@@ -16,17 +16,17 @@ const fallbackBackgrounds = [
 
 const pageMap = {
     about: {
-        path: "./src/b_html/about.html",
+        path: "./src/b_html/about.html?20260731v2",
         title: "关于我",
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html?20260727v2",
+        path: "./src/b_html/timeline.html?20260731v2",
         title: "时间线",
         eyebrow: "Timeline"
     },
     more: {
-        path: "./src/b_html/more.html",
+        path: "./src/b_html/more.html?20260731v2",
         title: "更多",
         eyebrow: "More from LceAn"
     }
@@ -134,8 +134,9 @@ function createCard(item, index) {
     const image = document.createElement("img");
     image.className = "card-image";
     image.alt = item.alt || item.title;
-    image.loading = index < 3 ? "eager" : "lazy";
+    image.loading = "lazy";
     image.decoding = "async";
+    image.fetchPriority = "low";
     image.referrerPolicy = "no-referrer";
     image.addEventListener("error", () => {
         image.hidden = true;
@@ -205,8 +206,13 @@ function renderDirectory({ shouldScroll = false } = {}) {
     revealCards();
 
     if (shouldScroll) {
-        elements.directory.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToElement(elements.directory);
     }
+}
+
+function scrollToElement(element) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    element.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
 }
 
 async function loadPage(pageName) {
@@ -227,7 +233,7 @@ async function loadPage(pageName) {
     loading.className = "section-loading";
     loading.textContent = "正在加载…";
     elements.dynamicContent.replaceChildren(loading);
-    elements.directory.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToElement(elements.directory);
 
     try {
         const response = await fetch(page.path);
@@ -347,7 +353,7 @@ function bindNavigation() {
         if (state.currentView !== "directory") renderDirectory();
         if (window.scrollY < elements.directory.offsetTop - 20) return;
         event.preventDefault();
-        document.getElementById("home").scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToElement(document.getElementById("home"));
     });
 
     elements.backButton.addEventListener("click", () => renderDirectory());
@@ -359,9 +365,12 @@ function init() {
     initHeaderReveal();
     bindNavigation();
     renderDirectory();
-    loadDynamicPoem();
-    initFooterMetrics();
-    requestAnimationFrame(() => elements.body.classList.add("is-ready"));
+    const deferNonCritical = window.requestIdleCallback
+        ? (callback) => window.requestIdleCallback(callback, { timeout: 1500 })
+        : (callback) => window.setTimeout(callback, 0);
+
+    deferNonCritical(loadDynamicPoem);
+    deferNonCritical(initFooterMetrics);
 }
 
 init();

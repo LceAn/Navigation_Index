@@ -10,21 +10,35 @@
     <meta property="og:description" content="技术、生活与持续构建中的个人数字入口">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.lcean.com">
+    <meta property="og:image" content="https://www.lcean.com/src/img/hero-landscape-day.webp?v=20260731v1">
+    <meta name="twitter:card" content="summary_large_image">
     <title>LceAn - 个人网站导航</title>
 
-    <link rel="icon" type="image/png" href="src/img/logoTM.png">
+    <script>
+        try {
+            const savedTheme = localStorage.getItem("lcean-theme");
+            const useDarkTheme = savedTheme
+                ? savedTheme === "dark"
+                : window.matchMedia("(prefers-color-scheme: dark)").matches;
+            document.documentElement.classList.toggle("theme-dark", useDarkTheme);
+            document.querySelector('meta[name="theme-color"]').content = useDarkTheme ? "#0d1118" : "#fbf8f1";
+        } catch {}
+    </script>
+    <link rel="canonical" href="https://www.lcean.com/">
+    <link rel="icon" type="image/webp" href="src/img/logoTM.webp?v=20260731v1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0,0&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://img.lcean.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=arrow_back,code,dark_mode,database,language,light_mode,location_on,mail,north_east,shield,south,workspace_premium&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/iconfont.css">
-    <link rel="stylesheet" href="src/css/redesign.css?20260727v2">
+    <link rel="stylesheet" href="src/css/redesign.css?20260731v2">
 </head>
 
 <body>
     <header class="site-header" id="site-header" aria-hidden="true" inert>
         <div class="header-inner">
             <a class="brand" href="#home" aria-label="返回首页" data-home-link>
-                <img src="src/img/logoTM.png" alt="" width="42" height="42">
+                <img src="src/img/logoTM.webp?v=20260731v1" alt="" width="42" height="42">
                 <span>LceAn</span>
             </a>
 
@@ -51,17 +65,24 @@
             <div class="hero-copy">
                 <p class="hero-kicker" id="hero-kicker">我的导航页</p>
                 <h1 id="hero-title">在技术与生活之间</h1>
-                <img class="headline-brush" src="src/img/headline-brush.png" alt="" aria-hidden="true">
+                <img class="headline-brush" src="src/img/headline-brush.webp?v=20260731v1" alt="" width="400" height="22" aria-hidden="true">
                 <p class="hero-note">这里记录我的思考、实践与生活片段。</p>
             </div>
 
             <figure class="hero-art" aria-label="日落海岸山水">
                 <img class="hero-image hero-image-day"
-                     src="src/img/hero-landscape-day.png"
-                     alt="日落时分的海岸、山崖与松林">
+                     src="src/img/hero-landscape-day.webp?v=20260731v1"
+                     alt="日落时分的海岸、山崖与松林"
+                     width="1536"
+                     height="1024"
+                     decoding="async"
+                     fetchpriority="high">
                 <img class="hero-image hero-image-night"
-                     src="src/img/hero-landscape-night.png"
+                     src="src/img/hero-landscape-night.webp?v=20260731v1"
                      alt=""
+                     width="1536"
+                     height="1024"
+                     decoding="async"
                      aria-hidden="true">
                 <figcaption class="hero-poem">
                     <span id="poem-sentence">深秋帘幕千家雨，落日楼台一笛风。</span>
@@ -111,6 +132,6 @@
         </div>
     </footer>
 
-    <script type="module" src="src/js/redesign.js?20260727v5"></script>
+    <script type="module" src="src/js/redesign.js?20260731v2"></script>
 </body>
 </html>
