@@ -194,3 +194,10 @@ Chrome ✅ | Firefox ✅ | Safari ✅ | Edge ✅ | iOS Safari ✅ | Android Chro
 ---
 
 ⭐️ 觉得不错的话给个 Star 吧！
+
+---
+
+## 📄 文档
+
+- [CHANGELOG.md](CHANGELOG.md) — 更新记录
+- [ROADMAP.md](ROADMAP.md) — 未来更新计划

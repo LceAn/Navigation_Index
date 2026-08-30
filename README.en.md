@@ -224,3 +224,10 @@ Issues and Pull Requests are welcome!
 - 维护节奏：每月只选 1-2 个小更新
 - 相关仓库：Codes 中存在历史导航资源副本；本仓库保持独立产品定位
 - 维护边界：普通文档和代码更新可直接提交；归档、删除、历史重写或强制推送需单独确认。
+
+---
+
+## 📄 Documentation
+
+- [CHANGELOG.md](CHANGELOG.md) — changelog
+- [ROADMAP.md](ROADMAP.md) — roadmap (in Chinese)
