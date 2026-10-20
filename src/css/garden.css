@@ -40,6 +40,8 @@ html.theme-dark {
 .header-inner { max-width: 1340px; margin: auto; }
 .nav-link { min-height: 44px; }
 .theme-toggle { width: 40px; height: 40px; background: var(--accent-soft); }
+.material-symbols-rounded { display: inline-flex; align-items: center; justify-content: center; }
+.material-symbols-rounded svg { width: 1em; height: 1em; flex-shrink: 0; }
 .brand img, .masthead-brand img { mix-blend-mode: multiply; }
 html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-blend-mode: normal; }
 .hero {

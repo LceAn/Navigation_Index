@@ -65,3 +65,9 @@ test("homepage IDs are unique and required controls exist", async () => {
     assert.match(html, /aria-live="polite"/);
     assert.match(html, /class="skip-link"/);
 });
+
+test("theme icons are inline SVG and never require an external icon font", async () => {
+    const html = await read("index.html");
+    assert.doesNotMatch(html, /Material\+Symbols|>light_mode<|>dark_mode</);
+    assert.equal([...html.matchAll(/<svg class="theme-icon /g)].length, 4);
+});

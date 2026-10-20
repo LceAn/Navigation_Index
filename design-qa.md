@@ -18,6 +18,7 @@ framed day/night landscape, two featured image cards and a three-column director
   card entrance observer or per-frame hero animation remains.
 - Browser console before deliberate failure simulation: no warnings or errors.
 - Static integrity checks: `node --test tests/navigation.test.mjs`.
+- Theme and content-page symbols are inline SVG, including when external fonts fail.
 - No infrastructure, DNS, Access or third-party service settings changed.
 
 ## Archived visual reference — July 2026

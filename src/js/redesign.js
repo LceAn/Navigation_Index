@@ -258,6 +258,34 @@ function scrollToElement(element) {
     element.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
 }
 
+function hydrateContentIcons(container) {
+    // Inline artwork keeps content-page controls readable without Google Fonts.
+    const paths = {
+        north_east: '<path d="M6 18 18 6M6 6h12v12"/>',
+        mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',
+        location_on: '<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/>',
+        language: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',
+        shield: '<path d="m12 3 8 3v6c0 5-8 9-8 9S4 17 4 12V6Z"/><path d="m8 12 3 3 5-6"/>',
+        database: '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/>',
+        code: '<path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/>',
+        workspace_premium: '<circle cx="12" cy="9" r="6"/><path d="m8 14-1 8 5-3 5 3-1-8"/>'
+    };
+    container.querySelectorAll("span.material-symbols-rounded").forEach((icon) => {
+        const path = paths[icon.textContent.trim()];
+        if (!path) return;
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("width", "24");
+        svg.setAttribute("height", "24");
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke", "currentColor");
+        svg.setAttribute("stroke-width", "1.5");
+        svg.setAttribute("aria-hidden", "true");
+        svg.innerHTML = path;
+        icon.replaceChildren(svg);
+    });
+}
+
 async function loadPage(pageName) {
     const page = pageMap[pageName];
     if (!page) return;
@@ -293,6 +321,7 @@ async function loadPage(pageName) {
         const view = document.createElement("div");
         view.className = "content-view";
         [...doc.body.childNodes].forEach((node) => view.append(node.cloneNode(true)));
+        hydrateContentIcons(view);
         elements.dynamicContent.replaceChildren(view);
 
         if (pageName === "about") {
