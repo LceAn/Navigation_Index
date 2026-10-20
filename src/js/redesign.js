@@ -56,6 +56,7 @@ const elements = {
     footerCopy: document.getElementById("footer-copy"),
     footerRecord: document.getElementById("footer-record")
 };
+let refreshHeader = () => {};
 
 function applySiteConfig() {
     const { site } = configData;
@@ -217,6 +218,7 @@ function filterDirectory() {
 function renderDirectory({ shouldScroll = false } = {}) {
     state.currentView = "directory";
     state.pageRequest++;
+    refreshHeader();
     elements.directory.classList.remove("is-page-view");
     elements.directoryLabel.hidden = false;
     elements.directoryTools.hidden = false;
@@ -292,6 +294,7 @@ async function loadPage(pageName) {
 
     state.currentView = pageName;
     const requestId = ++state.pageRequest;
+    refreshHeader();
     elements.directory.classList.add("is-page-view");
     elements.directoryLabel.hidden = true;
     elements.directoryTools.hidden = true;
@@ -396,7 +399,7 @@ function initHeaderReveal() {
 
     const updateHeader = () => {
         animationFrame = 0;
-        const shouldReveal = window.scrollY > revealThreshold;
+        const shouldReveal = state.currentView !== "directory" || window.scrollY > revealThreshold;
 
         if (shouldReveal === isHeaderVisible) return;
         isHeaderVisible = shouldReveal;
@@ -412,7 +415,7 @@ function initHeaderReveal() {
 
     const recalculateThreshold = () => {
         resizeFrame = 0;
-        const heroHeight = Math.max(elements.directory.offsetTop, window.innerHeight);
+        const heroHeight = elements.directory.offsetTop;
         revealThreshold = Math.max(160, heroHeight - Math.max(110, window.innerHeight * 0.14));
         requestUpdate();
     };
@@ -425,6 +428,7 @@ function initHeaderReveal() {
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestRecalculation);
     window.addEventListener("pageshow", recalculateThreshold);
+    refreshHeader = requestUpdate;
     recalculateThreshold();
 }
 

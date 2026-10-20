@@ -45,7 +45,7 @@ test("all local homepage source references resolve", async () => {
         await access(new URL(match[1].split("?")[0], root));
     }
     assert.match(html, /garden\.css\?20261020v1/);
-    assert.match(html, /redesign\.js\?20261020v1/);
+    assert.match(html, /redesign\.js\?20261020v2/);
 });
 
 test("timeline begins with the October update and August CloudDrive record", async () => {
