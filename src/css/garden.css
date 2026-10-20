@@ -188,7 +188,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .directory-intro { gap: 12px; margin-bottom: 24px; }
     .directory-intro h2 { font-size: 25px; }
     .directory-label { font-size: 9px; margin-bottom: 14px; }
-    .directory-note { font-size: 12px; max-width: 280px; }
+    .directory-note { font-size: 12px; max-width: none; text-wrap: pretty; }
     .collection-count { display: none; }
     .directory-tools { gap: 16px; }
     .category-filters { gap: 3px; width: 100%; }
@@ -200,11 +200,11 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .card-media, .is-featured .card-media { height: 240px; }
     .is-featured h3 { font-size: 25px; }
     .card-copy { bottom: 22px; }
-    .garden-note { margin-top: 30px; padding: 22px; gap: 14px; flex-wrap: wrap; }
+    .garden-note { margin-top: 30px; padding: 22px; gap: 12px 14px; display: grid; grid-template-columns: 28px minmax(0, 1fr); }
     .garden-symbol { font-size: 28px; }
     .garden-note div { flex: 1; }
     .garden-note p { font-size: 13px; line-height: 1.6; }
-    .garden-note button { padding: 8px 0; margin: 0 0 0 42px; }
+    .garden-note button { padding: 8px 0; margin: 0; grid-column: 2; justify-self: start; }
     .footer-signoff { gap: 18px; padding: 24px 0 18px; }
     .footer-inner { align-items: flex-start; flex-direction: column; gap: 8px; padding: 8px 0; }
     .theme-toggle:not(.hero-theme) { width: 32px; height: 32px; }
