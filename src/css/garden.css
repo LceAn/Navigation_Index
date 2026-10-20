@@ -46,7 +46,7 @@ html.theme-dark {
 html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-blend-mode: normal; }
 .hero {
     display: grid; grid-template-columns: 1fr 1.05fr; column-gap: 7%;
-    min-height: min(900px, 100svh); max-width: 1440px; margin: auto;
+    min-height: 100svh; max-width: 1440px; margin: auto;
     padding: 0 var(--page-padding); overflow: visible;
 }
 .hero-masthead { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; height: 100px; }
@@ -146,11 +146,8 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .footer-signoff p > span { display: block; }
 .footer-top { margin-left: auto; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; text-decoration: none; font-size: 18px; }
 .footer-inner { max-width: var(--content-width); padding: 0; font-size: 10px; min-height: 32px; color: var(--ink-faint); }
-@media (min-width: 1441px) {
-    .hero { min-height: 850px; }
-}
 @media (max-width: 1040px) {
-    .hero { column-gap: 5%; min-height: 760px; }
+    .hero { column-gap: 5%; }
     .hero h1 { font-size: 58px; }
     .hero-art { min-height: 490px; border-top-left-radius: 120px; }
     .hero-actions { gap: 16px; }
@@ -163,7 +160,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 }
 @media (max-width: 720px) {
     :root { --page-padding: 22px; }
-    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero { grid-template-columns: 1fr; }
     .hero-masthead { height: 78px; gap: 12px; }
     .masthead-brand { font-size: 24px; }
     .masthead-note { font-size: 7px; max-width: 140px; line-height: 1.6; letter-spacing: .09em; text-align: right; }

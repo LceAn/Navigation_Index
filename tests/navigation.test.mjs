@@ -44,7 +44,7 @@ test("all local homepage source references resolve", async () => {
     for (const match of html.matchAll(/(?:src|href)="(src\/[^"]+)"/g)) {
         await access(new URL(match[1].split("?")[0], root));
     }
-    assert.match(html, /garden\.css\?20261020v1/);
+    assert.match(html, /garden\.css\?20261020v2/);
     assert.match(html, /redesign\.js\?20261020v2/);
 });
 
