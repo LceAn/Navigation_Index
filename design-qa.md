@@ -1,5 +1,27 @@
 # Design QA
 
+## Current baseline — 2026-10-20
+
+The older reference comparison below is archived. The current design is a
+digital garden: warm paper and forest green, an editorial two-line heading,
+framed day/night landscape, two featured image cards and a three-column directory.
+`garden.css` provides the visual layer on top of the existing content-page styles.
+
+- Preserved all 14 destinations, original card artwork and CloudDrive2.
+- Desktop 1280×720 and mobile 390×844 visually reviewed in both themes.
+- 320px and 768px layouts checked for horizontal overflow: none.
+- Three categories, case-insensitive search, empty-state reset and all three content pages verified.
+- Timeline: 28 entries; About: four aggregate honor badges; More: three resources.
+- All 14 images loaded normally. With R2 requests intentionally blocked, all 14
+  fell back to same-origin Pages artwork with no broken images.
+- Reduced-motion emulation confirmed negligible transition durations; no
+  card entrance observer or per-frame hero animation remains.
+- Browser console before deliberate failure simulation: no warnings or errors.
+- Static integrity checks: `node --test tests/navigation.test.mjs`.
+- No infrastructure, DNS, Access or third-party service settings changed.
+
+## Archived visual reference — July 2026
+
 - Source visual truth:
   - `C:\Users\ccvuv\.codex\generated_images\019f6ad7-22af-7a20-b4f4-737ac538cc1d\call_VNpIPAxeLG3hrnCYxVzdbxHY.png`
   - `C:\Users\ccvuv\.codex\generated_images\019f6ad7-22af-7a20-b4f4-737ac538cc1d\call_Dtzt5KCvPChMw504AP6IyKoH(1).png` (final header reference)

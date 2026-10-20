@@ -1,9 +1,13 @@
-import configData from "../cfg/config.js?20260731v1";
+import configData from "../cfg/config.js?20261020v1";
 
 const state = {
     currentView: "directory",
-    theme: "light"
+    theme: "light",
+    category: "all",
+    query: "",
+    pageRequest: 0
 };
+const categoryNames = { life: "记录与生活", dev: "开发与运维", tools: "工具与探索" };
 
 const fallbackBackgrounds = [
     "linear-gradient(135deg, #304b78, #7190b8)",
@@ -21,7 +25,7 @@ const pageMap = {
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html?20260731v2",
+        path: "./src/b_html/timeline.html?20261020v1",
         title: "时间线",
         eyebrow: "Timeline"
     },
@@ -45,7 +49,10 @@ const elements = {
     directoryLabel: document.querySelector("[data-directory-label]"),
     dynamicContent: document.getElementById("dynamic-content"),
     backButton: document.querySelector("[data-back-to-directory]"),
-    themeToggle: document.querySelector(".theme-toggle"),
+    themeToggles: document.querySelectorAll(".theme-toggle"),
+    directoryTools: document.getElementById("directory-tools"),
+    search: document.getElementById("site-search"),
+    filterStatus: document.getElementById("filter-status"),
     footerCopy: document.getElementById("footer-copy"),
     footerRecord: document.getElementById("footer-record")
 };
@@ -58,6 +65,8 @@ function applySiteConfig() {
     elements.heroKicker.textContent = site.subtitle;
     elements.footerCopy.textContent = site.copyright;
     elements.footerRecord.textContent = site.beian;
+    document.getElementById("site-count").textContent = configData.weblists.length;
+    document.querySelector('[data-category="all"] span').textContent = configData.weblists.length;
 }
 
 function loadDynamicPoem() {
@@ -124,8 +133,10 @@ function createCard(item, index) {
     card.href = item.url;
     card.target = "_blank";
     card.rel = "noopener noreferrer";
-    card.style.transitionDelay = `${Math.min(index, 8) * 55}ms`;
-    card.setAttribute("aria-label", `${item.title}：${item.description}`);
+    card.dataset.category = item.category || "tools";
+    card.dataset.search = `${item.title} ${item.description} ${item.url}`.toLocaleLowerCase();
+    card.dataset.featured = String(index < 2);
+    card.setAttribute("aria-label", `${item.title}：${item.description}（新窗口打开）`);
 
     const media = document.createElement("div");
     media.className = "card-media";
@@ -138,10 +149,20 @@ function createCard(item, index) {
     image.decoding = "async";
     image.fetchPriority = "low";
     image.referrerPolicy = "no-referrer";
+    image.width = 960;
+    image.height = 540;
+    let triedLocal = false;
     image.addEventListener("error", () => {
+        // The same artwork ships with Pages, so an R2 outage needn't break a card.
+        if (!triedLocal && item.img_url) {
+            triedLocal = true;
+            const filename = new URL(item.img_url, location.href).pathname.split("/").pop();
+            image.src = `./src/img/cards/${filename}`;
+            return;
+        }
         image.hidden = true;
         image.removeAttribute("src");
-    }, { once: true });
+    });
     if (item.img_url) {
         image.src = item.img_url;
     } else {
@@ -150,7 +171,12 @@ function createCard(item, index) {
 
     const badge = document.createElement("span");
     badge.className = "card-badge";
-    badge.textContent = item.span || "Link";
+    badge.textContent = categoryNames[item.category] || "工具与探索";
+
+    const arrow = document.createElement("span");
+    arrow.className = "card-arrow";
+    arrow.textContent = "↗";
+    arrow.setAttribute("aria-hidden", "true");
 
     const copy = document.createElement("div");
     copy.className = "card-copy";
@@ -161,34 +187,39 @@ function createCard(item, index) {
     const description = document.createElement("p");
     description.textContent = item.description;
 
-    copy.append(title, description);
-    media.append(image, badge, copy);
+    const domain = document.createElement("span");
+    domain.className = "card-domain";
+    domain.textContent = new URL(item.url, location.href).hostname.toLowerCase();
+    copy.append(title, description, domain);
+    media.append(image, badge, arrow, copy);
     card.append(media);
     return card;
 }
 
-function revealCards() {
-    const cards = document.querySelectorAll(".nav-card");
-    if (!("IntersectionObserver" in window)) {
-        cards.forEach((card) => card.classList.add("is-visible"));
-        return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.12 });
-
-    cards.forEach((card) => observer.observe(card));
+function filterDirectory() {
+    if (state.currentView !== "directory") return;
+    const query = state.query.trim().toLocaleLowerCase();
+    let count = 0;
+    document.querySelectorAll(".nav-card").forEach((card) => {
+        const matches = (state.category === "all" || card.dataset.category === state.category)
+            && card.dataset.search.includes(query);
+        card.hidden = !matches;
+        card.classList.toggle("is-featured", card.dataset.featured === "true" && !query && state.category === "all");
+        if (matches) count++;
+    });
+    document.querySelectorAll("button[data-category]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.category === state.category));
+    });
+    document.querySelector(".empty-state").hidden = count !== 0;
+    elements.filterStatus.textContent = `找到 ${count} 个站点`;
 }
 
 function renderDirectory({ shouldScroll = false } = {}) {
     state.currentView = "directory";
+    state.pageRequest++;
     elements.directory.classList.remove("is-page-view");
     elements.directoryLabel.hidden = false;
+    elements.directoryTools.hidden = false;
     elements.directoryTitle.textContent = "";
     elements.sectionEyebrow.textContent = "";
     elements.backButton.hidden = true;
@@ -201,9 +232,21 @@ function renderDirectory({ shouldScroll = false } = {}) {
     configData.weblists.forEach((item, index) => {
         grid.append(createCard(item, index));
     });
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.hidden = true;
+    empty.innerHTML = '<h3>这个角落还没找到</h3><p>试试站点名称、描述或域名，也可以换个分类。</p><button type="button">查看全部站点</button>';
+    empty.querySelector("button").addEventListener("click", () => {
+        state.category = "all";
+        state.query = "";
+        elements.search.value = "";
+        filterDirectory();
+        elements.search.focus({ preventScroll: true });
+    });
+    grid.append(empty);
 
     elements.dynamicContent.replaceChildren(grid);
-    revealCards();
+    filterDirectory();
 
     if (shouldScroll) {
         scrollToElement(elements.directory);
@@ -220,8 +263,11 @@ async function loadPage(pageName) {
     if (!page) return;
 
     state.currentView = pageName;
+    const requestId = ++state.pageRequest;
     elements.directory.classList.add("is-page-view");
     elements.directoryLabel.hidden = true;
+    elements.directoryTools.hidden = true;
+    elements.filterStatus.textContent = "";
     elements.directoryTitle.textContent = page.title;
     elements.sectionEyebrow.textContent = page.eyebrow;
     elements.backButton.hidden = false;
@@ -240,6 +286,7 @@ async function loadPage(pageName) {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const html = await response.text();
+        if (requestId !== state.pageRequest) return;
         const doc = new DOMParser().parseFromString(html, "text/html");
         doc.querySelectorAll("script").forEach((script) => script.remove());
 
@@ -252,6 +299,7 @@ async function loadPage(pageName) {
             hydrateVersionInfo();
         }
     } catch (error) {
+        if (requestId !== state.pageRequest) return;
         const message = document.createElement("p");
         message.className = "section-error";
         message.textContent = "内容暂时无法加载，请稍后重试。";
@@ -288,19 +336,26 @@ function setTheme(theme, { persist = true } = {}) {
     state.theme = theme;
     const isDark = theme === "dark";
     elements.root.classList.toggle("theme-dark", isDark);
-    elements.themeToggle.setAttribute("aria-pressed", String(isDark));
-    elements.themeToggle.setAttribute("aria-label", isDark ? "切换到日间主题" : "切换到夜间主题");
-    document.querySelector('meta[name="theme-color"]').content = isDark ? "#0d1118" : "#fbf8f1";
-    if (persist) localStorage.setItem("lcean-theme", theme);
+    document.querySelector(".hero-art").setAttribute("aria-label", isDark ? "月色海岸山水" : "日落海岸山水");
+    document.querySelector(".hero-image-day").alt = isDark ? "月色下的海岸、山崖与松林" : "日落时分的海岸、山崖与松林";
+    elements.themeToggles.forEach((button) => {
+        button.setAttribute("aria-pressed", String(isDark));
+        button.setAttribute("aria-label", isDark ? "切换到日间主题" : "切换到夜间主题");
+    });
+    document.querySelector('meta[name="theme-color"]').content = isDark ? "#111d1b" : "#f7f7f0";
+    if (persist) {
+        try { localStorage.setItem("lcean-theme", theme); } catch { /* Private storage may be unavailable. */ }
+    }
 }
 
 function initTheme() {
-    const saved = localStorage.getItem("lcean-theme");
+    let saved;
+    try { saved = localStorage.getItem("lcean-theme"); } catch { /* Fall back to system theme. */ }
     const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    setTheme(saved || preferred, { persist: false });
+    setTheme(["light", "dark"].includes(saved) ? saved : preferred, { persist: false });
 
-    elements.themeToggle.addEventListener("click", () => {
-        setTheme(state.theme === "dark" ? "light" : "dark");
+    elements.themeToggles.forEach((button) => {
+        button.addEventListener("click", () => setTheme(state.theme === "dark" ? "light" : "dark"));
     });
 }
 
@@ -357,6 +412,30 @@ function bindNavigation() {
     });
 
     elements.backButton.addEventListener("click", () => renderDirectory());
+    document.querySelectorAll('a[href="#directory"]').forEach((link) => {
+        link.addEventListener("click", () => {
+            if (state.currentView !== "directory") renderDirectory();
+        });
+    });
+    document.querySelectorAll("button[data-category]").forEach((button) => {
+        button.addEventListener("click", () => {
+            state.category = button.dataset.category;
+            filterDirectory();
+        });
+    });
+    elements.search.addEventListener("input", () => {
+        state.query = elements.search.value;
+        filterDirectory();
+    });
+    document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey
+            || target.closest("input, textarea, select, [contenteditable]")) return;
+        event.preventDefault();
+        if (state.currentView !== "directory") renderDirectory();
+        elements.search.focus({ preventScroll: true });
+        scrollToElement(elements.directory);
+    });
 }
 
 function init() {

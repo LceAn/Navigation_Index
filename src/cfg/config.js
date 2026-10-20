@@ -6,7 +6,7 @@ const configData = {
     // ==================== 站点信息 ====================
     site: {
         title: 'LceAn',
-        description: '嘿，我是LceAn',
+        description: 'LceAn 的个人数字花园：记录生活、分享技术、探索未知。',
         author: 'LceAn',
         subtitle: '我的导航页',
         welcome: '欢迎访问',
@@ -47,6 +47,7 @@ const configData = {
             img_url: imageUrl('cards/tech.webp'),
             span: 'Personal',
             title: '技术博客',
+            category: 'life',
             description: '我的个人技术博客'
         },
         {
@@ -55,6 +56,7 @@ const configData = {
             img_url: imageUrl('cards/gallery.webp'),
             span: 'Img',
             title: '时光相册',
+            category: 'life',
             description: '路途遥远，让我和你 岁月相随。'
         },
         {
@@ -63,6 +65,7 @@ const configData = {
             img_url: imageUrl('cards/docker.webp'),
             span: 'Personal',
             title: 'Docker',
+            category: 'dev',
             description: '我的Docker状态'
         },
         {
@@ -71,6 +74,7 @@ const configData = {
             img_url: imageUrl('cards/monitor.webp'),
             span: 'status',
             title: '探针',
+            category: 'dev',
             description: '我的服务器状态监控'
         },
         {
@@ -79,6 +83,7 @@ const configData = {
             img_url: imageUrl('cards/github.webp'),
             span: 'Weblists',
             title: 'Github',
+            category: 'dev',
             description: '部署的本地Github、Docker镜像加速'
         },
         {
@@ -87,6 +92,7 @@ const configData = {
             img_url: imageUrl('cards/unknown.webp'),
             span: 'Unknown',
             title: '前往未知的网站',
+            category: 'tools',
             description: 'Let\'s go it!'
         },
         {
@@ -95,6 +101,7 @@ const configData = {
             img_url: imageUrl('cards/mail.webp'),
             span: 'Unknown',
             title: '我的邮箱',
+            category: 'tools',
             description: 'GO'
         },
         {
@@ -103,6 +110,7 @@ const configData = {
             img_url: imageUrl('cards/journal.webp'),
             span: '📝',
             title: '个人日记',
+            category: 'life',
             description: 'MkDocs'
         },
         {
@@ -111,7 +119,17 @@ const configData = {
             img_url: imageUrl('cards/cloud.webp'),
             span: '☁️',
             title: 'Alist',
+            category: 'tools',
             description: '云盘'
+        },
+        {
+            url: 'https://cd.lcean.com/',
+            alt: 'clouddrive2',
+            img_url: imageUrl('cards/clouddrive.webp'),
+            span: '☁️',
+            title: 'CloudDrive2',
+            category: 'tools',
+            description: '云盘聚合与挂载'
         },
         {
             url: 'https://vs.lcean.com/',
@@ -119,6 +137,7 @@ const configData = {
             img_url: imageUrl('cards/code.webp'),
             span: 'code️',
             title: 'VS Code',
+            category: 'dev',
             description: '在线代码编辑器'
         },
         {
@@ -127,6 +146,7 @@ const configData = {
             img_url: imageUrl('cards/automation.webp'),
             span: 'Shell',
             title: '青龙',
+            category: 'dev',
             description: '脚本云托管平台'
         },
         {
@@ -135,6 +155,7 @@ const configData = {
             img_url: imageUrl('cards/books.webp'),
             span: 'Img',
             title: '图书馆',
+            category: 'life',
             description: '默默看书'
         },
         {
@@ -143,6 +164,7 @@ const configData = {
             img_url: imageUrl('cards/navigation.webp'),
             span: 'CD️',
             title: '导航',
+            category: 'tools',
             description: '我的新导航'
         },
     ],

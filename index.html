@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="LceAn" id="meta-author">
-    <meta name="description" content="LceAn 的个人网站导航" id="meta-description">
-    <meta name="theme-color" content="#fbf8f1">
+    <meta name="description" content="LceAn 的个人数字花园：记录生活、分享技术、探索未知。" id="meta-description">
+    <meta name="theme-color" content="#f7f7f0">
     <meta property="og:title" content="LceAn - 个人网站导航">
     <meta property="og:description" content="技术、生活与持续构建中的个人数字入口">
     <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
                 ? savedTheme === "dark"
                 : window.matchMedia("(prefers-color-scheme: dark)").matches;
             document.documentElement.classList.toggle("theme-dark", useDarkTheme);
-            document.querySelector('meta[name="theme-color"]').content = useDarkTheme ? "#0d1118" : "#fbf8f1";
+            document.querySelector('meta[name="theme-color"]').content = useDarkTheme ? "#111d1b" : "#f7f7f0";
         } catch {}
     </script>
     <link rel="canonical" href="https://www.lcean.com/">
@@ -32,9 +32,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=arrow_back,code,dark_mode,database,language,light_mode,location_on,mail,north_east,shield,south,workspace_premium&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/iconfont.css">
     <link rel="stylesheet" href="src/css/redesign.css?20260731v2">
+    <link rel="stylesheet" href="src/css/garden.css?20261020v1">
 </head>
 
 <body>
+    <a class="skip-link" href="#directory">跳到网站导航</a>
     <header class="site-header" id="site-header" aria-hidden="true" inert>
         <div class="header-inner">
             <a class="brand" href="#home" aria-label="返回首页" data-home-link>
@@ -62,14 +64,30 @@
 
     <main>
         <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="hero-masthead">
+                <a class="masthead-brand" href="#home" aria-label="LceAn 首页">
+                    <img src="src/img/logoTM.webp?v=20260731v1" width="32" height="32" alt="">
+                    <span>LceAn<span class="brand-dot">.</span></span>
+                </a>
+                <span class="masthead-note">A PERSONAL CORNER OF THE INTERNET</span>
+                <button class="theme-toggle hero-theme" type="button" aria-label="切换昼夜主题" aria-pressed="false">
+                    <span class="material-symbols-rounded theme-icon theme-icon-sun" aria-hidden="true">light_mode</span>
+                    <span class="material-symbols-rounded theme-icon theme-icon-moon" aria-hidden="true">dark_mode</span>
+                </button>
+            </div>
             <div class="hero-copy">
                 <p class="hero-kicker" id="hero-kicker">我的导航页</p>
-                <h1 id="hero-title">在技术与生活之间</h1>
-                <img class="headline-brush" src="src/img/headline-brush.webp?v=20260731v1" alt="" width="400" height="22" aria-hidden="true">
-                <p class="hero-note">这里记录我的思考、实践与生活片段。</p>
+                <h1 id="hero-title"><span>在技术与</span><span class="title-accent">生活之间<span class="title-period">。</span></span></h1>
+                <p class="hero-note">你好，我是 LceAn。<br>写一点代码，记录一些日常，<br>在不断探索中，慢慢构建自己的世界。</p>
+                <div class="hero-actions">
+                    <a class="primary-action" href="#directory">探索我的世界 <span aria-hidden="true">↗</span></a>
+                    <button class="text-action" type="button" data-page="about">认识一下 <span aria-hidden="true">→</span></button>
+                </div>
+                <p class="hero-footnote"><span aria-hidden="true"></span> 保持好奇，持续生长。</p>
             </div>
 
             <figure class="hero-art" aria-label="日落海岸山水">
+                <span class="scene-label" aria-hidden="true">IN THE MOMENT <span>01 / LANDSCAPE</span></span>
                 <img class="hero-image hero-image-day"
                      src="src/img/hero-landscape-day.webp?v=20260731v1"
                      alt="日落时分的海岸、山崖与松林"
@@ -89,16 +107,36 @@
                     <small id="poem-source">[唐代] 杜牧《题宣州开元寺水阁阁下宛溪夹溪居人》</small>
                 </figcaption>
             </figure>
-
-            <a class="explore-link" href="#directory">
-                <span class="material-symbols-rounded" aria-hidden="true">south</span>
-                <span>向下探索</span>
-            </a>
+            <div class="hero-bottom">
+                <span>记录生活 <i>/</i> 分享技术 <i>/</i> 探索未知</span>
+                <a class="explore-link" href="#directory"><span>向下探索</span><span aria-hidden="true">↓</span></a>
+            </div>
         </section>
 
         <section class="directory-section" id="directory" aria-label="个人网站入口">
             <div class="section-shell">
-                <p class="directory-label" data-directory-label>LCEAN · PERSONAL INDEX</p>
+                <div class="directory-intro" data-directory-label>
+                    <div>
+                        <p class="directory-label">THE COLLECTION <span aria-hidden="true">/ 01</span></p>
+                        <h2>把日常，收藏在这里<span>。</span></h2>
+                        <p class="directory-note">从灵感到实践，从代码到生活。这里是我的常用入口。</p>
+                    </div>
+                    <p class="collection-count"><strong id="site-count">14</strong><span>个数字角落</span></p>
+                </div>
+                <div class="directory-tools" id="directory-tools">
+                    <div class="category-filters" role="group" aria-label="按分类筛选站点">
+                        <button type="button" data-category="all" aria-pressed="true">全部 <span>14</span></button>
+                        <button type="button" data-category="life" aria-pressed="false">记录与生活</button>
+                        <button type="button" data-category="dev" aria-pressed="false">开发与运维</button>
+                        <button type="button" data-category="tools" aria-pressed="false">工具与探索</button>
+                    </div>
+                    <label class="site-search">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>
+                        <input id="site-search" type="search" placeholder="寻找一个角落…" aria-label="搜索站点" autocomplete="off">
+                        <kbd aria-hidden="true">/</kbd>
+                    </label>
+                </div>
+                <p class="sr-only" id="filter-status" role="status" aria-live="polite"></p>
                 <div class="section-heading">
                     <div>
                         <p class="section-eyebrow"></p>
@@ -113,11 +151,17 @@
                 <div id="dynamic-content">
                     <div class="cards-grid" id="cards-grid" aria-live="polite"></div>
                 </div>
+                <div class="garden-note">
+                    <span class="garden-symbol" aria-hidden="true">✳</span>
+                    <div><p>不止是导航，也是一段生长的记录。</p><span>这个小小的角落，会随着每一次探索慢慢更新。</span></div>
+                    <button type="button" data-page="timeline">看看时间线 <span aria-hidden="true">↗</span></button>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
+        <div class="footer-signoff"><a href="#home">LceAn<span>.</span></a><p>Made with curiosity. <span>保持热爱，山海皆可平。</span></p><a class="footer-top" href="#home" aria-label="回到顶部">↑</a></div>
         <div class="footer-inner">
             <div class="footer-identity">
                 <span id="footer-copy">© 2020 by LceAn</span>
@@ -132,6 +176,6 @@
         </div>
     </footer>
 
-    <script type="module" src="src/js/redesign.js?20260731v2"></script>
+    <script type="module" src="src/js/redesign.js?20261020v1"></script>
 </body>
 </html>
