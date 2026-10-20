@@ -114,6 +114,14 @@ const configData = {
             description: '云盘'
         },
         {
+            url: 'https://cd.lcean.com/',
+            alt: 'clouddrive2',
+            img_url: imageUrl('cards/clouddrive.webp'),
+            span: '☁️',
+            title: 'CloudDrive2',
+            description: '云盘聚合与挂载'
+        },
+        {
             url: 'https://vs.lcean.com/',
             alt: 'cloudcode',
             img_url: imageUrl('cards/code.webp'),
