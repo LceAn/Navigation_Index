@@ -169,6 +169,9 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .directory-tools { flex-wrap: wrap; }
     .site-search { width: 220px; }
 }
+@media (min-width: 721px) and (max-height: 760px) {
+    .hero-art { bottom: 26px; }
+}
 @media (max-width: 720px) {
     :root { --page-padding: 22px; }
     .hero { grid-template-columns: 1fr; }

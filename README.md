@@ -1,6 +1,6 @@
 # Navigation Index
 
-[![Version](https://img.shields.io/badge/Version-1.5.4-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.5.4)
+[![Version](https://img.shields.io/badge/Version-1.5.5-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.5.5)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/预览-lcean.com-5e6ad2)](https://www.lcean.com)
 
