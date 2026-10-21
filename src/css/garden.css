@@ -83,6 +83,26 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 }
 .hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(180deg, #14271a08 38%, #10251fbc 100%); }
 .hero-image { object-position: 65% center; }
+@media (min-width: 721px) {
+    .hero-art::before {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        inset: -2%;
+        background: url("../img/hero-landscape-day.webp?v=20260731v1") 65% center / cover no-repeat;
+        filter: blur(18px) saturate(.82);
+        opacity: .34;
+        transform: scale(1.04);
+        pointer-events: none;
+    }
+    html.theme-dark .hero-art::before {
+        background-image: url("../img/hero-landscape-night.webp?v=20260731v1");
+    }
+    .hero-image {
+        object-fit: contain;
+        object-position: right center;
+    }
+}
 .scene-label { position: absolute; z-index: 2; top: 28px; right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
 .scene-label span { display: block; opacity: .8; font-size: 8px; }
 .hero-poem { left: auto; right: clamp(28px, 4vw, 70px); bottom: clamp(42px, 7vh, 72px); max-width: min(42vw, 540px); text-align: right; }

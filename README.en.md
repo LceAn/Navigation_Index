@@ -4,7 +4,7 @@
 [![CSS](https://img.shields.io/badge/CSS-23.2%25-563d7c)]()
 [![JavaScript](https://img.shields.io/badge/JavaScript-16.8%25-f7df1e)]()
 [![Less](https://img.shields.io/badge/Less-14.5%25-1d365d)]()
-[![Version](https://img.shields.io/badge/Version-1.5.5-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.5.5)
+[![Version](https://img.shields.io/badge/Version-1.5.6-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.5.6)
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
 **Personal Website Navigation Landing Page**
