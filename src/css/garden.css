@@ -45,17 +45,19 @@ html.theme-dark {
 .brand img, .masthead-brand img { mix-blend-mode: multiply; }
 html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-blend-mode: normal; }
 .hero {
-    display: grid; grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr); column-gap: 5%;
-    min-height: 100svh; max-width: 1440px; margin: auto;
-    padding: 0 var(--page-padding); overflow: visible;
+    --hero-inset: max(5vw, calc((100vw - 1440px) / 2));
+    display: grid; grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); column-gap: 0;
+    grid-template-rows: 100px minmax(520px, 1fr) 76px;
+    min-height: 100svh; max-width: none; margin: auto;
+    padding: 0 var(--hero-inset); overflow: hidden;
 }
-.hero-masthead { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; height: 100px; }
+.hero-masthead { position: relative; z-index: 5; grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; height: 100px; }
 .masthead-brand { display: inline-flex; align-items: center; gap: 9px; font-size: 27px; font-weight: 650; text-decoration: none; letter-spacing: -.7px; }
 .brand-dot, .footer-signoff > a span { color: var(--accent); }
 .masthead-note { margin-left: auto; color: var(--ink-faint); letter-spacing: .14em; font-size: 9px; }
-.hero-copy { position: relative; top: auto; left: auto; align-self: center; width: auto; transform: none; padding: 32px 0 44px; }
-.hero-kicker { font-size: 30px; margin-bottom: 24px; letter-spacing: .1em; color: var(--amber); }
-.hero h1 { font-size: clamp(52px, 5.5vw, 80px); line-height: 1.32; font-weight: 500; letter-spacing: -.02em; max-width: none; text-wrap: initial; }
+.hero-copy { position: relative; top: auto; left: auto; align-self: center; width: auto; transform: none; padding: 32px 0; }
+.hero-kicker { font-size: clamp(26px, 2.2vw, 32px); margin-bottom: 28px; letter-spacing: .12em; color: var(--amber); }
+.hero h1 { font-size: clamp(48px, 4.8vw, 80px); line-height: 1.28; font-weight: 500; letter-spacing: -.035em; max-width: none; text-wrap: initial; }
 .hero h1 > span { display: block; white-space: nowrap; }
 .title-accent { color: var(--accent); }
 .title-period { margin-left: -.14em; }
@@ -71,51 +73,30 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .hero-footnote > span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .hero-art {
     position: absolute; z-index: 2; top: 100px; right: 0; bottom: 76px;
-    width: min(130vw, 2400px); height: auto; min-height: 0; max-height: none; margin: 0;
+    width: 76vw; height: min(50.6667vw, calc(100% - 176px)); min-height: 0; max-height: none; margin: auto 0;
     overflow: hidden; border-radius: 0; transform: none;
-    -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
-    mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
-    -webkit-mask-size: 125% 100%; mask-size: 125% 100%;
+    /* Keep the original brush texture on the edge, with the landscape fully visible beyond it. */
+    -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1"), linear-gradient(to right, transparent 35.8%, #000 36%);
+    mask-image: url("../img/hero-brush-mask.webp?v=20260731v1"), linear-gradient(to right, transparent 35.8%, #000 36%);
+    -webkit-mask-size: 36% 100%, 100% 100%; mask-size: 36% 100%, 100% 100%;
     -webkit-mask-position: left center; mask-position: left center;
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-    animation: garden-art-reveal 900ms cubic-bezier(.2, .72, .22, 1) 100ms backwards;
-    background: #6a765f;
+    animation: garden-art-reveal 650ms ease-out 80ms backwards;
+    background: transparent;
 }
-.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(180deg, #14271a08 38%, #10251fbc 100%); }
-.hero-image { object-position: 65% center; }
-@media (min-width: 721px) {
-    .hero-art::before {
-        content: "";
-        position: absolute;
-        z-index: 0;
-        inset: -2%;
-        background: url("../img/hero-landscape-day.webp?v=20260731v1") 65% center / cover no-repeat;
-        filter: blur(18px) saturate(.82);
-        opacity: .34;
-        transform: scale(1.04);
-        pointer-events: none;
-    }
-    html.theme-dark .hero-art::before {
-        background-image: url("../img/hero-landscape-night.webp?v=20260731v1");
-    }
-    .hero-image {
-        object-fit: contain;
-        object-position: right center;
-    }
-}
+.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(to bottom, var(--paper), transparent 22px, transparent calc(100% - 22px), var(--paper)), linear-gradient(0deg, #10251fa8, transparent 48%); }
+.hero-image { object-fit: cover; object-position: center; }
 .scene-label { position: absolute; z-index: 2; top: 28px; right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
 .scene-label span { display: block; opacity: .8; font-size: 8px; }
-.hero-poem { left: auto; right: clamp(28px, 4vw, 70px); bottom: clamp(42px, 7vh, 72px); max-width: min(42vw, 540px); text-align: right; }
+.hero-poem { left: auto; right: var(--hero-inset); bottom: clamp(36px, 4vw, 64px); max-width: min(44vw, 560px); text-align: right; }
 .hero-poem::before { content: "一隅 · 一刻"; display: block; margin-bottom: 16px; font-size: 10px; letter-spacing: .25em; opacity: .8; }
 .hero-poem span { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.8; }
 .hero-poem small { font-size: 11px; line-height: 1.7; margin-top: 8px; }
-.hero-bottom { display: flex; grid-column: 1 / -1; align-items: center; justify-content: space-between; height: 76px; color: var(--ink-faint); font-size: 10px; letter-spacing: .12em; }
+.hero-bottom { position: relative; z-index: 4; display: flex; grid-column: 1 / -1; grid-row: 3; align-items: center; justify-content: space-between; height: 76px; color: var(--ink-faint); font-size: 10px; letter-spacing: .12em; }
 .hero-bottom i { margin: 0 12px; font-style: normal; color: var(--line-strong); }
 .explore-link { position: static; flex-direction: row; gap: 18px; font-size: 10px; }
 .explore-link > span:last-child { font-size: 20px; }
-@media (min-width: 721px) {
-    .explore-link { color: #fff; text-shadow: 0 1px 6px #0009; }
-}
+.explore-link { color: var(--ink-soft); text-shadow: none; }
 .directory-section { min-height: 70vh; padding-top: 90px; padding-bottom: 76px; }
 .directory-intro { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
 .directory-label { color: var(--accent); font-size: 10px; letter-spacing: .16em; margin-bottom: 18px; }
@@ -175,10 +156,9 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .footer-top { margin-left: auto; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; text-decoration: none; font-size: 18px; }
 .footer-inner { max-width: var(--content-width); padding: 0; font-size: 10px; min-height: 32px; color: var(--ink-faint); }
 @media (max-width: 1040px) {
-    .hero { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 5%; }
-    .hero h1 { font-size: clamp(48px, 5.5vw, 58px); }
-    .hero-art { top: 100px; bottom: 48px; width: min(100vw, 1024px); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-    .hero-poem { right: 24px; bottom: 50px; max-width: min(48vw, 400px); }
+    .hero { grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); }
+    .hero h1 { font-size: clamp(40px, 5vw, 52px); }
+    .hero-poem { right: var(--hero-inset); bottom: 36px; max-width: min(46vw, 440px); }
     .hero-poem span { font-size: 17px; }
     .hero-poem small { font-size: 9px; }
     .hero-actions { gap: 16px; }
@@ -189,12 +169,9 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .directory-tools { flex-wrap: wrap; }
     .site-search { width: 220px; }
 }
-@media (min-width: 721px) and (max-height: 760px) {
-    .hero-art { bottom: 26px; }
-}
-@media (max-width: 720px) {
+@media (max-width: 820px) {
     :root { --page-padding: 22px; }
-    .hero { grid-template-columns: 1fr; }
+    .hero { --hero-inset: 22px; grid-template-columns: 1fr; grid-template-rows: 78px auto auto 70px; }
     .hero-masthead { height: 78px; gap: 12px; }
     .masthead-brand { font-size: 24px; }
     .masthead-note { font-size: 7px; max-width: 140px; line-height: 1.6; letter-spacing: .09em; text-align: right; }
@@ -209,7 +186,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .hero-footnote { margin-top: 20px; }
     .hero-art {
         position: relative; top: auto; right: auto; bottom: auto; left: 50%; z-index: 2;
-        grid-column: 1 / -1; width: 100vw; height: clamp(220px, 72vw, 280px);
+        grid-column: 1 / -1; width: 100vw; height: clamp(220px, 66.6667vw, 440px);
         min-height: 0; max-height: none; margin: 0 0 0 -50vw;
         border-radius: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%);
         mask-image: linear-gradient(to bottom, transparent, #000 18%);
@@ -222,7 +199,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .hero-poem small { display: block; font-size: 9px; }
     .hero-poem::before { margin-bottom: 10px; }
     .scene-label { right: 20px; top: 20px; }
-    .hero-bottom { height: 70px; font-size: 9px; letter-spacing: .06em; }
+    .hero-bottom { grid-row: 4; height: 70px; font-size: 9px; letter-spacing: .06em; }
     .hero-bottom i { margin: 0 7px; }
     .explore-link { align-items: center; font-size: 9px; gap: 8px; }
     .directory-section { padding-top: 54px; padding-bottom: 44px; }
