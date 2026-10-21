@@ -71,12 +71,12 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .hero-footnote > span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .hero-art {
     position: absolute; z-index: 2; top: 100px; right: 0; bottom: 76px;
-    width: min(76vw, 1080px); height: auto; min-height: 0; max-height: none; margin: 0;
+    width: min(112vw, 1620px); height: auto; min-height: 0; max-height: none; margin: 0;
     overflow: hidden; border-radius: 0; transform: none;
     -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
     mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
-    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-    -webkit-mask-position: center; mask-position: center;
+    -webkit-mask-size: 140% 100%; mask-size: 140% 100%;
+    -webkit-mask-position: left center; mask-position: left center;
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     animation: garden-art-reveal 900ms cubic-bezier(.2, .72, .22, 1) 100ms backwards;
     background: #6a765f;
@@ -85,10 +85,10 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .hero-image { object-position: 65% center; }
 .scene-label { position: absolute; z-index: 2; top: 28px; right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
 .scene-label span { display: block; opacity: .8; font-size: 8px; }
-.hero-poem { left: 30px; right: 30px; bottom: 32px; max-width: none; text-align: left; }
+.hero-poem { left: auto; right: clamp(28px, 4vw, 70px); bottom: clamp(42px, 7vh, 72px); max-width: min(42vw, 540px); text-align: right; }
 .hero-poem::before { content: "一隅 · 一刻"; display: block; margin-bottom: 16px; font-size: 10px; letter-spacing: .25em; opacity: .8; }
-.hero-poem span { font-size: 18px; font-weight: 500; line-height: 1.8; }
-.hero-poem small { font-size: 10px; line-height: 1.7; margin-top: 8px; }
+.hero-poem span { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.8; }
+.hero-poem small { font-size: 11px; line-height: 1.7; margin-top: 8px; }
 .hero-bottom { display: flex; grid-column: 1 / -1; align-items: center; justify-content: space-between; height: 76px; color: var(--ink-faint); font-size: 10px; letter-spacing: .12em; }
 .hero-bottom i { margin: 0 12px; font-style: normal; color: var(--line-strong); }
 .explore-link { position: static; flex-direction: row; gap: 18px; font-size: 10px; }
@@ -154,7 +154,10 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 @media (max-width: 1040px) {
     .hero { column-gap: 5%; }
     .hero h1 { font-size: 58px; }
-    .hero-art { top: 100px; bottom: 76px; width: min(84vw, 900px); }
+    .hero-art { top: 100px; bottom: 76px; width: min(90vw, 920px); -webkit-mask-size: 130% 100%; mask-size: 130% 100%; }
+    .hero-poem { right: 24px; bottom: 50px; max-width: min(48vw, 400px); }
+    .hero-poem span { font-size: 17px; }
+    .hero-poem small { font-size: 9px; }
     .hero-actions { gap: 16px; }
     .primary-action { padding: 14px 17px; gap: 18px; }
     .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -184,9 +187,11 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
         min-height: 0; max-height: none; margin: 0 0 0 -50vw;
         border-radius: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%);
         mask-image: linear-gradient(to bottom, transparent, #000 18%);
+        -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+        -webkit-mask-position: center; mask-position: center;
     }
     .hero-image { object-position: center 56%; }
-    .hero-poem { display: block; left: 24px; right: 24px; bottom: 24px; }
+    .hero-poem { display: block; left: 24px; right: 24px; bottom: 24px; max-width: none; text-align: left; }
     .hero-poem span { font-size: 16px; }
     .hero-poem small { display: block; font-size: 9px; }
     .hero-poem::before { margin-bottom: 10px; }
