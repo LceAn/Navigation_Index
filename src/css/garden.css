@@ -72,8 +72,8 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .hero-footnote { display: flex; align-items: center; gap: 8px; margin: 26px 0 0; color: var(--ink-faint); font-size: 11px; letter-spacing: .05em; }
 .hero-footnote > span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .hero-art {
-    position: absolute; z-index: 2; top: 100px; right: 0; bottom: 76px;
-    width: 76vw; height: min(50.6667vw, calc(100% - 176px)); min-height: 0; max-height: none; margin: auto 0;
+    position: absolute; z-index: 2; top: 0; right: 0; bottom: 0;
+    width: 76vw; height: 100%; min-height: 0; max-height: none; margin: 0;
     overflow: hidden; border-radius: 0; transform: none;
     /* Keep the original brush texture on the edge, with the landscape fully visible beyond it. */
     -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1"), linear-gradient(to right, transparent 35.8%, #000 36%);
@@ -84,11 +84,11 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     animation: garden-art-reveal 650ms ease-out 80ms backwards;
     background: transparent;
 }
-.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(to bottom, var(--paper), transparent 22px, transparent calc(100% - 22px), var(--paper)), linear-gradient(0deg, #10251fa8, transparent 48%); }
+.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(to bottom, var(--paper) 0%, transparent 24%, transparent 74%, var(--paper) 100%), linear-gradient(0deg, #10251fa8, transparent 48%); }
 .hero-image { object-fit: cover; object-position: center; }
-.scene-label { position: absolute; z-index: 2; top: 28px; right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
+.scene-label { position: absolute; z-index: 2; top: max(120px, 20%); right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
 .scene-label span { display: block; opacity: .8; font-size: 8px; }
-.hero-poem { left: auto; right: var(--hero-inset); bottom: clamp(36px, 4vw, 64px); max-width: min(44vw, 560px); text-align: right; }
+.hero-poem { left: auto; right: var(--hero-inset); bottom: max(140px, 22%); max-width: min(44vw, 560px); text-align: right; }
 .hero-poem::before { content: "一隅 · 一刻"; display: block; margin-bottom: 16px; font-size: 10px; letter-spacing: .25em; opacity: .8; }
 .hero-poem span { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.8; }
 .hero-poem small { font-size: 11px; line-height: 1.7; margin-top: 8px; }
@@ -158,7 +158,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 @media (max-width: 1040px) {
     .hero { grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); }
     .hero h1 { font-size: clamp(40px, 5vw, 52px); }
-    .hero-poem { right: var(--hero-inset); bottom: 36px; max-width: min(46vw, 440px); }
+    .hero-poem { right: var(--hero-inset); max-width: min(46vw, 440px); }
     .hero-poem span { font-size: 17px; }
     .hero-poem small { font-size: 9px; }
     .hero-actions { gap: 16px; }
@@ -194,6 +194,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
         -webkit-mask-position: center; mask-position: center;
     }
     .hero-image { object-position: center 56%; }
+    .hero-art::after { background: linear-gradient(to bottom, transparent calc(100% - 22px), var(--paper)), linear-gradient(0deg, #10251fa8, transparent 48%); }
     .hero-poem { display: block; left: 24px; right: 24px; bottom: 24px; max-width: none; text-align: left; }
     .hero-poem span { font-size: 16px; }
     .hero-poem small { display: block; font-size: 9px; }
