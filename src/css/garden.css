@@ -70,13 +70,18 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .hero-footnote { display: flex; align-items: center; gap: 8px; margin: 26px 0 0; color: var(--ink-faint); font-size: 11px; letter-spacing: .05em; }
 .hero-footnote > span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .hero-art {
-    position: relative; align-self: stretch; top: auto; right: auto; width: 100%;
-    height: auto; min-height: 480px; max-height: 620px; margin: 20px 0 26px;
-    border-radius: 180px 20px 20px 20px; transform: none;
-    mask-image: none; -webkit-mask-image: none; animation: none;
+    position: absolute; z-index: 2; top: 100px; right: 0; bottom: 76px;
+    width: min(76vw, 1080px); height: auto; min-height: 0; max-height: none; margin: 0;
+    overflow: hidden; border-radius: 0; transform: none;
+    -webkit-mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
+    mask-image: url("../img/hero-brush-mask.webp?v=20260731v1");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-position: center; mask-position: center;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    animation: garden-art-reveal 900ms cubic-bezier(.2, .72, .22, 1) 100ms backwards;
     background: #6a765f;
 }
-.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(180deg, #14271a12 40%, #10251fbc 100%); }
+.hero-art::after { inset: 0; height: auto; z-index: 1; background: linear-gradient(180deg, #14271a08 38%, #10251fbc 100%); }
 .hero-image { object-position: 65% center; }
 .scene-label { position: absolute; z-index: 2; top: 28px; right: 24px; color: #fff; font-size: 9px; line-height: 1.7; letter-spacing: .14em; text-align: right; text-shadow: 0 1px 6px #0008; }
 .scene-label span { display: block; opacity: .8; font-size: 8px; }
@@ -149,7 +154,7 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 @media (max-width: 1040px) {
     .hero { column-gap: 5%; }
     .hero h1 { font-size: 58px; }
-    .hero-art { min-height: 490px; border-top-left-radius: 120px; }
+    .hero-art { top: 100px; bottom: 76px; width: min(84vw, 900px); }
     .hero-actions { gap: 16px; }
     .primary-action { padding: 14px 17px; gap: 18px; }
     .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -173,7 +178,13 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
     .hero-note { font-size: 13px; margin-top: 20px; max-width: none; }
     .hero-actions { margin-top: 22px; gap: 24px; }
     .hero-footnote { margin-top: 20px; }
-    .hero-art { min-height: 0; height: 340px; max-height: none; width: 100%; transform: none; margin: 0; border-radius: 90px 16px 16px 16px; }
+    .hero-art {
+        position: relative; top: auto; right: auto; bottom: auto; left: 50%; z-index: 2;
+        grid-column: 1 / -1; width: 100vw; height: clamp(220px, 72vw, 280px);
+        min-height: 0; max-height: none; margin: 0 0 0 -50vw;
+        border-radius: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%);
+        mask-image: linear-gradient(to bottom, transparent, #000 18%);
+    }
     .hero-image { object-position: center 56%; }
     .hero-poem { display: block; left: 24px; right: 24px; bottom: 24px; }
     .hero-poem span { font-size: 16px; }
@@ -219,4 +230,8 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 @media (hover: none), (prefers-reduced-motion: reduce) {
     .nav-card:hover, .nav-card:focus-visible { transform: none; }
     .nav-card:hover .card-image { transform: none; }
+}
+@keyframes garden-art-reveal {
+    from { opacity: 0; transform: translateY(14px) scale(.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
