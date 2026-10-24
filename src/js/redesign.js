@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js?20261020v1";
+import configData from "../cfg/config.js?20261025v1";
 
 const state = {
     currentView: "directory",
@@ -25,7 +25,7 @@ const pageMap = {
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html?20261020v1",
+        path: "./src/b_html/timeline.html?20261025v1",
         title: "时间线",
         eyebrow: "Timeline"
     },
@@ -174,6 +174,11 @@ function createCard(item, index) {
     badge.className = "card-badge";
     badge.textContent = categoryNames[item.category] || "工具与探索";
 
+    const number = document.createElement("span");
+    number.className = "card-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+    number.setAttribute("aria-hidden", "true");
+
     const arrow = document.createElement("span");
     arrow.className = "card-arrow";
     arrow.textContent = "↗";
@@ -191,9 +196,15 @@ function createCard(item, index) {
     const domain = document.createElement("span");
     domain.className = "card-domain";
     domain.textContent = new URL(item.url, location.href).hostname.toLowerCase();
-    copy.append(title, description, domain);
-    media.append(image, badge, arrow, copy);
-    card.append(media);
+    const heading = document.createElement("div");
+    heading.className = "card-heading";
+    heading.append(title, arrow);
+    const meta = document.createElement("div");
+    meta.className = "card-meta";
+    meta.append(badge, domain);
+    copy.append(heading, description, meta);
+    media.append(image, number);
+    card.append(media, copy);
     return card;
 }
 
@@ -374,7 +385,7 @@ function setTheme(theme, { persist = true } = {}) {
         button.setAttribute("aria-pressed", String(isDark));
         button.setAttribute("aria-label", isDark ? "切换到日间主题" : "切换到夜间主题");
     });
-    document.querySelector('meta[name="theme-color"]').content = isDark ? "#111d1b" : "#f7f7f0";
+    document.querySelector('meta[name="theme-color"]').content = isDark ? "#111d1b" : "#f6f4ed";
     if (persist) {
         try { localStorage.setItem("lcean-theme", theme); } catch { /* Private storage may be unavailable. */ }
     }

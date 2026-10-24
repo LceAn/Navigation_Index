@@ -45,14 +45,14 @@ test("all local homepage source references resolve", async () => {
         await access(new URL(match[1].split("?")[0], root));
     }
     assert.match(html, /garden\.css\?\d{8}v\d+"/);
-    assert.match(html, /redesign\.js\?20261020v2/);
+    assert.match(html, /redesign\.js\?\d{8}v\d+"/);
 });
 
-test("timeline begins with the October update and August CloudDrive record", async () => {
+test("timeline records the journal revision and keeps previous milestones", async () => {
     const timeline = await read("src/b_html/timeline.html");
     const dates = [...timeline.matchAll(/datetime="([^"]+)"/g)].map((match) => match[1]);
-    assert.deepEqual(dates.slice(0, 2), ["2026-10-20", "2026-08-30"]);
-    assert.equal(dates.length, 28);
+    assert.deepEqual(dates.slice(0, 5), ["2026-10-25", "2026-10-24", "2026-10-21", "2026-10-20", "2026-08-30"]);
+    assert.equal(dates.length, 31);
 });
 
 test("homepage IDs are unique and required controls exist", async () => {
@@ -70,4 +70,12 @@ test("theme icons are inline SVG and never require an external icon font", async
     const html = await read("index.html");
     assert.doesNotMatch(html, /Material\+Symbols|>light_mode<|>dark_mode</);
     assert.equal([...html.matchAll(/<svg class="theme-icon /g)].length, 4);
+});
+
+test("displayed version and documentation agree with the current release", async () => {
+    assert.equal(config.site.version, "1.6.1");
+    for (const file of ["README.md", "README.en.md"]) {
+        assert.ok((await read(file)).includes(`releases/tag/v${config.site.version}`));
+    }
+    assert.ok((await read("CHANGELOG.md")).includes(`(v${config.site.version})`));
 });

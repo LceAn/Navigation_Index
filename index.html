@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="LceAn" id="meta-author">
     <meta name="description" content="LceAn 的个人数字花园：记录生活、分享技术、探索未知。" id="meta-description">
-    <meta name="theme-color" content="#f7f7f0">
+    <meta name="theme-color" content="#f6f4ed">
     <meta property="og:title" content="LceAn - 个人网站导航">
     <meta property="og:description" content="技术、生活与持续构建中的个人数字入口">
     <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
                 ? savedTheme === "dark"
                 : window.matchMedia("(prefers-color-scheme: dark)").matches;
             document.documentElement.classList.toggle("theme-dark", useDarkTheme);
-            document.querySelector('meta[name="theme-color"]').content = useDarkTheme ? "#111d1b" : "#f7f7f0";
+            document.querySelector('meta[name="theme-color"]').content = useDarkTheme ? "#111d1b" : "#f6f4ed";
         } catch {}
     </script>
     <link rel="canonical" href="https://www.lcean.com/">
@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/iconfont.css">
     <link rel="stylesheet" href="src/css/redesign.css?20260731v2">
-    <link rel="stylesheet" href="src/css/garden.css?20261021v9">
+    <link rel="stylesheet" href="src/css/garden.css?20261025v1">
 </head>
 
 <body>
@@ -69,14 +69,14 @@
                     <img src="src/img/logoTM.webp?v=20260731v1" width="32" height="32" alt="">
                     <span>LceAn<span class="brand-dot">.</span></span>
                 </a>
-                <span class="masthead-note">A PERSONAL CORNER OF THE INTERNET</span>
+                <span class="masthead-note">山海有寄 · 日常有光<small>A PERSONAL JOURNAL BY LCEAN</small></span>
                 <button class="theme-toggle hero-theme" type="button" aria-label="切换昼夜主题" aria-pressed="false">
                     <svg class="theme-icon theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>
                     <svg class="theme-icon theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg>
                 </button>
             </div>
             <div class="hero-copy">
-                <p class="hero-kicker" id="hero-kicker">我的导航页</p>
+                <div class="hero-preface"><span class="journal-seal" aria-hidden="true"><span>山</span><span>海</span></span><p class="hero-kicker" id="hero-kicker">我的导航页</p></div>
                 <h1 id="hero-title"><span>在技术与</span><span class="title-accent">生活之间<span class="title-period">。</span></span></h1>
                 <p class="hero-note">你好，我是 LceAn。<br>写一点代码，记录一些日常，<br>在不断探索中，慢慢构建自己的世界。</p>
                 <div class="hero-actions">
@@ -87,7 +87,7 @@
             </div>
 
             <figure class="hero-art" aria-label="日落海岸山水">
-                <span class="scene-label" aria-hidden="true">IN THE MOMENT <span>01 / LANDSCAPE</span></span>
+                <span class="scene-label" aria-hidden="true">山海一隅<span>LANDSCAPE / 01</span></span>
                 <img class="hero-image hero-image-day"
                      src="src/img/hero-landscape-day.webp?v=20260731v1"
                      alt="日落时分的海岸、山崖与松林"
@@ -117,9 +117,9 @@
             <div class="section-shell">
                 <div class="directory-intro" data-directory-label>
                     <div>
-                        <p class="directory-label">THE COLLECTION <span aria-hidden="true">/ 01</span></p>
+                        <p class="directory-label"><span class="chapter-mark" aria-hidden="true">壹</span> 日常索引 <span>THE COLLECTION</span></p>
                         <h2>把日常，收藏在这里<span>。</span></h2>
-                        <p class="directory-note">从灵感到实践，从代码到生活。这里是我的常用入口。</p>
+                        <p class="directory-note">一些认真做的事，一些慢慢收集的喜欢。<br>从代码到生活，都在这里。</p>
                     </div>
                     <p class="collection-count"><strong id="site-count">14</strong><span>个数字角落</span></p>
                 </div>
@@ -152,7 +152,7 @@
                     <div class="cards-grid" id="cards-grid" aria-live="polite"></div>
                 </div>
                 <div class="garden-note">
-                    <span class="garden-symbol" aria-hidden="true">✳</span>
+                    <span class="garden-symbol" aria-hidden="true">记</span>
                     <div><p>不止是导航，也是一段生长的记录。</p><span>这个小小的角落，会随着每一次探索慢慢更新。</span></div>
                     <button type="button" data-page="timeline">看看时间线 <span aria-hidden="true">↗</span></button>
                 </div>
@@ -176,6 +176,6 @@
         </div>
     </footer>
 
-    <script type="module" src="src/js/redesign.js?20261020v2"></script>
+    <script type="module" src="src/js/redesign.js?20261025v1"></script>
 </body>
 </html>
