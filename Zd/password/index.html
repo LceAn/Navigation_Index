@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>字符生成器 · LceAn</title>
+<meta name="description" content="生成 4~32 位随机字符，可选大小写、数字、符号并排除易混字符。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔑</text></svg>">
+<style>
+:root{--paper:#f7f7f0;--paper-soft:#eeeee4;--surface:#fffef8;--ink:#263c35;--ink-soft:#64736b;--accent:#4e6c46;--accent-soft:#e7ecdf;--amber:#a28142;--line:#dfe3d7}
+@media (prefers-color-scheme:dark){:root{--paper:#111d1b;--paper-soft:#172522;--surface:#1b2c27;--ink:#e7eade;--ink-soft:#afbcaf;--accent:#bed09d;--accent-soft:#283b2d;--amber:#d8bc7e;--line:#2c3e36}}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+header{display:flex;align-items:center;gap:12px;padding:18px clamp(20px,5vw,48px);border-bottom:1px solid var(--line)}
+header b{font-size:15px;letter-spacing:.06em}
+header a{margin-left:auto;color:var(--ink-soft);text-decoration:none;font-size:13px}
+header a:hover{color:var(--accent)}
+main{max-width:640px;margin:0 auto;padding:48px 20px 80px}
+h1{font-size:clamp(26px,4vw,34px);font-weight:600;letter-spacing:-.02em;margin:0 0 6px}
+.sub{color:var(--ink-soft);font-size:14px;margin:0 0 34px}
+.out{display:flex;gap:10px;margin-bottom:26px}
+.out input{flex:1;min-width:0;font:500 20px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);letter-spacing:.04em}
+.out input:focus{outline:2px solid var(--accent);outline-offset:1px}
+button{cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:14px;padding:14px 20px;font-size:15px;transition:.15s}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.meter{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink-soft);margin-bottom:34px}
+.bar{flex:1;height:6px;border-radius:3px;background:var(--accent-soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.opts{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.row{display:flex;align-items:center;gap:12px;font-size:14.5px}
+.row label{flex:1}
+.row input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.len{display:flex;align-items:center;gap:14px}
+.len input[type=range]{flex:1;accent-color:var(--accent)}
+.len b{font-variant-numeric:tabular-nums;font-size:16px;min-width:2ch;text-align:center}
+kbd{font:12px ui-monospace,Menlo,monospace;background:var(--accent-soft);border-radius:6px;padding:2px 7px;color:var(--ink)}
+.tip{color:var(--ink-soft);font-size:12.5px;margin-top:22px;text-align:center}
+.tip kbd{margin:0 2px}
+footer{padding:26px;text-align:center;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--line)}
+footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<header><b>LceAn · Zd</b><a href="https://www.lcean.com/">返回导航 →</a></header>
+<main>
+  <h1>字符生成器</h1>
+  <p class="sub">生成 4 ~ 32 位随机字符，支持自定义字符集。</p>
+
+  <div class="out">
+    <input id="out" type="text" readonly aria-label="生成的随机字符">
+    <button class="primary" id="copy" type="button">复制</button>
+    <button id="regen" type="button">生成</button>
+  </div>
+
+  <div class="meter"><div class="bar"><i id="fill"></i></div><span id="strength">—</span></div>
+
+  <div class="opts">
+    <div class="row len"><label for="len">长度</label><input type="range" id="len" min="4" max="32" value="16"><b id="lenv">16</b></div>
+    <div class="row"><label for="c-lower">小写字母 a–z</label><input type="checkbox" id="c-lower" checked></div>
+    <div class="row"><label for="c-upper">大写字母 A–Z</label><input type="checkbox" id="c-upper" checked></div>
+    <div class="row"><label for="c-digit">数字 0–9</label><input type="checkbox" id="c-digit" checked></div>
+    <div class="row"><label for="c-symbol">符号 !@#$%^&amp;*-_+=?</label><input type="checkbox" id="c-symbol" checked></div>
+    <div class="row"><label for="c-amb">排除易混字符 0 O 1 l I i o</label><input type="checkbox" id="c-amb" checked></div>
+  </div>
+  <p class="tip">按 <kbd>空格</kbd> 重新生成，<kbd>C</kbd> 复制</p>
+</main>
+<footer><a href="https://www.lcean.com/">www.lcean.com</a> · 数字花园工具页</footer>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var out = $('out'), fill = $('fill'), strength = $('strength'), lenv = $('lenv');
+
+  function pool() {
+    var p = '';
+    if ($('c-lower').checked) p += 'abcdefghjkmnpqrstuvwxyz';
+    if ($('c-upper').checked) p += 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    if ($('c-digit').checked) p += '23456789';
+    if ($('c-symbol').checked) p += '!@#$%^&*-_+=?';
+    if (!$('c-amb').checked) p += '0O1lIio';
+    return p;
+  }
+
+  function rand(n) {
+    var buf = new Uint32Array(n);
+    crypto.getRandomValues(buf);
+    return buf;
+  }
+
+  function gen() {
+    var p = pool();
+    if (!p) { out.value = '请至少选择一种字符集'; fill.style.width = '0'; strength.textContent = '—'; return; }
+    var len = +$('len').value, r = rand(len), s = '';
+    for (var i = 0; i < len; i++) s += p[r[i] % p.length];
+    out.value = s;
+    var bits = Math.round(len * Math.log2(p.length));
+    fill.style.width = Math.min(100, bits / 128 * 100) + '%';
+    strength.textContent = bits + ' bit · ' + (bits < 40 ? '偏弱' : bits < 64 ? '中等' : bits < 100 ? '强' : '极强');
+  }
+
+  function copy() {
+    var done = function () { var b = $('copy'); b.textContent = '已复制'; setTimeout(function () { b.textContent = '复制'; }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(out.value).then(done); }
+    else { out.select(); document.execCommand('copy'); done(); }
+  }
+
+  $('len').addEventListener('input', function () { lenv.textContent = this.value; gen(); });
+  ['c-lower', 'c-upper', 'c-digit', 'c-symbol', 'c-amb'].forEach(function (id) { $(id).addEventListener('change', gen); });
+  $('regen').addEventListener('click', gen);
+  $('copy').addEventListener('click', copy);
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'text') return;
+    if (e.code === 'Space') { e.preventDefault(); gen(); }
+    if (e.key === 'c' || e.key === 'C') copy();
+  });
+  gen();
+})();
+</script>
+</body>
+</html>

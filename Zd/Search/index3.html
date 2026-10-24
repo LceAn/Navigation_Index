@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>十大搜索引擎 · LceAn</title>
+<meta name="description" content="一个输入框直达十大搜索引擎：百度、Google、必应、搜狗、360、知乎、哔哩哔哩、GitHub、MDN、维基百科。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔎</text></svg>">
+<style>
+:root{--paper:#f7f7f0;--paper-soft:#eeeee4;--surface:#fffef8;--ink:#263c35;--ink-soft:#64736b;--accent:#4e6c46;--accent-soft:#e7ecdf;--amber:#a28142;--line:#dfe3d7}
+@media (prefers-color-scheme:dark){:root{--paper:#111d1b;--paper-soft:#172522;--surface:#1b2c27;--ink:#e7eade;--ink-soft:#afbcaf;--accent:#bed09d;--accent-soft:#283b2d;--amber:#d8bc7e;--line:#2c3e36}}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+header{display:flex;align-items:center;gap:12px;padding:18px clamp(20px,5vw,48px);border-bottom:1px solid var(--line)}
+header b{font-size:15px;letter-spacing:.06em}
+header a{margin-left:auto;color:var(--ink-soft);text-decoration:none;font-size:13px}
+header a:hover{color:var(--accent)}
+main{max-width:680px;margin:0 auto;padding:48px 20px 80px}
+h1{font-size:clamp(26px,4vw,34px);font-weight:600;letter-spacing:-.02em;margin:0 0 6px}
+.sub{color:var(--ink-soft);font-size:14px;margin:0 0 30px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+.chip{cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;font-size:14px;transition:.15s;user-select:none}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.searchbar{display:flex;gap:10px}
+.searchbar input{flex:1;min-width:0;font-size:16px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink)}
+.searchbar input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.searchbar button{cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--paper);border-radius:14px;padding:14px 26px;font-size:15px}
+h2{font-size:14px;color:var(--ink-soft);font-weight:500;margin:38px 0 14px;letter-spacing:.08em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.grid a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-decoration:none;color:var(--ink);font-size:14px;transition:.15s}
+.grid a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.grid a small{display:block;color:var(--ink-soft);font-size:11.5px;margin-top:2px}
+footer{padding:26px;text-align:center;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--line)}
+footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<header><b>LceAn · Zd</b><a href="https://www.lcean.com/">返回导航 →</a></header>
+<main>
+  <h1>十大搜索引擎</h1>
+  <p class="sub">选一个引擎，输入关键词直达搜索结果。</p>
+
+  <div class="chips" id="chips" role="tablist" aria-label="搜索引擎"></div>
+  <form class="searchbar" id="f">
+    <input id="q" type="text" placeholder="输入关键词，回车搜索…" autocomplete="off" autofocus>
+    <button type="submit">搜索</button>
+  </form>
+
+  <h2>直达入口</h2>
+  <div class="grid" id="grid"></div>
+</main>
+<footer><a href="https://www.lcean.com/">www.lcean.com</a> · 数字花园工具页</footer>
+<script>
+(function () {
+  var engines = [
+    { name: '百度', home: 'https://www.baidu.com/', url: 'https://www.baidu.com/s?wd=' },
+    { name: 'Google', home: 'https://www.google.com/', url: 'https://www.google.com/search?q=' },
+    { name: '必应', home: 'https://www.bing.com/', url: 'https://www.bing.com/search?q=' },
+    { name: '搜狗', home: 'https://www.sogou.com/', url: 'https://www.sogou.com/web?query=' },
+    { name: '360', home: 'https://www.so.com/', url: 'https://www.so.com/s?q=' },
+    { name: '知乎', home: 'https://www.zhihu.com/', url: 'https://www.zhihu.com/search?q=' },
+    { name: '哔哩哔哩', home: 'https://www.bilibili.com/', url: 'https://search.bilibili.com/all?keyword=' },
+    { name: 'GitHub', home: 'https://github.com/', url: 'https://github.com/search?q=' },
+    { name: 'MDN', home: 'https://developer.mozilla.org/zh-CN/', url: 'https://developer.mozilla.org/zh-CN/search?q=' },
+    { name: '维基百科', home: 'https://zh.wikipedia.org/', url: 'https://zh.wikipedia.org/w/index.php?search=' }
+  ];
+  var current = Math.min(9, Math.max(0, +(localStorage.getItem('zd-engine') || 0)));
+  var chips = document.getElementById('chips'), grid = document.getElementById('grid');
+
+  engines.forEach(function (e, i) {
+    var c = document.createElement('button');
+    c.type = 'button'; c.className = 'chip'; c.textContent = e.name;
+    c.onclick = function () { select(i); document.getElementById('q').focus(); };
+    chips.appendChild(c);
+    var a = document.createElement('a');
+    a.href = e.home; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = e.name + '<small>' + e.home.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') + '</small>';
+    grid.appendChild(a);
+  });
+
+  function select(i) {
+    current = i;
+    localStorage.setItem('zd-engine', i);
+    [].forEach.call(chips.children, function (el, j) { el.classList.toggle('on', j === i); });
+  }
+  select(current);
+
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = document.getElementById('q').value.trim();
+    if (!q) return;
+    window.open(engines[current].url + encodeURIComponent(q), '_blank', 'noopener');
+  });
+})();
+</script>
+</body>
+</html>

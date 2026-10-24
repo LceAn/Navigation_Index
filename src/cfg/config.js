@@ -187,14 +187,6 @@ const configData = {
             moreUrl: 'https://www.lcean.com/Zd/Search/index3.html',
             moreText: '了解更多'
         },
-        {
-            title: '404导航页',
-            url: 'https://www.lcean.com/',
-            description: '404notfound团队搜索导航',
-            logo: imageUrl('logoTM.png'),
-            moreUrl: 'https://404notfound.free.hr/#/',
-            moreText: '了解更多'
-        },
     ]
 
 };

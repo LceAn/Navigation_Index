@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>樱 · 我的导航</title>
+<meta name="description" content="樱花主题的小导航：LceAn 的站点与工具速览。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<style>
+:root{--paper:#f7f7f0;--paper-soft:#eeeee4;--surface:#fffef8;--ink:#263c35;--ink-soft:#64736b;--accent:#4e6c46;--accent-soft:#e7ecdf;--amber:#a28142;--line:#dfe3d7;--sakura:#e8a7c3;--sakura-deep:#d788a8}
+@media (prefers-color-scheme:dark){:root{--paper:#111d1b;--paper-soft:#172522;--surface:#1b2c27;--ink:#e7eade;--ink-soft:#afbcaf;--accent:#bed09d;--accent-soft:#283b2d;--amber:#d8bc7e;--line:#2c3e36;--sakura:#c78aa6;--sakura-deep:#a96a89}}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+header{display:flex;align-items:center;gap:12px;padding:18px clamp(20px,5vw,48px);border-bottom:1px solid var(--line);position:relative;z-index:5;background:var(--paper)}
+header b{font-size:15px;letter-spacing:.06em}
+header a{margin-left:auto;color:var(--ink-soft);text-decoration:none;font-size:13px}
+header a:hover{color:var(--accent)}
+main{max-width:1080px;margin:0 auto;padding:56px clamp(20px,5vw,48px) 80px;position:relative;z-index:2}
+.hero{text-align:center;margin-bottom:52px}
+.hero .sakura-mark{font-size:34px;display:block;margin-bottom:10px}
+h1{font-size:clamp(30px,5vw,44px);font-weight:600;letter-spacing:.14em;margin:0 0 10px}
+.hero .sub{color:var(--ink-soft);font-size:14.5px;margin:0;letter-spacing:.3em}
+h2{font-size:14px;color:var(--ink-soft);font-weight:500;margin:40px 0 16px;letter-spacing:.14em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+a.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;text-decoration:none;color:var(--ink);transition:transform .18s,border-color .18s,box-shadow .18s}
+a.card:hover{transform:translateY(-2px);border-color:var(--sakura-deep);box-shadow:0 14px 28px rgba(23,43,36,.08)}
+a.card b{font-size:15.5px;font-weight:600}
+a.card .tag{display:inline-block;font-size:11px;color:var(--amber);border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin-left:8px;vertical-align:2px}
+a.card p{margin:6px 0 0;font-size:13px;color:var(--ink-soft)}
+footer{padding:30px;text-align:center;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--line);position:relative;z-index:2}
+footer a{color:var(--ink-soft)}
+.petal-layer{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.fall{position:absolute;top:-8vh;animation:fall linear infinite}
+.sway{display:block;animation:sway ease-in-out infinite alternate}
+.petal{display:block;border-radius:100% 0 100% 100%;background:var(--sakura);opacity:.75;box-shadow:inset -2px -2px 3px var(--sakura-deep)}
+@keyframes fall{to{transform:translateY(116vh)}}
+@keyframes sway{from{transform:translateX(-14px) rotate(-32deg)}to{transform:translateX(14px) rotate(38deg)}}
+@media (prefers-reduced-motion:reduce){.petal-layer{display:none}}
+</style>
+</head>
+<body>
+<header><b>LceAn · 樱</b><a href="https://www.lcean.com/">返回主站 →</a></header>
+<main>
+  <div class="hero">
+    <span class="sakura-mark">🌸</span>
+    <h1>我的导航</h1>
+    <p class="sub">路途遥远 · 岁月相随</p>
+  </div>
+
+  <h2>站 点</h2>
+  <div class="grid" id="sites"></div>
+
+  <h2>工 具</h2>
+  <div class="grid" id="tools"></div>
+</main>
+<footer><a href="https://www.lcean.com/">www.lcean.com</a> · 樱花小导航</footer>
+<div class="petal-layer" id="petals" aria-hidden="true"></div>
+<script>
+(function () {
+  var sites = [
+    { t: '技术博客', tag: '博客', d: '我的个人技术博客', u: 'https://ae.lcean.com/' },
+    { t: '时光相册', tag: '相册', d: '路途遥远，让我和你岁月相随', u: 'https://time.lcean.com/' },
+    { t: '个人日记', tag: '日记', d: 'MkDocs 手记', u: 'https://md.lcean.com/' },
+    { t: '服务器探针', tag: '监控', d: '全舰队状态一览', u: 'https://tz.lcean.com/' },
+    { t: 'Docker 状态', tag: '容器', d: '香港 + 新加坡容器看板', u: 'https://docker.lcean.com/' },
+    { t: '我的邮箱', tag: '邮箱', d: '常用邮箱入口', u: 'https://mail.lcean.com/' }
+  ];
+  var tools = [
+    { t: 'GitHub 加速', tag: '镜像', d: 'GitHub / Docker 镜像加速', u: 'https://github.lcean.com/' },
+    { t: 'VS Code', tag: '代码', d: '在线代码编辑器', u: 'https://vs.lcean.com/' },
+    { t: 'Alist', tag: '云盘', d: '网盘聚合', u: 'https://alist.lcean.com/' },
+    { t: 'CloudDrive2', tag: '云盘', d: '云盘聚合与挂载', u: 'https://cd.lcean.com/' },
+    { t: '青龙面板', tag: '脚本', d: '脚本云托管平台', u: 'https://ql.lcean.com/' },
+    { t: '图书馆', tag: '阅读', d: '默默看书', u: 'https://book.lcean.com/' },
+    { t: '字符生成器', tag: 'Zd', d: '4~32 位随机字符', u: 'https://www.lcean.com/Zd/password/index.html' },
+    { t: '十大搜索引擎', tag: 'Zd', d: '一个框搜遍全网', u: 'https://www.lcean.com/Zd/Search/index3.html' },
+    { t: '前往未知的网站', tag: 'Zd', d: '无聊网站轮盘', u: 'https://www.lcean.com/Zd/unknown/The%20Useless%20Web.html' }
+  ];
+  function render(id, list) {
+    var box = document.getElementById(id);
+    list.forEach(function (s) {
+      var a = document.createElement('a');
+      a.className = 'card'; a.href = s.u; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = '<b>' + s.t + '</b><span class="tag">' + s.tag + '</span><p>' + s.d + '</p>';
+      box.appendChild(a);
+    });
+  }
+  render('sites', sites); render('tools', tools);
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var layer = document.getElementById('petals');
+    for (var i = 0; i < 14; i++) {
+      var fall = document.createElement('div');
+      fall.className = 'fall';
+      var dur = 9 + Math.random() * 9, delay = -Math.random() * dur;
+      fall.style.left = (Math.random() * 100) + 'vw';
+      fall.style.animationDuration = dur + 's';
+      fall.style.animationDelay = delay + 's';
+      var sway = document.createElement('span');
+      sway.className = 'sway';
+      sway.style.animationDuration = (1.6 + Math.random() * 1.6) + 's';
+      var petal = document.createElement('i');
+      petal.className = 'petal';
+      var size = 8 + Math.random() * 9;
+      petal.style.width = size + 'px'; petal.style.height = size + 'px';
+      petal.style.opacity = (0.45 + Math.random() * 0.4).toFixed(2);
+      sway.appendChild(petal); fall.appendChild(sway); layer.appendChild(fall);
+    }
+  }
+})();
+</script>
+</body>
+</html>
