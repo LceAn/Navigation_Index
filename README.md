@@ -1,12 +1,12 @@
 # Navigation Index
 
-[![Version](https://img.shields.io/badge/Version-1.6.1-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.6.1)
+[![Version](https://img.shields.io/badge/Version-1.6.2-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.6.2)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/预览-lcean.com-5e6ad2)](https://www.lcean.com)
 
 > 🌐 在线预览：**[https://www.lcean.com](https://www.lcean.com)**
 
-**个人网站导航入口页** — 一个美观且交互式的个人导航页面，采用 Linear/Vercel 风格设计系统。
+**个人网站导航入口页** — 以暖纸白、灰绿与山水笔触呈现个人数字花园。当前版本采用轻量四列导航和手机图文列表，保留原始图片、全高山水与每日诗句。
 
 [English](./README.en.md)
 

@@ -4,12 +4,12 @@
 [![CSS](https://img.shields.io/badge/CSS-23.2%25-563d7c)]()
 [![JavaScript](https://img.shields.io/badge/JavaScript-16.8%25-f7df1e)]()
 [![Less](https://img.shields.io/badge/Less-14.5%25-1d365d)]()
-[![Version](https://img.shields.io/badge/Version-1.6.1-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.6.1)
+[![Version](https://img.shields.io/badge/Version-1.6.2-blue)](https://github.com/LceAn/Navigation_Index/releases/tag/v1.6.2)
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
 **Personal Website Navigation Landing Page**
 
-A beautiful and interactive navigation page for personal websites with day/night mode, smooth animations, and responsive design.
+A quiet personal navigation page with paper tones, a full-height brush-edged landscape, and daily poetry. The current design uses compact four-column cards on desktop and thumbnail rows on phones, preserving all original images and destinations.
 
 [中文](./README.md)
 
@@ -211,7 +211,7 @@ Issues and Pull Requests are welcome!
 ---
 
 **Last Updated:** 2026-04-04
-**Version:** 1.6.1
+**Version:** 1.6.2
 
 ---
 

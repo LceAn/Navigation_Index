@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js?20261025v1";
+import configData from "../cfg/config.js?20261025v2";
 
 const state = {
     currentView: "directory",
@@ -25,7 +25,7 @@ const pageMap = {
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html?20261025v1",
+        path: "./src/b_html/timeline.html?20261025v2",
         title: "时间线",
         eyebrow: "Timeline"
     },
