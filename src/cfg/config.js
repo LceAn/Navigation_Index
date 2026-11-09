@@ -78,6 +78,15 @@ const configData = {
             description: '我的服务器状态监控'
         },
         {
+            url: 'https://token.lcean.com/',
+            alt: 'tokentracker',
+            img_url: imageUrl('cards/tokentracker.webp'),
+            span: 'Tokens',
+            title: 'TokenTracker',
+            category: 'dev',
+            description: 'AI 编码用量与成本追踪（自建云）'
+        },
+        {
             url: 'https://Github.lcean.com',
             alt: 'Github镜像加速',
             img_url: imageUrl('cards/github.webp'),
