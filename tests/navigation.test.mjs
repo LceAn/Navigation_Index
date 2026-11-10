@@ -29,9 +29,14 @@ test("every card has a valid filter category", () => {
 
 test("every R2 card image has an identical local fallback filename", async () => {
     for (const item of config.weblists) {
-        const url = new URL(item.img_url);
-        assert.equal(url.hostname, "img.lcean.com");
-        const filename = url.pathname.split("/").pop();
+        let filename;
+        if (item.img_url.startsWith("src/")) {
+            filename = item.img_url.split("/").pop();
+        } else {
+            const url = new URL(item.img_url);
+            assert.equal(url.hostname, "img.lcean.com");
+            filename = url.pathname.split("/").pop();
+        }
         const file = new URL(`src/img/cards/${filename}`, root);
         await access(file);
         const data = await readFile(file);

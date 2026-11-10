@@ -80,7 +80,7 @@ const configData = {
         {
             url: 'https://check.lcean.com/zh-cn/',
             alt: 'connection-checkup',
-            img_url: imageUrl('cards/check.webp'),
+            img_url: 'src/img/cards/check.webp', // 站内相对路径（R2 副本待补，见交接文档）
             span: 'X-Ray',
             title: '网络体检',
             category: 'dev',
