@@ -1,4 +1,13 @@
 # 更新记录
+## 2026-11-10 (v1.6.5)
+
+### 新增「网络体检」卡片
+
+- 导航新增 connection-checkup 入口（`check.lcean.com/zh-cn/`，Network X-Ray：IP 质量/IPv6/DNS/解锁/延迟/网速 8 项一站式检测）。
+- 新卡片图 `cards/check.webp`（960×540：雷达扫描 + 信号弧，延续深色科技风），已同步 R2。
+- `config.js` 导入版本升至 `20261110v2`。
+
+# 更新记录
 ## 2026-11-10 (v1.6.4)
 
 ### 新增 TokenTracker 卡片

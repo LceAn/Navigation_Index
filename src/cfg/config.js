@@ -78,6 +78,15 @@ const configData = {
             description: '我的服务器状态监控'
         },
         {
+            url: 'https://check.lcean.com/zh-cn/',
+            alt: 'connection-checkup',
+            img_url: imageUrl('cards/check.webp'),
+            span: 'X-Ray',
+            title: '网络体检',
+            category: 'dev',
+            description: 'IP 质量 / 解锁 / 网速一站式检测'
+        },
+        {
             url: 'https://token.lcean.com/',
             alt: 'tokentracker',
             img_url: imageUrl('cards/tokentracker.webp'),

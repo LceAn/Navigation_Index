@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js?20261110v1";
+import configData from "../cfg/config.js?20261110v2";
 
 const state = {
     currentView: "directory",
