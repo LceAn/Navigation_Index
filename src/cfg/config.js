@@ -78,13 +78,13 @@ const configData = {
             description: '我的服务器状态监控'
         },
         {
-            url: 'https://check.lcean.com/zh-cn/',
-            alt: 'connection-checkup',
+            url: 'https://check.lcean.com/',
+            alt: 'identity-check',
             img_url: 'src/img/cards/check.webp', // 站内相对路径（R2 副本待补，见交接文档）
-            span: 'X-Ray',
-            title: '网络体检',
+            span: 'IP',
+            title: '你是谁',
             category: 'dev',
-            description: 'IP 质量 / 解锁 / 网速一站式检测'
+            description: 'IP 身份 · 出口分析 · 隐私泄露 · 指纹'
         },
         {
             url: 'https://token.lcean.com/',
