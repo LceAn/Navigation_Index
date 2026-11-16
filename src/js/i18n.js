@@ -5,15 +5,14 @@ const NAV_LANG = (() => {
   const p = new URLSearchParams(location.search).get('lang');
   if (p === 'en') return 'en';
   if (p === 'zh') return 'zh';
-  try { localStorage.getItem('navLang') } catch {}
+  try {
+    const saved = localStorage.getItem('navLang');
+    if (saved) return saved;
+  } catch {}
   return (navigator.language || 'zh-CN').startsWith('zh') ? 'zh' : 'en';
 })();
 
-// 尝试恢复用户上次选择
-try {
-  const saved = localStorage.getItem('navLang');
-  if (saved && !p) return saved;
-} catch {}
+
 
 const NAV_T = {
   // 页面标题
