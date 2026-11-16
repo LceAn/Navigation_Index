@@ -7,9 +7,9 @@ import config from "../src/cfg/config.js";
 const root = new URL("../", import.meta.url);
 const read = (file) => readFile(new URL(file, root), "utf8");
 
-test("all 16 existing destinations remain unique and use HTTPS", () => {
-    assert.equal(config.weblists.length, 16);
-    assert.equal(new Set(config.weblists.map((item) => item.url)).size, 16);
+test("all 15 existing destinations remain unique and use HTTPS", () => {
+    assert.equal(config.weblists.length, 15);
+    assert.equal(new Set(config.weblists.map((item) => item.url)).size, 15);
     for (const item of config.weblists) {
         assert.equal(new URL(item.url).protocol, "https:");
         assert.ok(item.title && item.description);

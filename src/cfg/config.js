@@ -132,15 +132,6 @@ const configData = {
             description: 'MkDocs'
         },
         {
-            url: 'https://alist.lcean.com/',
-            alt: 'alist',
-            img_url: imageUrl('cards/cloud.webp'),
-            span: '☁️',
-            title: 'Alist',
-            category: 'tools',
-            description: '云盘'
-        },
-        {
             url: 'https://cd.lcean.com/',
             alt: 'clouddrive2',
             img_url: imageUrl('cards/clouddrive.webp'),
