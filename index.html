@@ -244,7 +244,36 @@ const NAV_T = {
   '开发': 'Dev',
   '工具': 'Tools',
   '全部': 'All',
+  // Hero 装饰
+  '山': 'Mt.',
+  '海': 'Sea',
+  '向下探索': 'Explore ↓',
+  '返回入口': 'Back to Top',
+  // 分区标题
+  '日常索引': 'Daily Index',
+  '把日常，收藏在这里': 'Collecting daily life here',
+  '一些认真做的事，一些慢慢收集的喜欢。': 'Things done with care, collections gathered slowly.',
+  '从代码到生活，都在这里。': 'From code to life, all right here.',
+  '个数字角落': 'digital corners',
+  '记录与生活': 'Life & Records',
+  '开发与运维': 'Dev & Ops',
+  '工具与探索': 'Tools & Explore',
+  '找到': 'Found',
+  '个站点': 'sites',
+  // 数字大写
+  '壹': '01',
+  '贰': '02',
+  '叁': '03',
+  '肆': '04',
+  // Hero 副文案
+  '记录生活': 'Recording life',
+  '分享技术': 'Sharing tech',
+  '探索未知': 'Exploring unknown',
+  // 时间线
+  '保持好奇，持续生长。': 'Stay curious, keep growing.',
+  '山海一隅': 'A Corner of Mountains & Seas',
   // 页脚
+
   '此刻 · 一句诗': 'Now · A Poem',
 };
 
@@ -276,9 +305,17 @@ function applyNavLang() {
 
 // 语言切换按钮
 function createNavLangBtn() {
+  // 移除旧按钮（如果有）
+  const old = document.querySelector('.nav-lang-toggle');
+  if (old) old.remove();
+  
   const btn = document.createElement('button');
+  btn.className = 'nav-lang-toggle';
   btn.textContent = NAV_LANG === 'en' ? '中文' : 'EN';
-  btn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;padding:4px 14px;border:1px solid rgba(128,128,128,.3);border-radius:99px;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);color:#666;font-size:12px;cursor:pointer;transition:all .2s';
+  btn.setAttribute('aria-label', 'Switch language');
+  btn.style.cssText = 'display:inline-flex;align-items:center;gap:2px;margin-left:auto;padding:5px 13px;border:1px solid var(--line,rgba(128,128,128,.25));border-radius:99px;background:transparent;color:var(--ink-faint,#64736b);font-size:12px;font-weight:500;letter-spacing:.06em;cursor:pointer;transition:border-color .2s,color .2s;flex-shrink:0;text-transform:uppercase;font-family:inherit;line-height:1';
+  btn.onmouseenter = () => { btn.style.borderColor = 'var(--accent, #4e6c46)'; btn.style.color = 'var(--accent, #4e6c46)'; };
+  btn.onmouseleave = () => { btn.style.borderColor = 'var(--line,rgba(128,128,128,.25))'; btn.style.color = 'var(--ink-faint,#64736b)'; };
   btn.onclick = () => {
     const newLang = NAV_LANG === 'en' ? 'zh' : 'en';
     try { localStorage.setItem('navLang', newLang); } catch {}
@@ -286,7 +323,16 @@ function createNavLangBtn() {
     url.searchParams.set('lang', newLang);
     location.href = url.toString();
   };
-  document.body.appendChild(btn);
+  
+  // 尝试放到 header 的 nav 里
+  const header = document.querySelector('.site-header .header-inner, .site-header nav, .site-header');
+  if (header) {
+    header.appendChild(btn);
+  } else {
+    // 兜底：放到 body 右上角但样式更柔和
+    btn.style.cssText += ';position:fixed;top:14px;right:14px;z-index:100;background:var(--surface,rgba(255,255,255,.9));backdrop-filter:blur(8px);box-shadow:0 1px 3px rgba(0,0,0,.06)';
+    document.body.appendChild(btn);
+  }
 }
 
 // 初始化（多次重试，因为卡片是异步渲染的）
