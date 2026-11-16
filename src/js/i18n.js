@@ -120,7 +120,14 @@ if (document.readyState === 'loading') {
   init();
 }
 // 卡片渲染后再次翻译（redesign.js 是异步的）
-setTimeout(applyNavLang, 500);
-setTimeout(applyNavLang, 1500);
-setTimeout(applyNavLang, 3000);
+function retry() {
+  applyNavLang();
+  // 重建按钮（如果被 SPA 重渲染删掉了）
+  const existing = document.querySelector('button[onclick*="toggleLang"], button[style*="position:fixed"]');
+  if (!existing) createNavLangBtn();
+}
+setTimeout(retry, 500);
+setTimeout(retry, 1500);
+setTimeout(retry, 3000);
+setTimeout(retry, 5000);
 
