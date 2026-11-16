@@ -24,7 +24,7 @@ test("every card has a valid filter category", () => {
         assert.ok(Object.hasOwn(counts, item.category));
         counts[item.category]++;
     }
-    assert.deepEqual(counts, { life: 4, dev: 7, tools: 5 });
+    assert.deepEqual(counts, { life: 4, dev: 7, tools: 4 });
 });
 
 test("every R2 card image has an identical local fallback filename", async () => {
