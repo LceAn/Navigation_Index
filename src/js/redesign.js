@@ -1,4 +1,5 @@
-import configData from "../cfg/config.js?20261110v2";
+import configData from "../cfg/config.js?20261126v1";
+import { localizeTree, resolveLanguage, translate } from "./i18n.js?20261126v1";
 
 const state = {
     currentView: "directory",
@@ -7,7 +8,10 @@ const state = {
     query: "",
     pageRequest: 0
 };
-const categoryNames = { life: "记录与生活", dev: "开发与运维", tools: "工具与探索" };
+let preference;
+try { preference = localStorage.getItem("navLang"); } catch {}
+let language = resolveLanguage(new URLSearchParams(location.search).get("lang"), preference, navigator.language);
+const t = (text) => translate(text, language);
 
 const fallbackBackgrounds = [
     "linear-gradient(135deg, #304b78, #7190b8)",
@@ -25,7 +29,7 @@ const pageMap = {
         eyebrow: "About LceAn"
     },
     timeline: {
-        path: "./src/b_html/timeline.html?20261109v1",
+        path: "./src/b_html/timeline.html?20261126v1",
         title: "时间线",
         eyebrow: "Timeline"
     },
@@ -57,6 +61,7 @@ const elements = {
     footerRecord: document.getElementById("footer-record")
 };
 let refreshHeader = () => {};
+let refreshHeaderLayout = () => {};
 
 function applySiteConfig() {
     const { site } = configData;
@@ -66,8 +71,46 @@ function applySiteConfig() {
     elements.heroKicker.textContent = site.subtitle;
     elements.footerCopy.textContent = site.copyright;
     elements.footerRecord.textContent = site.beian;
-    document.getElementById("site-count").textContent = configData.weblists.length;
-    document.querySelector('[data-category="all"] span').textContent = configData.weblists.length;
+}
+
+function updateCardLabels() {
+    document.querySelectorAll(".nav-card").forEach((card) => {
+        const item = configData.weblists[Number(card.dataset.index)];
+        const title = t(item.title);
+        const description = t(item.description);
+        card.setAttribute("aria-label", language === "en"
+            ? `${title}: ${description} (opens in a new tab)`
+            : `${title}：${description}（新窗口打开）`);
+    });
+}
+
+function applyLanguage() {
+    elements.root.lang = language === "zh" ? "zh-CN" : "en";
+    document.title = t(`${configData.site.title} - 个人网站导航`);
+    localizeTree(elements.body, language);
+    document.querySelectorAll("[data-language]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.language === language));
+    });
+    updateCardLabels();
+    setTheme(state.theme, { persist: false });
+    filterDirectory();
+}
+
+function initLanguageControls() {
+    document.querySelectorAll(".language-switch").forEach((group) => {
+        group.hidden = false;
+        group.addEventListener("click", (event) => {
+            const button = event.target.closest("[data-language]");
+            if (!button || button.dataset.language === language) return;
+            language = button.dataset.language;
+            try { localStorage.setItem("navLang", language); } catch {}
+            const url = new URL(location.href);
+            url.searchParams.set("lang", language);
+            history.replaceState(history.state, "", url);
+            applyLanguage();
+            refreshHeaderLayout();
+        });
+    });
 }
 
 function loadDynamicPoem() {
@@ -135,9 +178,10 @@ function createCard(item, index) {
     card.target = "_blank";
     card.rel = "noopener noreferrer";
     card.dataset.category = item.category || "tools";
-    card.dataset.search = `${item.title} ${item.description} ${item.url}`.toLocaleLowerCase();
+    card.dataset.search = [item.title, item.description, translate(item.title, "en"),
+        translate(item.description, "en"), item.url].join(" ").toLocaleLowerCase();
+    card.dataset.index = String(index);
     card.dataset.featured = String(index < 2);
-    card.setAttribute("aria-label", `${item.title}：${item.description}（新窗口打开）`);
 
     const media = document.createElement("div");
     media.className = "card-media";
@@ -145,7 +189,7 @@ function createCard(item, index) {
 
     const image = document.createElement("img");
     image.className = "card-image";
-    image.alt = item.alt || item.title;
+    image.alt = ""; // The adjacent card title identifies the link.
     image.loading = "lazy";
     image.decoding = "async";
     image.fetchPriority = "low";
@@ -170,15 +214,6 @@ function createCard(item, index) {
         image.hidden = true;
     }
 
-    const badge = document.createElement("span");
-    badge.className = "card-badge";
-    badge.textContent = categoryNames[item.category] || "工具与探索";
-
-    const number = document.createElement("span");
-    number.className = "card-number";
-    number.textContent = String(index + 1).padStart(2, "0");
-    number.setAttribute("aria-hidden", "true");
-
     const arrow = document.createElement("span");
     arrow.className = "card-arrow";
     arrow.textContent = "↗";
@@ -193,17 +228,11 @@ function createCard(item, index) {
     const description = document.createElement("p");
     description.textContent = item.description;
 
-    const domain = document.createElement("span");
-    domain.className = "card-domain";
-    domain.textContent = new URL(item.url, location.href).hostname.toLowerCase();
     const heading = document.createElement("div");
     heading.className = "card-heading";
     heading.append(title, arrow);
-    const meta = document.createElement("div");
-    meta.className = "card-meta";
-    meta.append(badge, domain);
-    copy.append(heading, description, meta);
-    media.append(image, number);
+    copy.append(heading, description);
+    media.append(image);
     card.append(media, copy);
     return card;
 }
@@ -223,7 +252,9 @@ function filterDirectory() {
         button.setAttribute("aria-pressed", String(button.dataset.category === state.category));
     });
     document.querySelector(".empty-state").hidden = count !== 0;
-    elements.filterStatus.textContent = `找到 ${count} 个站点`;
+    elements.filterStatus.textContent = language === "en"
+        ? `${count} ${count === 1 ? "site" : "sites"} found`
+        : `找到 ${count} 个站点`;
 }
 
 function renderDirectory({ shouldScroll = false } = {}) {
@@ -259,6 +290,8 @@ function renderDirectory({ shouldScroll = false } = {}) {
     grid.append(empty);
 
     elements.dynamicContent.replaceChildren(grid);
+    localizeTree(grid, language);
+    updateCardLabels();
     filterDirectory();
 
     if (shouldScroll) {
@@ -311,7 +344,8 @@ async function loadPage(pageName) {
     elements.directoryTools.hidden = true;
     elements.filterStatus.textContent = "";
     elements.directoryTitle.textContent = page.title;
-    elements.sectionEyebrow.textContent = page.eyebrow;
+    elements.sectionEyebrow.textContent = "";
+    localizeTree(elements.directoryTitle, language);
     elements.backButton.hidden = false;
     document.querySelectorAll(".nav-link").forEach((link) => {
         link.classList.toggle("is-active", link.dataset.page === pageName);
@@ -320,6 +354,7 @@ async function loadPage(pageName) {
     const loading = document.createElement("p");
     loading.className = "section-loading";
     loading.textContent = "正在加载…";
+    localizeTree(loading, language);
     elements.dynamicContent.replaceChildren(loading);
     scrollToElement(elements.directory);
 
@@ -336,6 +371,7 @@ async function loadPage(pageName) {
         view.className = "content-view";
         [...doc.body.childNodes].forEach((node) => view.append(node.cloneNode(true)));
         hydrateContentIcons(view);
+        localizeTree(view, language);
         elements.dynamicContent.replaceChildren(view);
 
         if (pageName === "about") {
@@ -346,6 +382,7 @@ async function loadPage(pageName) {
         const message = document.createElement("p");
         message.className = "section-error";
         message.textContent = "内容暂时无法加载，请稍后重试。";
+        localizeTree(message, language);
         elements.dynamicContent.replaceChildren(message);
         console.error("Failed to load page content:", error);
     }
@@ -373,17 +410,19 @@ async function hydrateVersionInfo() {
         if (remote) remote.textContent = "检测失败";
         if (status) status.textContent = "无法连接 GitHub";
     }
+    if (remote) localizeTree(remote, language);
+    if (status) localizeTree(status, language);
 }
 
 function setTheme(theme, { persist = true } = {}) {
     state.theme = theme;
     const isDark = theme === "dark";
     elements.root.classList.toggle("theme-dark", isDark);
-    document.querySelector(".hero-art").setAttribute("aria-label", isDark ? "月色海岸山水" : "日落海岸山水");
-    document.querySelector(".hero-image-day").alt = isDark ? "月色下的海岸、山崖与松林" : "日落时分的海岸、山崖与松林";
+    document.querySelector(".hero-art").setAttribute("aria-label", t(isDark ? "月色海岸山水" : "日落海岸山水"));
+    document.querySelector(".hero-image-day").alt = t(isDark ? "月色下的海岸、山崖与松林" : "日落时分的海岸、山崖与松林");
     elements.themeToggles.forEach((button) => {
         button.setAttribute("aria-pressed", String(isDark));
-        button.setAttribute("aria-label", isDark ? "切换到日间主题" : "切换到夜间主题");
+        button.setAttribute("aria-label", t(isDark ? "切换到日间主题" : "切换到夜间主题"));
     });
     document.querySelector('meta[name="theme-color"]').content = isDark ? "#111d1b" : "#f6f4ed";
     if (persist) {
@@ -405,7 +444,7 @@ function initTheme() {
 function initHeaderReveal() {
     let animationFrame = 0;
     let resizeFrame = 0;
-    let revealThreshold = 160;
+    let revealThreshold = 86;
     let isHeaderVisible = null;
 
     const updateHeader = () => {
@@ -426,8 +465,8 @@ function initHeaderReveal() {
 
     const recalculateThreshold = () => {
         resizeFrame = 0;
-        const heroHeight = elements.directory.offsetTop;
-        revealThreshold = Math.max(160, heroHeight - Math.max(110, window.innerHeight * 0.14));
+        // Once the first language control scrolls away, its sticky counterpart takes over.
+        revealThreshold = document.querySelector(".hero-masthead").offsetHeight;
         requestUpdate();
     };
 
@@ -440,6 +479,7 @@ function initHeaderReveal() {
     window.addEventListener("resize", requestRecalculation);
     window.addEventListener("pageshow", recalculateThreshold);
     refreshHeader = requestUpdate;
+    refreshHeaderLayout = requestRecalculation;
     recalculateThreshold();
 }
 
@@ -485,9 +525,11 @@ function bindNavigation() {
 function init() {
     applySiteConfig();
     initTheme();
+    initLanguageControls();
     initHeaderReveal();
     bindNavigation();
     renderDirectory();
+    applyLanguage();
     const deferNonCritical = window.requestIdleCallback
         ? (callback) => window.requestIdleCallback(callback, { timeout: 1500 })
         : (callback) => window.setTimeout(callback, 0);

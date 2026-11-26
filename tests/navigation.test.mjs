@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import config from "../src/cfg/config.js";
+import { localizeTree, resolveLanguage, translate } from "../src/js/i18n.js";
 
 const root = new URL("../", import.meta.url);
 const read = (file) => readFile(new URL(file, root), "utf8");
@@ -57,8 +58,8 @@ test("all local homepage source references resolve", async () => {
 test("timeline records the journal revision and keeps previous milestones", async () => {
     const timeline = await read("src/b_html/timeline.html");
     const dates = [...timeline.matchAll(/datetime="([^"]+)"/g)].map((match) => match[1]);
-    assert.deepEqual(dates.slice(0, 6), ["2026-11-09", "2026-10-25", "2026-10-24", "2026-10-21", "2026-10-20", "2026-08-30"]);
-    assert.equal(dates.length, 32);
+    assert.deepEqual(dates.slice(0, 7), ["2026-11-26", "2026-11-09", "2026-10-25", "2026-10-24", "2026-10-21", "2026-10-20", "2026-08-30"]);
+    assert.equal(dates.length, 33);
 });
 
 test("homepage IDs are unique and required controls exist", async () => {
@@ -79,11 +80,39 @@ test("theme icons are inline SVG and never require an external icon font", async
 });
 
 test("displayed version and documentation agree with the current release", async () => {
-    assert.equal(config.site.version, "1.6.3");
+    assert.equal(config.site.version, "1.7.2");
     for (const file of ["README.md", "README.en.md"]) {
         assert.ok((await read(file)).includes(`releases/tag/v${config.site.version}`));
     }
     assert.ok((await read("CHANGELOG.md")).includes(`(v${config.site.version})`));
+});
+
+test("language selection respects explicit links and ignores invalid stored values", () => {
+    assert.equal(resolveLanguage("zh", "en", "en-US"), "zh");
+    assert.equal(resolveLanguage(null, "en", "zh-CN"), "en");
+    assert.equal(resolveLanguage(null, "invalid", "zh-TW"), "zh");
+    assert.equal(resolveLanguage(null, null, "en-GB"), "en");
+});
+
+test("localization restores original text without disturbing explicitly tagged content", () => {
+    const text = { nodeType: 3, data: " 浏览站点 " };
+    const poem = { nodeType: 3, data: "。" };
+    const tagged = { nodeType: 1, matches: () => true, childNodes: [poem] };
+    const root = { nodeType: 1, matches: () => false, getAttribute: () => null, childNodes: [text, tagged] };
+    localizeTree(root, "en");
+    assert.equal(text.data, " Browse sites ");
+    assert.equal(poem.data, "。");
+    localizeTree(root, "zh");
+    assert.equal(text.data, " 浏览站点 ");
+    assert.equal(translate("constructor", "en"), "constructor");
+});
+
+test("both header surfaces expose the same native language buttons", async () => {
+    const html = await read("index.html");
+    for (const language of ["zh", "en"]) {
+        assert.equal([...html.matchAll(new RegExp(`<button type="button" data-language="${language}"`, "g"))].length, 2);
+    }
+    assert.doesNotMatch(html, /createNavLangBtn|nav-lang-toggle|setTimeout\(retry/);
 });
 
 test("the secondary navigation retains its original Sakura stylesheet and layout", async () => {
