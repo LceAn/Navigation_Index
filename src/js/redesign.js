@@ -1,4 +1,4 @@
-import configData from "../cfg/config.js?20261126v1";
+import configData from "../cfg/config.js?20261126v2";
 import { localizeTree, resolveLanguage, translate } from "./i18n.js?20261126v1";
 
 const state = {

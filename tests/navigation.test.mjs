@@ -80,7 +80,7 @@ test("theme icons are inline SVG and never require an external icon font", async
 });
 
 test("displayed version and documentation agree with the current release", async () => {
-    assert.equal(config.site.version, "1.7.2");
+    assert.equal(config.site.version, "1.7.3");
     for (const file of ["README.md", "README.en.md"]) {
         assert.ok((await read(file)).includes(`releases/tag/v${config.site.version}`));
     }

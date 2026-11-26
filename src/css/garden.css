@@ -57,18 +57,24 @@ html.theme-dark .masthead-brand img { background: #fff; border-radius: 50%; mix-
 .masthead-brand { display: inline-flex; align-items: center; gap: 9px; font-size: 27px; font-weight: 650; text-decoration: none; letter-spacing: -.7px; }
 .brand-dot { color: var(--accent); }
 .language-switch {
-    display: inline-flex; flex: 0 0 auto; align-items: center; gap: 2px;
-    padding: 2px; border: 1px solid var(--line-strong); border-radius: 8px;
-    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    position: relative; display: inline-flex; flex: 0 0 auto; align-items: center; gap: 3px;
+}
+.language-switch::after {
+    content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 1px; height: 10px; background: var(--line-strong); pointer-events: none;
 }
 .hero-masthead .language-switch { margin-left: auto; }
 .language-switch button {
-    display: grid; place-items: center; min-width: 38px; min-height: 34px; padding: 0 6px;
-    border-radius: 5px; background: transparent; color: var(--ink-soft);
-    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: grid; place-items: center; min-width: 28px; min-height: 40px; padding: 0 3px;
+    border-radius: 3px; background: transparent; color: var(--ink-soft);
+    font-size: 11px; font-weight: 500; line-height: 1; cursor: pointer;
 }
 .language-switch button:hover { color: var(--ink); }
-.language-switch button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); }
+.language-switch button[aria-pressed="true"] {
+    color: var(--ink); font-weight: 650;
+    text-decoration: underline; text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
 .language-switch button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .hero-copy { position: relative; top: auto; left: auto; align-self: center; width: auto; transform: none; padding: 32px 0; }
 .hero-kicker { font-size: clamp(23px, 2vw, 29px); margin: 0 0 16px; letter-spacing: .12em; color: var(--amber); }
@@ -227,7 +233,6 @@ html[lang="en"] .title-period { margin-left: 0; }
     .header-inner .primary-nav { gap: 7px; }
     .header-inner .nav-link { font-size: 11px; }
     .header-inner .icon-link { display: none; }
-    .language-switch button { min-width: 34px; }
 }
 @media (max-width: 360px) {
     :root { --page-padding: 18px; }
